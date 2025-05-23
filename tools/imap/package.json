@@ -1,0 +1,26 @@
+{
+    "name": "imap",
+    "version": "1.0.0",
+    "description": "A tool for creating source maps for deobfuscated files.",
+    "main": "./src/index.ts",
+    "bin": {
+        "imap": "./dist/index.js"
+    },
+    "scripts": {
+        "build": "tsc",
+        "build:unix": "tsc && chmod +x ./dist/index.js",
+        "format": "prettier . --write"
+    },
+    "keywords": [],
+    "author": "polytrackmods",
+    "license": "MIT",
+    "packageManager": "pnpm@10.11.0",
+    "dependencies": {
+        "@types/node": "^22.15.21",
+        "commander": "^14.0.0",
+        "typescript": "^5.8.3"
+    },
+    "devDependencies": {
+        "prettier": "3.5.3"
+    }
+}
