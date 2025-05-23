@@ -65,8 +65,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             source_map_dir,
         } => {
             // Compare identifiers between code_dir and temp_dir
-            let original_dir = code_dir.clone();
-            let modified_dir = temp_dir.clone();
+            let modified_dir = code_dir.clone();
+            let original_dir = temp_dir.clone();
 
             let files = collect_js_files(&original_dir)?;
             println!("Found {} files to compare", files.len());

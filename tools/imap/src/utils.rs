@@ -63,16 +63,20 @@ pub fn compare_identifiers(
 }
 
 pub fn update_temp_dir(code_dir: &str, temp_dir: &str) -> Result<(), Box<dyn std::error::Error>> {
-    // Copy files from code_dir to temp_dir
-    fs::create_dir_all(temp_dir)?;
-    for entry in WalkDir::new(code_dir) {
-        let entry = entry?;
-        if entry.file_type().is_file() {
-            let src_path = entry.path();
-            let dest_path = PathBuf::from(temp_dir).join(src_path.strip_prefix(code_dir)?);
-            fs::create_dir_all(dest_path.parent().unwrap())?;
-            fs::copy(src_path, dest_path)?;
+    // Copy files from code_dir to temp_dir (which are js files)
+    let files = collect_js_files(code_dir)?;
+    for file in files {
+        let original_path = PathBuf::from(code_dir).join(&file);
+        let temp_path = PathBuf::from(temp_dir).join(&file);
+
+        // Create the destination directory if it doesn't exist
+        if let Some(parent) = temp_path.parent() {
+            fs::create_dir_all(parent)?;
         }
+
+        // Copy the file
+        fs::copy(original_path, temp_path)?;
     }
+
     Ok(())
 }
