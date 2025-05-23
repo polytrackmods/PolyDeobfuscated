@@ -1,3 +1,3 @@
 # PolyDeobfuscated
 
-Clean, readable, and deobfuscated source of Polytrack, rebuilt for analysis, modding, and understanding.
+Clean, readable, and deobfuscated source of PolyTrack, rebuilt for analysis, modding, and understanding.
