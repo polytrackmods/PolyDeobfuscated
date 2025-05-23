@@ -21,18 +21,22 @@ enum Commands {
     /// Copies files from code_dir to temp_dir
     Update {
         /// Directory containing the code to be copied
+        #[arg(short, long, default_value = "PolyTrack")]
         code_dir: String,
         /// Directory to copy files to
+        #[arg(short, long, default_value = "temp")]
         temp_dir: String,
     },
     /// Compares identifiers between two directories and creates the source map
     Create {
         /// Directory containing the modified code
+        #[arg(short, long, default_value = "PolyTrack")]
         code_dir: String,
         /// Directory containing the original code
+        #[arg(short, long, default_value = "temp")]
         temp_dir: String,
         /// Directory in which to create the source map
-        #[arg(long, default_value = "source_maps")]
+        #[arg(short, long, default_value = "source_maps")]
         source_map_dir: String,
     },
 }
