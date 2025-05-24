@@ -75,7 +75,7 @@ The source map is a JSON file that contains the mapping between the original cod
 
 ## Extra Notes
 
-Some identifier declarations are not tracked. We are trying to add tracking to every possible way an identifier declaration can be renamed.
+Some identifier declarations are not tracked. We are trying to add tracking to every possible way an identifier declaration can be renamed. We will also try to make it so you can edit multiple identifiers at a time instead of just one.
 
 ## License
 
