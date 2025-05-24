@@ -1,26 +1,38 @@
 [
   {
-    "original": "e:2:0",
-    "modified": "modules:2:0"
+    "original": "e",
+    "modified": "modules",
+    "scope_id": 3,
+    "id": 0
   },
   {
-    "original": "t:2:131",
-    "modified": "moduleRequireCache:2:131"
+    "original": "t",
+    "modified": "moduleRequireCache",
+    "scope_id": 2,
+    "id": 131
   },
   {
-    "original": "n:2:132",
-    "modified": "require:2:132"
+    "original": "n",
+    "modified": "require",
+    "scope_id": 2,
+    "id": 132
   },
   {
-    "original": "r:3:134",
-    "modified": "cacheHit:3:134"
+    "original": "r",
+    "modified": "cacheHit",
+    "scope_id": 3,
+    "id": 134
   },
   {
-    "original": "a:3:135",
-    "modified": "module:3:135"
+    "original": "a",
+    "modified": "module",
+    "scope_id": 3,
+    "id": 135
   },
   {
-    "original": "i:2:133",
-    "modified": "id:2:133"
+    "original": "i",
+    "modified": "id",
+    "scope_id": 2,
+    "id": 133
   }
 ]
