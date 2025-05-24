@@ -89,17 +89,41 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
                 match (only_in_original.len(), only_in_modified.len()) {
                     (0, 0) => println!("✓ No identifier differences in file: {:?}", file),
-                    (1, 1) => {
-                        println!(
-                            "→ Single identifier change in {:?}: '{}' → '{}'",
-                            file, only_in_original[0], only_in_modified[0]
-                        );
+                    (orig_count, mod_count) => {
+                        if orig_count != mod_count {
+                            eprintln!(
+                                "⚠ Identifier count mismatch in {:?}: {} original, {} modified",
+                                file, orig_count, mod_count
+                            );
 
-                        // Create source map entry
-                        let mapping = Mapping {
-                            original: only_in_original[0].clone(),
-                            modified: only_in_modified[0].clone(),
-                        };
+                            continue; // Skip files with mismatched identifier counts
+                        }
+
+                        let matches =
+                            check_identifier_matches(&only_in_original, &only_in_modified);
+                        if !matches {
+                            eprintln!(
+                                "⚠ Identifier mismatch in {:?}: {} original, {} modified",
+                                file,
+                                only_in_original.len(),
+                                only_in_modified.len()
+                            );
+                            continue; // Skip files with mismatched identifiers
+                        }
+
+                        // Create source map entries
+                        let mut mappings_new = vec![];
+                        for (orig, modif) in only_in_original.iter().zip(only_in_modified.iter()) {
+                            println!(
+                                "→ Identifier change in {:?}: '{}' → '{}'",
+                                file, orig, modif
+                            );
+
+                            mappings_new.push(Mapping {
+                                original: orig.clone(),
+                                modified: modif.clone(),
+                            });
+                        }
 
                         let source_map_path = PathBuf::from(&source_map_dir)
                             .join(&file)
@@ -117,8 +141,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                             vec![]
                         };
 
-                        // Add the new mapping
-                        mappings.push(mapping);
+                        // Add the new mappings
+                        mappings.extend(mappings_new);
 
                         // Write the updated mappings to the file
                         let json_data = serde_json::to_string_pretty(&mappings)?;
@@ -130,12 +154,6 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                         println!(
                             "Files copied successfully from {} to {}",
                             code_dir, temp_dir
-                        );
-                    }
-                    (orig_count, mod_count) => {
-                        eprintln!(
-                            "⚠ Multiple identifier differences in {:?}: {} removed, {} added",
-                            file, orig_count, mod_count
                         );
                     }
                 }

@@ -1,4 +1,4 @@
-# IMap
+# IMap (Identifier Mapper)
 
 A tool to create source maps from deobfuscated JavaScript/TypeScript code.
 
@@ -33,49 +33,23 @@ You can optionally add the build directory to your `PATH` environment variable t
 imap --help
 ```
 
-### Subcommands
-
-- `create`: Create a source map from deobfuscated JavaScript/TypeScript code.
-- `update`: Update the temp directory with the latest code.
-
-### Options
-
-- `create`:
-  - `-c, --code-dir <CODE_DIR>`: The directory containing the code. Defaults to `./PolyTrack`.
-  - `-t, --temp-dir <TEMP_DIR>`: The directory which stores the temporary files. Defaults to `./temp`.
-  - `-s, --source-map-dir <SOURCE_MAP_DIR>`: The directory which stores the source maps. Defaults to `./source_maps`.
-- `update`:
-  - `-c, --code-dir <CODE_DIR>`: The directory containing the code. Defaults to `./PolyTrack`.
-  - `-t, --temp-dir <TEMP_DIR>`: The directory which stores the temporary files. Defaults to `./temp`.
-
-## Usage
-
-First, you must create the temp directory based on your current code.
-
-```bash
-./tools/imap/target/release/imap update
-```
-
-After that, rename an identifier declaration in the code, and run the following command to create a source map:
-
-```bash
-./tools/imap/target/release/imap create
-```
-
-**Reminder**: If you add a comment or anything that is not renaming an identifier, you must run the `update` command again to update the temp directory with the latest code. Do not update two identifiers at the same time.
-
 The source map for the file will be created in the `source_maps` directory, and the temp directory will be updated with the latest code.
 
-### The Source Map
+## Reminders
+
+- If you add a comment or anything that is not renaming an identifier, you must run the `update` command again to update the temp directory with the latest code.
+- Do not modify the structure of the obfuscated code. The tool relies on the structure of the code to create accurate source maps.
+
+## The Source Map
 
 The source map is a JSON file that contains the mapping between the original code and the deobfuscated code. It includes the following fields:
 
 - `original`: It is in the format of `(original_identifier):(scope_id):(unique_id)`.
 - `new`: It is in the format of `(new_identifier):(scope_id):(unique_id)`.
 
-## Extra Notes
+## TODO
 
-Some identifier declarations are not tracked. We are trying to add tracking to every possible way an identifier declaration can be renamed. We will also try to make it so you can edit multiple identifiers at a time instead of just one.
+- Add support for other identifier declarations.
 
 ## License
 

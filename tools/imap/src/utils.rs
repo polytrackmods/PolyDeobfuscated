@@ -62,6 +62,7 @@ pub fn compare_identifiers(
     (only_in_first, only_in_second)
 }
 
+/// Updates the temporary directory with files from the code directory
 pub fn update_temp_dir(code_dir: &str, temp_dir: &str) -> Result<(), Box<dyn std::error::Error>> {
     // Copy files from code_dir to temp_dir (which are js files)
     let files = collect_js_files(code_dir)?;
@@ -79,4 +80,27 @@ pub fn update_temp_dir(code_dir: &str, temp_dir: &str) -> Result<(), Box<dyn std
     }
 
     Ok(())
+}
+
+/// Checks that the changed identifiers are located in the same scope with the same unique ID
+pub fn check_identifier_matches(
+    original_identifiers: &[String],
+    modified_identifiers: &[String],
+) -> bool {
+    let original: Vec<(&str, &str)> = original_identifiers
+        .iter()
+        .map(|ident| {
+            let split = ident.split(':').into_iter().collect::<Vec<&str>>();
+            (split[1], split[2])
+        })
+        .collect();
+    let modified: Vec<(&str, &str)> = modified_identifiers
+        .iter()
+        .map(|ident| {
+            let split = ident.split(':').into_iter().collect::<Vec<&str>>();
+            (split[1], split[2])
+        })
+        .collect();
+
+    original == modified
 }
