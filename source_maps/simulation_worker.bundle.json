@@ -1,0 +1,26 @@
+[
+  {
+    "original": "e:2:0",
+    "modified": "modules:2:0"
+  },
+  {
+    "original": "t:2:131",
+    "modified": "moduleRequireCache:2:131"
+  },
+  {
+    "original": "n:2:132",
+    "modified": "require:2:132"
+  },
+  {
+    "original": "r:3:134",
+    "modified": "cacheHit:3:134"
+  },
+  {
+    "original": "a:3:135",
+    "modified": "module:3:135"
+  },
+  {
+    "original": "i:2:133",
+    "modified": "id:2:133"
+  }
+]

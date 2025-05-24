@@ -56,8 +56,17 @@ pub fn compare_identifiers(
     let set1: HashSet<_> = identifiers1.iter().collect();
     let set2: HashSet<_> = identifiers2.iter().collect();
 
-    let only_in_first: Vec<String> = set1.difference(&set2).map(|s| (*s).clone()).collect();
-    let only_in_second: Vec<String> = set2.difference(&set1).map(|s| (*s).clone()).collect();
+    let only_in_first: Vec<String> = identifiers1
+        .iter()
+        .filter(|s| !set2.contains(s))
+        .cloned()
+        .collect();
+
+    let only_in_second: Vec<String> = identifiers2
+        .iter()
+        .filter(|s| !set1.contains(s))
+        .cloned()
+        .collect();
 
     (only_in_first, only_in_second)
 }
