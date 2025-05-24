@@ -45,6 +45,8 @@ enum Commands {
 struct Mapping {
     original: String,
     modified: String,
+    scope_id: u32,
+    id: usize,
 }
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -116,12 +118,14 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                         for (orig, modif) in only_in_original.iter().zip(only_in_modified.iter()) {
                             println!(
                                 "→ Identifier change in {:?}: '{}' → '{}'",
-                                file, orig, modif
+                                file, orig.0, modif.0
                             );
 
                             mappings_new.push(Mapping {
-                                original: orig.clone(),
-                                modified: modif.clone(),
+                                original: orig.0.clone(),
+                                modified: modif.0.clone(),
+                                scope_id: orig.1,
+                                id: orig.2,
                             });
                         }
 

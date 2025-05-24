@@ -4,14 +4,14 @@ use oxc_syntax::scope::ScopeFlags;
 
 #[derive(Debug, Default)]
 pub struct IdentifierCollector {
-    pub identifiers: Vec<String>,
+    pub identifiers: Vec<(String, u32, usize)>,
     current_scope: u32,
 }
 
 impl IdentifierCollector {
-    fn get_identifier_name(&self, name: String) -> String {
+    fn get_identifier_name(&self, name: String) -> (String, u32, usize) {
         // We do this to avoid name collisions
-        format!("{}:{}:{}", name, self.current_scope, self.identifiers.len())
+        (name, self.current_scope, self.identifiers.len())
     }
 }
 
