@@ -268,5 +268,131 @@
     "modified": "base62_decode",
     "scope_id": 3,
     "id": 13544
+  },
+  {
+    "original": "eA",
+    "modified": "TrackIDs_v0_3_1",
+    "scope_id": 3,
+    "id": 13363
+  },
+  {
+    "original": "GA",
+    "modified": "SunDirection",
+    "scope_id": 3,
+    "id": 13594
+  },
+  {
+    "original": "KA",
+    "modified": "BlockCategories",
+    "scope_id": 3,
+    "id": 13600
+  },
+  {
+    "original": "XA",
+    "modified": "BlockType",
+    "scope_id": 3,
+    "id": 13603
+  },
+  {
+    "original": "rb",
+    "modified": "Block",
+    "scope_id": 3,
+    "id": 13635
+  },
+  {
+    "original": "ab",
+    "modified": "AllBlocks",
+    "scope_id": 3,
+    "id": 13657
+  },
+  {
+    "original": "pb",
+    "modified": "parse_trackdata_v0_3_1",
+    "scope_id": 3,
+    "id": 13702
+  },
+  {
+    "original": "i",
+    "modified": "data",
+    "scope_id": 4,
+    "id": 13706
+  },
+  {
+    "original": "r",
+    "modified": "track",
+    "scope_id": 4,
+    "id": 13707
+  },
+  {
+    "original": "a",
+    "modified": "index",
+    "scope_id": 4,
+    "id": 13708
+  },
+  {
+    "original": "e",
+    "modified": "id",
+    "scope_id": 6,
+    "id": 13709
+  },
+  {
+    "original": "t",
+    "modified": "num_parts",
+    "scope_id": 6,
+    "id": 13710
+  },
+  {
+    "original": "t",
+    "modified": "x",
+    "scope_id": 8,
+    "id": 13712
+  },
+  {
+    "original": "n",
+    "modified": "y",
+    "scope_id": 8,
+    "id": 13713
+  },
+  {
+    "original": "s",
+    "modified": "z",
+    "scope_id": 8,
+    "id": 13714
+  },
+  {
+    "original": "o",
+    "modified": "rotation",
+    "scope_id": 8,
+    "id": 13715
+  },
+  {
+    "original": "l",
+    "modified": "checkpoint_order",
+    "scope_id": 8,
+    "id": 13716
+  },
+  {
+    "original": "c",
+    "modified": "start_order",
+    "scope_id": 8,
+    "id": 13717
+  },
+  {
+    "original": "Sb",
+    "modified": "Track",
+    "scope_id": 3,
+    "id": 13807
+  },
+  {
+    "original": "a",
+    "modified": "track_name",
+    "scope_id": 6,
+    "id": 13918
+  },
+  {
+    "original": "s",
+    "modified": "track",
+    "scope_id": 6,
+    "id": 13919
   }
 ]
