@@ -15,9 +15,10 @@ pub fn collect_js_files(dir: &str) -> Result<Vec<PathBuf>, Box<dyn std::error::E
         .filter_map(Result::ok)
         .filter(|entry| {
             entry.file_type().is_file()
-                && entry.path().extension().map_or(false, |ext| {
-                    matches!(ext.to_str(), Some("js" | "ts" | "jsx" | "tsx"))
-                })
+                && entry
+                    .path()
+                    .extension()
+                    .is_some_and(|ext| matches!(ext.to_str(), Some("js" | "ts" | "jsx" | "tsx")))
         })
         .map(|entry| {
             entry
@@ -32,14 +33,14 @@ pub fn collect_js_files(dir: &str) -> Result<Vec<PathBuf>, Box<dyn std::error::E
 }
 
 /// Extracts identifiers from JavaScript source code
-pub fn extract_identifiers(source_code: &str) -> Result<Vec<String>, Box<dyn std::error::Error>> {
+pub fn extract_identifiers(source_code: &str) -> Result<Vec<(String, u32, usize)>, String> {
     let allocator = Allocator::default();
     let source_type = SourceType::default();
     let parser = Parser::new(&allocator, source_code, source_type);
     let parse_result = parser.parse();
 
     if !parse_result.errors.is_empty() {
-        return Err(format!("Parse errors: {:?}", parse_result.errors).into());
+        return Err(format!("Parse errors: {:?}", parse_result.errors));
     }
 
     let mut collector = IdentifierCollector::default();
@@ -50,19 +51,19 @@ pub fn extract_identifiers(source_code: &str) -> Result<Vec<String>, Box<dyn std
 
 /// Compares identifiers between two files and returns the differences
 pub fn compare_identifiers(
-    identifiers1: &[String],
-    identifiers2: &[String],
-) -> (Vec<String>, Vec<String>) {
+    identifiers1: &[(String, u32, usize)],
+    identifiers2: &[(String, u32, usize)],
+) -> (Vec<(String, u32, usize)>, Vec<(String, u32, usize)>) {
     let set1: HashSet<_> = identifiers1.iter().collect();
     let set2: HashSet<_> = identifiers2.iter().collect();
 
-    let only_in_first: Vec<String> = identifiers1
+    let only_in_first = identifiers1
         .iter()
         .filter(|s| !set2.contains(s))
         .cloned()
         .collect();
 
-    let only_in_second: Vec<String> = identifiers2
+    let only_in_second = identifiers2
         .iter()
         .filter(|s| !set1.contains(s))
         .cloned()
@@ -93,22 +94,16 @@ pub fn update_temp_dir(code_dir: &str, temp_dir: &str) -> Result<(), Box<dyn std
 
 /// Checks that the changed identifiers are located in the same scope with the same unique ID
 pub fn check_identifier_matches(
-    original_identifiers: &[String],
-    modified_identifiers: &[String],
+    original_identifiers: &[(String, u32, usize)],
+    modified_identifiers: &[(String, u32, usize)],
 ) -> bool {
-    let original: Vec<(&str, &str)> = original_identifiers
+    let original: Vec<_> = original_identifiers
         .iter()
-        .map(|ident| {
-            let split = ident.split(':').into_iter().collect::<Vec<&str>>();
-            (split[1], split[2])
-        })
+        .map(|ident| (ident.1, ident.2))
         .collect();
-    let modified: Vec<(&str, &str)> = modified_identifiers
+    let modified: Vec<_> = modified_identifiers
         .iter()
-        .map(|ident| {
-            let split = ident.split(':').into_iter().collect::<Vec<&str>>();
-            (split[1], split[2])
-        })
+        .map(|ident| (ident.1, ident.2))
         .collect();
 
     original == modified
