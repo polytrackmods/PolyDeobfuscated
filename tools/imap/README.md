@@ -73,6 +73,10 @@ The source map is a JSON file that contains the mapping between the original cod
 - `original`: It is in the format of `(original_identifier):(scope_id):(unique_id)`.
 - `new`: It is in the format of `(new_identifier):(scope_id):(unique_id)`.
 
+## Extra Notes
+
+Some identifier declarations are not tracked. We are trying to add tracking to every possible way an identifier declaration can be renamed.
+
 ## License
 
 IMap is licensed under the [MIT License](https://opensource.org/licenses/MIT). See the [LICENSE](LICENSE) file for more information. This does not mean that the actual deobfuscated code is licensed under the MIT license.
