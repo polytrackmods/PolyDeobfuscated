@@ -394,5 +394,395 @@
     "modified": "track",
     "scope_id": 6,
     "id": 13919
+  },
+  {
+    "original": "editorFunctionsMap",
+    "modified": "BE",
+    "scope_id": 3,
+    "id": 14862
+  },
+  {
+    "original": "audioContext",
+    "modified": "UE",
+    "scope_id": 3,
+    "id": 14863
+  },
+  {
+    "original": "audioPerformanceMetric",
+    "modified": "zE",
+    "scope_id": 3,
+    "id": 14864
+  },
+  {
+    "original": "LanguageMap",
+    "modified": "OE",
+    "scope_id": 3,
+    "id": 14865
+  },
+  {
+    "original": "gameCanvas",
+    "modified": "FE",
+    "scope_id": 3,
+    "id": 14866
+  },
+  {
+    "original": "loadingScreen",
+    "modified": "WE",
+    "scope_id": 3,
+    "id": 14867
+  },
+  {
+    "original": "trackEnvironment",
+    "modified": "VE",
+    "scope_id": 3,
+    "id": 14868
+  },
+  {
+    "original": "trackData",
+    "modified": "HE",
+    "scope_id": 3,
+    "id": 14869
+  },
+  {
+    "original": "UserRecordManager",
+    "modified": "GE",
+    "scope_id": 3,
+    "id": 14870
+  },
+  {
+    "original": "UserTrackManager",
+    "modified": "jE",
+    "scope_id": 3,
+    "id": 14871
+  },
+  {
+    "original": "UserDataManager",
+    "modified": "QE",
+    "scope_id": 3,
+    "id": 14872
+  },
+  {
+    "original": "selectedProfileSlot",
+    "modified": "YE",
+    "scope_id": 3,
+    "id": 14873
+  },
+  {
+    "original": "confirmBox",
+    "modified": "KE",
+    "scope_id": 3,
+    "id": 14874
+  },
+  {
+    "original": "touchEnabled",
+    "modified": "qE",
+    "scope_id": 3,
+    "id": 14875
+  },
+  {
+    "original": "KeybindManager",
+    "modified": "XE",
+    "scope_id": 3,
+    "id": 14876
+  },
+  {
+    "original": "testCallback",
+    "modified": "ZE",
+    "scope_id": 3,
+    "id": 14877
+  },
+  {
+    "original": "editorEnabled",
+    "modified": "JE",
+    "scope_id": 3,
+    "id": 14878
+  },
+  {
+    "original": "hiddenOuterEditorDiv",
+    "modified": "$E",
+    "scope_id": 3,
+    "id": 14879
+  },
+  {
+    "original": "topInnerEditorDiv",
+    "modified": "eS",
+    "scope_id": 3,
+    "id": 14880
+  },
+  {
+    "original": "editorSavedTextDiv",
+    "modified": "tS",
+    "scope_id": 3,
+    "id": 14881
+  },
+  {
+    "original": "editorSavedTextTimeoutId",
+    "modified": "nS",
+    "scope_id": 3,
+    "id": 14882
+  },
+  {
+    "original": "editorSidePanelDiv",
+    "modified": "iS",
+    "scope_id": 3,
+    "id": 14883
+  },
+  {
+    "original": "editorCategoryPanelDiv",
+    "modified": "rS",
+    "scope_id": 3,
+    "id": 14884
+  },
+  {
+    "original": "editorHeightSelectorDiv",
+    "modified": "aS",
+    "scope_id": 3,
+    "id": 14885
+  },
+  {
+    "original": "checkpointOrderSelector",
+    "modified": "sS",
+    "scope_id": 3,
+    "id": 14886
+  },
+  {
+    "original": "trackCategorySelector",
+    "modified": "oS",
+    "scope_id": 3,
+    "id": 14887
+  },
+  {
+    "original": "editorToolbar",
+    "modified": "cS",
+    "scope_id": 3,
+    "id": 14889
+  },
+  {
+    "original": "editorCamera",
+    "modified": "kS",
+    "scope_id": 3,
+    "id": 14903
+  },
+  {
+    "original": "editorUserCamera",
+    "modified": "ES",
+    "scope_id": 3,
+    "id": 14904
+  },
+  {
+    "original": "heightModifierHeldDown",
+    "modified": "SS",
+    "scope_id": 3,
+    "id": 14905
+  },
+  {
+    "original": "editorMoveForwards",
+    "modified": "MS",
+    "scope_id": 3,
+    "id": 14906
+  },
+  {
+    "original": "editorMoveRight",
+    "modified": "TS",
+    "scope_id": 3,
+    "id": 14907
+  },
+  {
+    "original": "editorMoveBackwards",
+    "modified": "_S",
+    "scope_id": 3,
+    "id": 14908
+  },
+  {
+    "original": "editorMoveLeft",
+    "modified": "CS",
+    "scope_id": 3,
+    "id": 14909
+  },
+  {
+    "original": "editorRotateViewUp",
+    "modified": "PS",
+    "scope_id": 3,
+    "id": 14910
+  },
+  {
+    "original": "editorRotateViewDown",
+    "modified": "IS",
+    "scope_id": 3,
+    "id": 14911
+  },
+  {
+    "original": "editorRotateViewLeft",
+    "modified": "RS",
+    "scope_id": 3,
+    "id": 14912
+  },
+  {
+    "original": "editorRotateViewRight",
+    "modified": "LS",
+    "scope_id": 3,
+    "id": 14913
+  },
+  {
+    "original": "editorDelete",
+    "modified": "VS",
+    "scope_id": 3,
+    "id": 14922
+  },
+  {
+    "original": "mouseDown",
+    "modified": "HS",
+    "scope_id": 3,
+    "id": 14923
+  },
+  {
+    "original": "mousePosition",
+    "modified": "GS",
+    "scope_id": 3,
+    "id": 14924
+  },
+  {
+    "original": "selectedBlockPosition",
+    "modified": "YS",
+    "scope_id": 3,
+    "id": 14927
+  },
+  {
+    "original": "selectedBlockRotation",
+    "modified": "qS",
+    "scope_id": 3,
+    "id": 14929
+  },
+  {
+    "original": "selectedBlockRotationAxis",
+    "modified": "XS",
+    "scope_id": 3,
+    "id": 14930
+  },
+  {
+    "original": "smallGridEnabled",
+    "modified": "ZS",
+    "scope_id": 3,
+    "id": 14931
+  },
+  {
+    "original": "blockMixingEnabled",
+    "modified": "JS",
+    "scope_id": 3,
+    "id": 14932
+  },
+  {
+    "original": "selectedBlockData",
+    "modified": "$S",
+    "scope_id": 3,
+    "id": 14933
+  },
+  {
+    "original": "blockDataMap",
+    "modified": "iM",
+    "scope_id": 3,
+    "id": 14937
+  },
+  {
+    "original": "selectedBlockId",
+    "modified": "rM",
+    "scope_id": 3,
+    "id": 14938
+  },
+  {
+    "original": "selectedBlockColor",
+    "modified": "aM",
+    "scope_id": 3,
+    "id": 14939
+  },
+  {
+    "original": "createTrackNameUIElement",
+    "modified": "lM",
+    "scope_id": 3,
+    "id": 14942
+  },
+  {
+    "original": "exitEditor",
+    "modified": "cM",
+    "scope_id": 3,
+    "id": 14943
+  },
+  {
+    "original": "editorTest",
+    "modified": "hM",
+    "scope_id": 3,
+    "id": 14944
+  },
+  {
+    "original": "editorPick",
+    "modified": "dM",
+    "scope_id": 3,
+    "id": 14945
+  },
+  {
+    "original": "editorSaveTrack",
+    "modified": "uM",
+    "scope_id": 3,
+    "id": 14946
+  },
+  {
+    "original": "defaultOpenPartsMenu",
+    "modified": "pM",
+    "scope_id": 3,
+    "id": 14947
+  },
+  {
+    "original": "getBlockEnvironment",
+    "modified": "fM",
+    "scope_id": 3,
+    "id": 14948
+  },
+  {
+    "original": "setEditorSelectedCategory",
+    "modified": "vM",
+    "scope_id": 3,
+    "id": 14951
+  },
+  {
+    "original": "setEditorSelectedBlock",
+    "modified": "wM",
+    "scope_id": 3,
+    "id": 14952
+  },
+  {
+    "original": "editorHeight",
+    "modified": "yM",
+    "scope_id": 3,
+    "id": 14953
+  },
+  {
+    "original": "editorMove",
+    "modified": "AM",
+    "scope_id": 3,
+    "id": 14954
+  },
+  {
+    "original": "updatePartRotation",
+    "modified": "bM",
+    "scope_id": 3,
+    "id": 14955
+  },
+  {
+    "original": "playEditorEditSound",
+    "modified": "xM",
+    "scope_id": 3,
+    "id": 14956
+  },
+  {
+    "original": "getSelectedBlockPosition",
+    "modified": "kM",
+    "scope_id": 3,
+    "id": 14957
+  },
+  {
+    "original": "editorDeleteTiles",
+    "modified": "SM",
+    "scope_id": 3,
+    "id": 14959
   }
 ]
