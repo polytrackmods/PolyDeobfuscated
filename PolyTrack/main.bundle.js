@@ -39653,7 +39653,7 @@
                     (e[(e.Custom7 = 39)] = "Custom7"),
                     (e[(e.Custom8 = 40)] = "Custom8");
             })(Zy || (Zy = {}));
-            const Jy = Zy;
+            const Colours = Zy;
             var $y;
             !(function (e) {
                 (e[(e.Straight = 0)] = "Straight"),
@@ -39860,7 +39860,7 @@
                     (e[(e.ZPositive = 4)] = "ZPositive"),
                     (e[(e.ZNegative = 5)] = "ZNegative");
             })(tA || (tA = {}));
-            const nA = tA;
+            const Axes = tA;
             var iA,
                 rA,
                 aA,
@@ -39938,8 +39938,8 @@
                                   4 * e,
                                   eA.Start,
                                   2,
-                                  nA.YPositive,
-                                  Jy.Default,
+                                  Axes.YPositive,
+                                  Colours.Default,
                                   null,
                                   0
                               )
@@ -39949,8 +39949,8 @@
                                   4 * e,
                                   eA.Straight,
                                   0,
-                                  nA.YPositive,
-                                  Jy.Default,
+                                  Axes.YPositive,
+                                  Colours.Default,
                                   null,
                                   null
                               );
@@ -40342,7 +40342,7 @@
                     36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50,
                     51,
                 ];
-            function BA(e) {
+            function base62_encode(e) {
                 let t = 0,
                     n = "";
                 for (; t < 8 * e.length; ) {
@@ -40353,7 +40353,7 @@
                 }
                 return n;
             }
-            function UA(e) {
+            function base62_decode(e) {
                 let t = 0;
                 const n = [],
                     i = e.length;
@@ -40465,7 +40465,7 @@
                     (e[(e.Winter = 1)] = "Winter"),
                     (e[(e.Desert = 2)] = "Desert");
             })(jA || (jA = {}));
-            const QA = jA;
+            const Environments = jA;
             var YA;
             !(function (e) {
                 (e[(e.Special = 0)] = "Special"),
@@ -40532,9 +40532,9 @@
                 }
                 rotated(e, t) {
                     const n =
-                        t == nA.YNegative ||
-                        t == nA.XNegative ||
-                        t == nA.ZNegative;
+                        t == Axes.YNegative ||
+                        t == Axes.XNegative ||
+                        t == Axes.ZNegative;
                     return new eb(
                         $A(this, ZA, "f").map(([i, r, a]) => {
                             if (n)
@@ -40570,14 +40570,14 @@
                                         throw new Error("Invalid rotation");
                                 }
                             return (
-                                t == nA.YPositive ||
-                                    (t == nA.YNegative
+                                t == Axes.YPositive ||
+                                    (t == Axes.YNegative
                                         ? ([i, r] = [-i - 1, -r - 1])
-                                        : t == nA.XPositive
+                                        : t == Axes.XPositive
                                           ? ([i, r] = [r, -i - 1])
-                                          : t == nA.XNegative
+                                          : t == Axes.XNegative
                                             ? ([i, r] = [-r - 1, i])
-                                            : t == nA.ZPositive
+                                            : t == Axes.ZPositive
                                               ? ([r, a] = [-a - 1, r])
                                               : ([r, a] = [a, -r - 1])),
                                 [i, r, a]
@@ -40598,9 +40598,9 @@
             ZA = new WeakMap();
             const tb = eb,
                 nb = [
-                    { id: Jy.Summer, colors: {} },
+                    { id: Colours.Summer, colors: {} },
                     {
-                        id: Jy.Winter,
+                        id: Colours.Winter,
                         colors: {
                             Road: "#5077b2",
                             RoadBarrier: "#898989",
@@ -40620,7 +40620,7 @@
                         },
                     },
                     {
-                        id: Jy.Desert,
+                        id: Colours.Desert,
                         colors: {
                             Road: "#997240",
                             RoadBarrier: "#211001",
@@ -40641,15 +40641,42 @@
                     },
                 ],
                 ib = nb.concat([
-                    { id: Jy.Custom0, colors: { BlockSurface: "#131313" } },
-                    { id: Jy.Custom1, colors: { BlockSurface: "#501b1b" } },
-                    { id: Jy.Custom2, colors: { BlockSurface: "#7f4d2b" } },
-                    { id: Jy.Custom3, colors: { BlockSurface: "#93862d" } },
-                    { id: Jy.Custom4, colors: { BlockSurface: "#2a5e30" } },
-                    { id: Jy.Custom5, colors: { BlockSurface: "#236363" } },
-                    { id: Jy.Custom6, colors: { BlockSurface: "#20244b" } },
-                    { id: Jy.Custom7, colors: { BlockSurface: "#592759" } },
-                    { id: Jy.Custom8, colors: { BlockSurface: "#302318" } },
+                    {
+                        id: Colours.Custom0,
+                        colors: { BlockSurface: "#131313" },
+                    },
+                    {
+                        id: Colours.Custom1,
+                        colors: { BlockSurface: "#501b1b" },
+                    },
+                    {
+                        id: Colours.Custom2,
+                        colors: { BlockSurface: "#7f4d2b" },
+                    },
+                    {
+                        id: Colours.Custom3,
+                        colors: { BlockSurface: "#93862d" },
+                    },
+                    {
+                        id: Colours.Custom4,
+                        colors: { BlockSurface: "#2a5e30" },
+                    },
+                    {
+                        id: Colours.Custom5,
+                        colors: { BlockSurface: "#236363" },
+                    },
+                    {
+                        id: Colours.Custom6,
+                        colors: { BlockSurface: "#20244b" },
+                    },
+                    {
+                        id: Colours.Custom7,
+                        colors: { BlockSurface: "#592759" },
+                    },
+                    {
+                        id: Colours.Custom8,
+                        colors: { BlockSurface: "#302318" },
+                    },
                 ]);
             class rb {
                 constructor(e, t, n, i, r, a, s = null, o = null) {
@@ -43903,7 +43930,7 @@
                     throw new Error("Unknown track part id " + e.toString());
                 return t;
             }
-            const lb = ab
+            const checkpoints = ab
                     .filter((e) => {
                         var t;
                         return (
@@ -43913,12 +43940,14 @@
                         );
                     })
                     .map((e) => e.id),
-                cb = ab.filter((e) => null != e.startOffset).map((e) => e.id);
+                starts = ab
+                    .filter((e) => null != e.startOffset)
+                    .map((e) => e.id);
             function hb(e) {
                 const t = e.parts;
                 if ("object" != typeof t && null !== t && !Array.isArray(t))
                     return null;
-                const n = new Sb(QA.Summer, new GA()),
+                const n = new Sb(Environments.Summer, new GA()),
                     i = Object.keys(t);
                 for (const e of i) {
                     const i = parseInt(e, 10);
@@ -43946,17 +43975,17 @@
                             )
                                 return null;
                             {
-                                if (lb.includes(i)) return null;
+                                if (checkpoints.includes(i)) return null;
                                 let e = null;
-                                cb.includes(i) && (e = 0),
+                                starts.includes(i) && (e = 0),
                                     n.addPart(
                                         4 * r,
                                         a,
                                         4 * s,
                                         i,
                                         o,
-                                        nA.YPositive,
-                                        Jy.Default,
+                                        Axes.YPositive,
+                                        Colours.Default,
                                         null,
                                         e
                                     );
@@ -43991,7 +44020,7 @@
             function ub(e) {
                 const t = Kg(e);
                 if (null == t) return null;
-                const n = new Sb(QA.Summer, new GA());
+                const n = new Sb(Environments.Summer, new GA());
                 let i = 0;
                 for (; i < t.length; ) {
                     if (t.length - i < 2) return null;
@@ -44018,17 +44047,17 @@
                         if (((i += 3), t.length - i < 1)) return null;
                         const o = 3 & t[i + 0];
                         if (((i += 1), o < 0 || o > 3)) return null;
-                        if (lb.includes(e)) return null;
+                        if (checkpoints.includes(e)) return null;
                         let l = null;
-                        cb.includes(e) && (l = 0),
+                        starts.includes(e) && (l = 0),
                             n.addPart(
                                 4 * r,
                                 a,
                                 4 * s,
                                 e,
                                 o,
-                                nA.YPositive,
-                                Jy.Default,
+                                Axes.YPositive,
+                                Colours.Default,
                                 null,
                                 l
                             );
@@ -44037,13 +44066,13 @@
                 return n;
             }
             function pb(e) {
-                const t = UA(e);
+                const t = base62_decode(e);
                 if (null == t) return null;
                 const n = new Yg.Inflate();
                 if ((n.push(t, !0), n.err)) return null;
                 const i = n.result;
                 if (!(i instanceof Uint8Array)) return null;
-                const r = new Sb(QA.Summer, new GA());
+                const r = new Sb(Environments.Summer, new GA());
                 let a = 0;
                 for (; a < i.length; ) {
                     if (i.length - a < 2) return null;
@@ -44071,20 +44100,20 @@
                         const o = i[a + 0];
                         if (((a += 1), o < 0 || o > 3)) return null;
                         let l = null;
-                        if (lb.includes(e)) {
+                        if (checkpoints.includes(e)) {
                             if (i.length - a < 2) return null;
                             (l = i[a + 0] | (i[a + 1] << 8)), (a += 2);
                         }
                         let c = null;
-                        cb.includes(e) && (c = 0),
+                        starts.includes(e) && (c = 0),
                             r.addPart(
                                 4 * t,
                                 n,
                                 4 * s,
                                 e,
                                 o,
-                                nA.YPositive,
-                                Jy.Default,
+                                Axes.YPositive,
+                                Colours.Default,
                                 l,
                                 c
                             );
@@ -44093,173 +44122,176 @@
                 return r;
             }
             function fb(e) {
-                const t = UA(e);
+                const t = base62_decode(e);
                 if (null == t) return null;
                 const n = new Yg.Inflate();
                 if ((n.push(t, !0), n.err)) return null;
                 const i = n.result;
                 if (!(i instanceof Uint8Array)) return null;
-                const r = new Sb(QA.Summer, new GA());
+                const r = new Sb(Environments.Summer, new GA());
                 let a = 0;
                 for (; a < i.length; ) {
                     if (i.length - a < 2) return null;
                     let e = i[a + 0] | (i[a + 1] << 8);
                     a += 2;
-                    let t = Jy.Default;
+                    let t = Colours.Default;
                     if (e >= 134 && e <= 178)
                         switch (e) {
                             case 134:
-                                (e = eA.Block), (t = Jy.Custom1);
+                                (e = eA.Block), (t = Colours.Custom1);
                                 break;
                             case 135:
-                                (e = eA.HalfBlock), (t = Jy.Custom1);
+                                (e = eA.HalfBlock), (t = Colours.Custom1);
                                 break;
                             case 136:
-                                (e = eA.QuarterBlock), (t = Jy.Custom1);
+                                (e = eA.QuarterBlock), (t = Colours.Custom1);
                                 break;
                             case 137:
-                                (e = eA.BlockSlopedDown), (t = Jy.Custom1);
+                                (e = eA.BlockSlopedDown), (t = Colours.Custom1);
                                 break;
                             case 138:
                                 (e = eA.BlockSlopedDownInnerCorner),
-                                    (t = Jy.Custom1);
+                                    (t = Colours.Custom1);
                                 break;
                             case 139:
                                 (e = eA.BlockSlopedDownOuterCorner),
-                                    (t = Jy.Custom1);
+                                    (t = Colours.Custom1);
                                 break;
                             case 140:
-                                (e = eA.BlockSlopedUp), (t = Jy.Custom1);
+                                (e = eA.BlockSlopedUp), (t = Colours.Custom1);
                                 break;
                             case 141:
                                 (e = eA.BlockSlopedUpInnerCorner),
-                                    (t = Jy.Custom1);
+                                    (t = Colours.Custom1);
                                 break;
                             case 142:
                                 (e = eA.BlockSlopedUpOuterCorner),
-                                    (t = Jy.Custom1);
+                                    (t = Colours.Custom1);
                                 break;
                             case 143:
-                                (e = eA.BlockSlopeDown), (t = Jy.Custom1);
+                                (e = eA.BlockSlopeDown), (t = Colours.Custom1);
                                 break;
                             case 144:
-                                (e = eA.BlockSlopeUp), (t = Jy.Custom1);
+                                (e = eA.BlockSlopeUp), (t = Colours.Custom1);
                                 break;
                             case 145:
-                                (e = eA.BlockBridge), (t = Jy.Custom1);
+                                (e = eA.BlockBridge), (t = Colours.Custom1);
                                 break;
                             case 146:
-                                (e = eA.BlockBridgeCorner), (t = Jy.Custom1);
+                                (e = eA.BlockBridgeCorner),
+                                    (t = Colours.Custom1);
                                 break;
                             case 147:
                                 (e = eA.BlockBridgeIntersectionT),
-                                    (t = Jy.Custom1);
+                                    (t = Colours.Custom1);
                                 break;
                             case 148:
                                 (e = eA.BlockBridgeIntersectionCross),
-                                    (t = Jy.Custom1);
+                                    (t = Colours.Custom1);
                                 break;
                             case 149:
-                                (e = eA.Block), (t = Jy.Custom6);
+                                (e = eA.Block), (t = Colours.Custom6);
                                 break;
                             case 150:
-                                (e = eA.HalfBlock), (t = Jy.Custom6);
+                                (e = eA.HalfBlock), (t = Colours.Custom6);
                                 break;
                             case 151:
-                                (e = eA.QuarterBlock), (t = Jy.Custom6);
+                                (e = eA.QuarterBlock), (t = Colours.Custom6);
                                 break;
                             case 152:
-                                (e = eA.BlockSlopedDown), (t = Jy.Custom6);
+                                (e = eA.BlockSlopedDown), (t = Colours.Custom6);
                                 break;
                             case 153:
                                 (e = eA.BlockSlopedDownInnerCorner),
-                                    (t = Jy.Custom6);
+                                    (t = Colours.Custom6);
                                 break;
                             case 154:
                                 (e = eA.BlockSlopedDownOuterCorner),
-                                    (t = Jy.Custom6);
+                                    (t = Colours.Custom6);
                                 break;
                             case 155:
-                                (e = eA.BlockSlopedUp), (t = Jy.Custom6);
+                                (e = eA.BlockSlopedUp), (t = Colours.Custom6);
                                 break;
                             case 156:
                                 (e = eA.BlockSlopedUpInnerCorner),
-                                    (t = Jy.Custom6);
+                                    (t = Colours.Custom6);
                                 break;
                             case 157:
                                 (e = eA.BlockSlopedUpOuterCorner),
-                                    (t = Jy.Custom6);
+                                    (t = Colours.Custom6);
                                 break;
                             case 158:
-                                (e = eA.BlockSlopeDown), (t = Jy.Custom6);
+                                (e = eA.BlockSlopeDown), (t = Colours.Custom6);
                                 break;
                             case 159:
-                                (e = eA.BlockSlopeUp), (t = Jy.Custom6);
+                                (e = eA.BlockSlopeUp), (t = Colours.Custom6);
                                 break;
                             case 160:
-                                (e = eA.BlockBridge), (t = Jy.Custom6);
+                                (e = eA.BlockBridge), (t = Colours.Custom6);
                                 break;
                             case 161:
-                                (e = eA.BlockBridgeCorner), (t = Jy.Custom6);
+                                (e = eA.BlockBridgeCorner),
+                                    (t = Colours.Custom6);
                                 break;
                             case 162:
                                 (e = eA.BlockBridgeIntersectionT),
-                                    (t = Jy.Custom6);
+                                    (t = Colours.Custom6);
                                 break;
                             case 163:
                                 (e = eA.BlockBridgeIntersectionCross),
-                                    (t = Jy.Custom6);
+                                    (t = Colours.Custom6);
                                 break;
                             case 164:
-                                (e = eA.Block), (t = Jy.Custom0);
+                                (e = eA.Block), (t = Colours.Custom0);
                                 break;
                             case 165:
-                                (e = eA.HalfBlock), (t = Jy.Custom0);
+                                (e = eA.HalfBlock), (t = Colours.Custom0);
                                 break;
                             case 166:
-                                (e = eA.QuarterBlock), (t = Jy.Custom0);
+                                (e = eA.QuarterBlock), (t = Colours.Custom0);
                                 break;
                             case 167:
-                                (e = eA.BlockSlopedDown), (t = Jy.Custom0);
+                                (e = eA.BlockSlopedDown), (t = Colours.Custom0);
                                 break;
                             case 168:
                                 (e = eA.BlockSlopedDownInnerCorner),
-                                    (t = Jy.Custom0);
+                                    (t = Colours.Custom0);
                                 break;
                             case 169:
                                 (e = eA.BlockSlopedDownOuterCorner),
-                                    (t = Jy.Custom0);
+                                    (t = Colours.Custom0);
                                 break;
                             case 170:
-                                (e = eA.BlockSlopedUp), (t = Jy.Custom0);
+                                (e = eA.BlockSlopedUp), (t = Colours.Custom0);
                                 break;
                             case 171:
                                 (e = eA.BlockSlopedUpInnerCorner),
-                                    (t = Jy.Custom0);
+                                    (t = Colours.Custom0);
                                 break;
                             case 172:
                                 (e = eA.BlockSlopedUpOuterCorner),
-                                    (t = Jy.Custom0);
+                                    (t = Colours.Custom0);
                                 break;
                             case 173:
-                                (e = eA.BlockSlopeDown), (t = Jy.Custom0);
+                                (e = eA.BlockSlopeDown), (t = Colours.Custom0);
                                 break;
                             case 174:
-                                (e = eA.BlockSlopeUp), (t = Jy.Custom0);
+                                (e = eA.BlockSlopeUp), (t = Colours.Custom0);
                                 break;
                             case 175:
-                                (e = eA.BlockBridge), (t = Jy.Custom0);
+                                (e = eA.BlockBridge), (t = Colours.Custom0);
                                 break;
                             case 176:
-                                (e = eA.BlockBridgeCorner), (t = Jy.Custom0);
+                                (e = eA.BlockBridgeCorner),
+                                    (t = Colours.Custom0);
                                 break;
                             case 177:
                                 (e = eA.BlockBridgeIntersectionT),
-                                    (t = Jy.Custom0);
+                                    (t = Colours.Custom0);
                                 break;
                             case 178:
                                 (e = eA.BlockBridgeIntersectionCross),
-                                    (t = Jy.Custom0);
+                                    (t = Colours.Custom0);
                         }
                     let n = null,
                         s = { x: 0, y: 0, z: 0 };
@@ -44335,12 +44367,12 @@
                         const h = i[a + 0];
                         if (((a += 1), h < 0 || h > 3)) return null;
                         let d = null;
-                        if (lb.includes(e)) {
+                        if (checkpoints.includes(e)) {
                             if (i.length - a < 2) return null;
                             (d = i[a + 0] | (i[a + 1] << 8)), (a += 2);
                         }
                         let u = null;
-                        cb.includes(e) && (u = 0),
+                        starts.includes(e) && (u = 0),
                             null != n &&
                                 r.addPart(
                                     4 * o + s.x,
@@ -44348,8 +44380,8 @@
                                     4 * c + s.z,
                                     n,
                                     h,
-                                    nA.YPositive,
-                                    Jy.Default,
+                                    Axes.YPositive,
+                                    Colours.Default,
                                     null,
                                     u
                                 ),
@@ -44359,7 +44391,7 @@
                                 4 * c,
                                 e,
                                 h,
-                                nA.YPositive,
+                                Axes.YPositive,
                                 t,
                                 d,
                                 u
@@ -44368,92 +44400,134 @@
                 }
                 return r;
             }
-            function mb(e, t) {
-                let n = e;
-                if (t.length - n < 1) return null;
-                const i = t[n];
-                if (((n += 1), !(i in QA))) return null;
-                if (t.length - n < 1) return null;
-                const r = t[n];
-                if (((n += 1), !Number.isSafeInteger(r) || r < 0 || r >= 180))
-                    return null;
-                const a = new Sb(i, new GA(r));
-                if (t.length - n < 9) return null;
-                const s =
-                    t[n] |
-                    (t[n + 1] << 8) |
-                    (t[n + 2] << 16) |
-                    (t[n + 3] << 24);
-                n += 4;
-                const o =
-                    t[n] |
-                    (t[n + 1] << 8) |
-                    (t[n + 2] << 16) |
-                    (t[n + 3] << 24);
-                n += 4;
-                const l =
-                    t[n] |
-                    (t[n + 1] << 8) |
-                    (t[n + 2] << 16) |
-                    (t[n + 3] << 24);
-                n += 4;
-                const c = 3 & t[n],
-                    h = (t[n] >> 2) & 3,
-                    d = (t[n] >> 4) & 3;
+            function parse_trackdata_v0_5_0(offset, data) {
+                let index = offset;
+                if (data.length - index < 1) return null;
+                const env = data[index];
+                if (((index += 1), !(env in Environments))) return null;
+                if (data.length - index < 1) return null;
+                const sun_dir = data[index];
                 if (
-                    ((n += 1),
-                    c < 1 || c > 4 || h < 1 || h > 4 || d < 1 || d > 4)
+                    ((index += 1),
+                    !Number.isSafeInteger(sun_dir) ||
+                        sun_dir < 0 ||
+                        sun_dir >= 180)
                 )
                     return null;
-                for (; n < t.length; ) {
-                    if (t.length - n < 1) return null;
-                    const e = t[n + 0];
-                    if (((n += 1), !(e in eA))) return null;
-                    if (t.length - n < 4) return null;
-                    const i =
-                        t[n + 0] |
-                        (t[n + 1] << 8) |
-                        (t[n + 2] << 16) |
-                        (t[n + 3] << 24);
-                    n += 4;
-                    for (let r = 0; r < i; ++r) {
-                        if (t.length - n < c) return null;
-                        let i = 0;
-                        for (let e = 0; e < c; ++e) i |= t[n + e] << (8 * e);
-                        if (((i += s), (n += c), t.length - n < h)) return null;
-                        let r = 0;
-                        for (let e = 0; e < h; ++e) r |= t[n + e] << (8 * e);
-                        if (((r += o), (n += h), t.length - n < d)) return null;
-                        let u = 0;
-                        for (let e = 0; e < d; ++e) u |= t[n + e] << (8 * e);
-                        if (((u += l), (n += d), t.length - n < 1)) return null;
-                        const p = t[n + 0];
-                        if (((n += 1), p < 0 || p > 3)) return null;
-                        if (t.length - n < 1) return null;
-                        const f = t[n + 0];
-                        if (((n += 1), !(f in nA))) return null;
-                        if (t.length - n < 1) return null;
-                        const m = t[n + 0];
-                        if (((n += 1), !(m in Jy))) return null;
-                        let g = null;
-                        if (lb.includes(e)) {
-                            if (t.length - n < 2) return null;
-                            (g = t[n + 0] | (t[n + 1] << 8)), (n += 2);
+                const track = new Sb(env, new GA(sun_dir));
+                if (data.length - index < 9) return null;
+                const x_min =
+                    data[index] |
+                    (data[index + 1] << 8) |
+                    (data[index + 2] << 16) |
+                    (data[index + 3] << 24);
+                index += 4;
+                const y_min =
+                    data[index] |
+                    (data[index + 1] << 8) |
+                    (data[index + 2] << 16) |
+                    (data[index + 3] << 24);
+                index += 4;
+                const z_min =
+                    data[index] |
+                    (data[index + 1] << 8) |
+                    (data[index + 2] << 16) |
+                    (data[index + 3] << 24);
+                index += 4;
+                const x_bytes = 3 & data[index],
+                    y_bytes = (data[index] >> 2) & 3,
+                    z_bytes = (data[index] >> 4) & 3;
+                if (
+                    ((index += 1),
+                    x_bytes < 1 ||
+                        x_bytes > 4 ||
+                        y_bytes < 1 ||
+                        y_bytes > 4 ||
+                        z_bytes < 1 ||
+                        z_bytes > 4)
+                )
+                    return null;
+                for (; index < data.length; ) {
+                    if (data.length - index < 1) return null;
+                    const id = data[index + 0];
+                    if (((index += 1), !(id in eA))) return null;
+                    if (data.length - index < 4) return null;
+                    const num_parts =
+                        data[index + 0] |
+                        (data[index + 1] << 8) |
+                        (data[index + 2] << 16) |
+                        (data[index + 3] << 24);
+                    index += 4;
+                    for (let r = 0; r < num_parts; ++r) {
+                        if (data.length - index < x_bytes) return null;
+                        let x = 0;
+                        for (let e = 0; e < x_bytes; ++e)
+                            x |= data[index + e] << (8 * e);
+                        if (
+                            ((x += x_min),
+                            (index += x_bytes),
+                            data.length - index < y_bytes)
+                        )
+                            return null;
+                        let y = 0;
+                        for (let e = 0; e < y_bytes; ++e)
+                            y |= data[index + e] << (8 * e);
+                        if (
+                            ((y += y_min),
+                            (index += y_bytes),
+                            data.length - index < z_bytes)
+                        )
+                            return null;
+                        let z = 0;
+                        for (let e = 0; e < z_bytes; ++e)
+                            z |= data[index + e] << (8 * e);
+                        if (
+                            ((z += z_min),
+                            (index += z_bytes),
+                            data.length - index < 1)
+                        )
+                            return null;
+                        const rotation = data[index + 0];
+                        if (((index += 1), rotation < 0 || rotation > 3))
+                            return null;
+                        if (data.length - index < 1) return null;
+                        const rotation_axis = data[index + 0];
+                        if (((index += 1), !(rotation_axis in Axes)))
+                            return null;
+                        if (data.length - index < 1) return null;
+                        const colour = data[index + 0];
+                        if (((index += 1), !(colour in Colours))) return null;
+                        let checkpoint_order = null;
+                        if (checkpoints.includes(id)) {
+                            if (data.length - index < 2) return null;
+                            (checkpoint_order =
+                                data[index + 0] | (data[index + 1] << 8)),
+                                (index += 2);
                         }
-                        let v = null;
-                        if (cb.includes(e)) {
-                            if (t.length - n < 4) return null;
-                            (v =
-                                t[n + 0] |
-                                (t[n + 1] << 8) |
-                                (t[n + 2] << 16) |
-                                (t[n + 3] << 24)),
-                                (n += 4);
+                        let start_order = null;
+                        if (starts.includes(id)) {
+                            if (data.length - index < 4) return null;
+                            (start_order =
+                                data[index + 0] |
+                                (data[index + 1] << 8) |
+                                (data[index + 2] << 16) |
+                                (data[index + 3] << 24)),
+                                (index += 4);
                         }
-                        a.addPart(i, r, u, e, p, f, m, g, v);
+                        track.addPart(
+                            x,
+                            y,
+                            z,
+                            id,
+                            rotation,
+                            rotation_axis,
+                            colour,
+                            checkpoint_order,
+                            start_order
+                        );
                     }
                 }
-                return a;
+                return track;
             }
             const gb = [
                 [
@@ -44695,7 +44769,7 @@
                                     7 & s.rotationAxis,
                                     255 & s.color
                                 ),
-                                lb.includes(r))
+                                checkpoints.includes(r))
                             ) {
                                 if (null == s.checkpointOrder)
                                     throw new Error(
@@ -44706,7 +44780,7 @@
                                     (s.checkpointOrder >>> 8) & 255
                                 );
                             }
-                            if (cb.includes(r)) {
+                            if (starts.includes(r)) {
                                 if (null == s.startOrder)
                                     throw new Error("Start has no start order");
                                 e.push(
@@ -44818,13 +44892,13 @@
                             memLevel: 9,
                         });
                     t.push(e, !0);
-                    const n = BA(t.result),
+                    const n = base62_encode(t.result),
                         i = new Yg.Deflate({
                             level: 9,
                             windowBits: 15,
                             memLevel: 9,
                         });
-                    return i.push(n, !0), BA(i.result);
+                    return i.push(n, !0), base62_encode(i.result);
                 }
                 toExportString(e) {
                     const t = new TextEncoder().encode(e.name);
@@ -44845,28 +44919,32 @@
                             memLevel: 9,
                         });
                     s.push(r, !1), s.push(a, !0);
-                    const o = BA(s.result),
+                    const o = base62_encode(s.result),
                         l = new Yg.Deflate({
                             level: 9,
                             windowBits: 15,
                             memLevel: 9,
                         });
-                    return l.push(o, !0), "PolyTrack1" + BA(l.result);
+                    return (
+                        l.push(o, !0), "PolyTrack1" + base62_encode(l.result)
+                    );
                 }
                 static fromSaveString(e) {
                     const t = (function (e) {
-                        const t = UA(e);
+                        const t = base62_decode(e);
                         if (null == t) return null;
                         const n = new Yg.Inflate({ to: "string" });
                         if ((n.push(t, !0), n.err)) return null;
                         const i = n.result;
                         if ("string" != typeof i) return null;
-                        const r = UA(i);
+                        const r = base62_decode(i);
                         if (null == r) return null;
                         const a = new Yg.Inflate();
                         if ((a.push(r, !0), a.err)) return null;
                         const s = a.result;
-                        return s instanceof Uint8Array ? mb(0, s) : null;
+                        return s instanceof Uint8Array
+                            ? parse_trackdata_v0_5_0(0, s)
+                            : null;
                     })(e);
                     if (null != t) return t;
                     const n = fb(e);
@@ -44878,53 +44956,70 @@
                     const a = hb(e);
                     return null != a ? a : null;
                 }
-                static fromExportString(e) {
-                    const t = e.replace(/\s+/g, ""),
-                        n = (function (e) {
-                            const t = "PolyTrack1";
-                            if (!e.startsWith(t)) return null;
-                            const n = UA(e.substring(10));
-                            if (null == n) return null;
+                static fromExportString(export_string) {
+                    const trimmed_str = export_string.replace(/\s+/g, ""),
+                        track_v0_5_0 = (function (e) {
+                            const start_string = "PolyTrack1";
+                            if (!e.startsWith(start_string)) return null;
+                            const code_str = base62_decode(e.substring(10));
+                            if (null == code_str) return null;
                             const i = new Yg.Inflate({ to: "string" });
-                            if ((i.push(n, !0), i.err)) return null;
+                            if ((i.push(code_str, !0), i.err)) return null;
                             const r = i.result;
                             if ("string" != typeof r) return null;
-                            const a = UA(r);
+                            const a = base62_decode(r);
                             if (null == a) return null;
                             const s = new Yg.Inflate();
                             if ((s.push(a, !0), s.err)) return null;
-                            const o = s.result;
-                            if (!(o instanceof Uint8Array)) return null;
-                            const l = o[0];
-                            if (o.length < 1 + l) return null;
-                            const c = new TextDecoder("utf-8").decode(
-                                    o.subarray(1, 1 + l)
+                            const trackdata = s.result;
+                            if (!(trackdata instanceof Uint8Array)) return null;
+                            const track_name_len = trackdata[0];
+                            if (trackdata.length < 1 + track_name_len)
+                                return null;
+                            const track_name = new TextDecoder("utf-8").decode(
+                                    trackdata.subarray(1, 1 + track_name_len)
                                 ),
-                                h = o[1 + l];
-                            if (o.length < 1 + l + 1 + h) return null;
-                            let d;
-                            d =
-                                h > 0
+                                author_name_len = trackdata[1 + track_name_len];
+                            if (
+                                trackdata.length <
+                                1 + track_name_len + 1 + author_name_len
+                            )
+                                return null;
+                            let author_name;
+                            author_name =
+                                author_name_len > 0
                                     ? new TextDecoder("utf-8").decode(
-                                          o.subarray(1 + l + 1, 1 + l + 1 + h)
+                                          trackdata.subarray(
+                                              1 + track_name_len + 1,
+                                              1 +
+                                                  track_name_len +
+                                                  1 +
+                                                  author_name_len
+                                          )
                                       )
                                     : null;
-                            const u = mb(1 + l + 1 + h, o);
-                            return null == u
+                            const track = parse_trackdata_v0_5_0(
+                                1 + track_name_len + 1 + author_name_len,
+                                trackdata
+                            );
+                            return null == track
                                 ? null
                                 : {
-                                      trackMetadata: { name: c, author: d },
-                                      trackData: u,
+                                      trackMetadata: {
+                                          name: track_name,
+                                          author: author_name,
+                                      },
+                                      trackData: track,
                                   };
-                        })(t);
-                    if (null != n) return n;
-                    const i = (function (e) {
+                        })(trimmed_str);
+                    if (null != track_v0_5_0) return track_v0_5_0;
+                    const track_v0_4_2 = (function (e) {
                         if (!e.startsWith("v3")) return null;
-                        const t = UA(e.substring(2, 4));
+                        const t = base62_decode(e.substring(2, 4));
                         if (null == t) return null;
                         if (1 != t.length) return null;
                         const n = t[0],
-                            i = UA(e.substring(4, 4 + n));
+                            i = base62_decode(e.substring(4, 4 + n));
                         if (null == i) return null;
                         let r;
                         try {
@@ -44939,16 +45034,16 @@
                                   trackMetadata: { name: r, author: null },
                                   trackData: a,
                               };
-                    })(t);
-                    if (null != i) return i;
-                    const r = (function (e) {
+                    })(trimmed_str);
+                    if (null != track_v0_4_2) return track_v0_4_2;
+                    const track_v0_3_1 = (function (e) {
                         if (!e.startsWith("v2")) return null;
-                        const t = UA(e.substring(2, 4));
+                        const t = base62_decode(e.substring(2, 4));
                         if (null == t) return null;
                         if (1 != t.length) return null;
                         const n = t[0],
                             i = Math.ceil((n / 3) * 4),
-                            r = UA(e.substring(4, 4 + i));
+                            r = base62_decode(e.substring(4, 4 + i));
                         if (null == r) return null;
                         let a;
                         try {
@@ -44963,9 +45058,9 @@
                                   trackMetadata: { name: a, author: null },
                                   trackData: s,
                               };
-                    })(t);
-                    if (null != r) return r;
-                    const a = (function (e) {
+                    })(trimmed_str);
+                    if (null != track_v0_3_1) return track_v0_3_1;
+                    const track_v0_2_0 = (function (e) {
                         if (!e.startsWith("v1n")) return null;
                         const t = Kg(e.substring(3, 5));
                         if (null == t) return null;
@@ -44985,9 +45080,9 @@
                                   trackMetadata: { name: r, author: null },
                                   trackData: a,
                               };
-                    })(t);
-                    if (null != a) return a;
-                    const s = db(e);
+                    })(trimmed_str);
+                    if (null != track_v0_2_0) return track_v0_2_0;
+                    const s = db(export_string);
                     return null != s ? s : null;
                 }
                 createThumbnail() {
@@ -45040,13 +45135,13 @@
                         u = [];
                     let p, f, m;
                     switch (this.environment) {
-                        case QA.Summer:
+                        case Environments.Summer:
                             (p = 255), (f = 255), (m = 255);
                             break;
-                        case QA.Winter:
+                        case Environments.Winter:
                             (p = 190), (f = 216), (m = 247);
                             break;
-                        case QA.Desert:
+                        case Environments.Desert:
                             (p = 237), (f = 226), (m = 175);
                     }
                     this.forEachPart((n, i, r, a, s, l) => {
@@ -45175,7 +45270,7 @@
                         Tb.set(this, void 0),
                         _b.set(this, void 0),
                         Cb.set(this, void 0),
-                        (this.environment = QA.Summer),
+                        (this.environment = Environments.Summer),
                         Pb.set(this, new GA()),
                         Ib.set(this, []),
                         Rb.set(this, new Map()),
@@ -45221,7 +45316,7 @@
                 }
                 setPart(e, t, n, i, r, a, s, o, l) {
                     const c = Vb(this, Cb, "f").getPart(i);
-                    if (s != Jy.Default && !c.colors.has(s))
+                    if (s != Colours.Default && !c.colors.has(s))
                         throw new Error("Track part color does not exist");
                     const h = vb(r, a),
                         d = new yn(
@@ -45296,7 +45391,7 @@
                     let i = null;
                     for (const t of n) {
                         let n = t.color;
-                        n == Jy.Default && (n = Jy.Summer);
+                        n == Colours.Default && (n = Colours.Summer);
                         const r = t.type.colors.get(n);
                         if (null == r)
                             throw new Error("Track part is not loaded yet");
@@ -45320,31 +45415,31 @@
                         )
                     )
                         switch (this.environment) {
-                            case QA.Summer:
+                            case Environments.Summer:
                                 i = new Wi(1192238);
                                 break;
-                            case QA.Winter:
+                            case Environments.Winter:
                                 i = new Wi(3825803);
                                 break;
-                            case QA.Desert:
+                            case Environments.Desert:
                                 i = new Wi(3883831);
                         }
                     switch (this.environment) {
-                        case QA.Summer:
-                            n = Jy.Summer;
+                        case Environments.Summer:
+                            n = Colours.Summer;
                             break;
-                        case QA.Winter:
-                            n = Jy.Winter;
+                        case Environments.Winter:
+                            n = Colours.Winter;
                             break;
-                        case QA.Desert:
-                            n = Jy.Desert;
+                        case Environments.Desert:
+                            n = Colours.Desert;
                     }
                     for (const e of Vb(this, Cb, "f").getAllParts())
                         for (const [r, a] of e.colors) {
                             const s = [];
                             for (const t of Vb(this, Ib, "f")) {
                                 let i = t.color;
-                                i == Jy.Default && (i = n),
+                                i == Colours.Default && (i = n),
                                     t.type == e && i == r && s.push(t);
                             }
                             if (s.length > 0) {
@@ -46966,31 +47061,31 @@
                             o.set(n.environment, l),
                             n.environment)
                         ) {
-                            case QA.Summer:
+                            case Environments.Summer:
                                 t.prepend(l);
                                 break;
-                            case QA.Winter: {
-                                const e = o.get(QA.Desert);
+                            case Environments.Winter: {
+                                const e = o.get(Environments.Desert);
                                 null != e
                                     ? t.insertBefore(l, e)
                                     : t.appendChild(l);
                                 break;
                             }
-                            case QA.Desert:
+                            case Environments.Desert:
                                 t.appendChild(l);
                         }
                         switch (n.environment) {
-                            case QA.Summer:
+                            case Environments.Summer:
                                 (i = "summer"),
                                     (r = Kk(this, vk, "f").get("Summer")),
                                     (a = "images/summer.svg");
                                 break;
-                            case QA.Winter:
+                            case Environments.Winter:
                                 (i = "winter"),
                                     (r = Kk(this, vk, "f").get("Winter")),
                                     (a = "images/winter_colored.svg");
                                 break;
-                            case QA.Desert:
+                            case Environments.Desert:
                                 (i = "desert"),
                                     (r = Kk(this, vk, "f").get("Desert")),
                                     (a = "images/desert_colored.svg");
@@ -47020,13 +47115,13 @@
                         c.appendChild(r),
                         n.environment)
                     ) {
-                        case QA.Summer:
+                        case Environments.Summer:
                             u = "images/summer.svg";
                             break;
-                        case QA.Winter:
+                        case Environments.Winter:
                             u = "images/winter.svg";
                             break;
-                        case QA.Desert:
+                        case Environments.Desert:
                             u = "images/desert.svg";
                     }
                     const p = document.createElement("img");
@@ -47670,43 +47765,43 @@
                         }),
                         p.appendChild(dE(this, oE, "f"));
                     for (const e of [
-                        nA.YPositive,
-                        nA.YNegative,
-                        nA.XPositive,
-                        nA.XNegative,
-                        nA.ZPositive,
-                        nA.ZNegative,
+                        Axes.YPositive,
+                        Axes.YNegative,
+                        Axes.XPositive,
+                        Axes.XNegative,
+                        Axes.ZPositive,
+                        Axes.ZNegative,
                     ]) {
                         const n = document.createElement("button");
                         switch (((n.inert = !0), (n.tabIndex = -1), e)) {
-                            case nA.YPositive:
+                            case Axes.YPositive:
                                 n.innerHTML =
                                     '<img src="images/rotation_axis_y_positive.svg">';
                                 break;
-                            case nA.YNegative:
+                            case Axes.YNegative:
                                 n.innerHTML =
                                     '<img src="images/rotation_axis_y_negative.svg">';
                                 break;
-                            case nA.XPositive:
+                            case Axes.XPositive:
                                 n.innerHTML =
                                     '<img src="images/rotation_axis_x_positive.svg">';
                                 break;
-                            case nA.XNegative:
+                            case Axes.XNegative:
                                 n.innerHTML =
                                     '<img src="images/rotation_axis_x_negative.svg">';
                                 break;
-                            case nA.ZPositive:
+                            case Axes.ZPositive:
                                 n.innerHTML =
                                     '<img src="images/rotation_axis_z_positive.svg">';
                                 break;
-                            case nA.ZNegative:
+                            case Axes.ZNegative:
                                 n.innerHTML =
                                     '<img src="images/rotation_axis_z_negative.svg">';
                         }
                         n.addEventListener("click", () => {
                             t.playUIClick(), a(e);
                         }),
-                            e == nA.YPositive && n.classList.add("selected"),
+                            e == Axes.YPositive && n.classList.add("selected"),
                             p.appendChild(n),
                             dE(this, lE, "f").push([e, n]);
                     }
@@ -47755,22 +47850,22 @@
                 set rotationAxis(e) {
                     let t;
                     switch (e) {
-                        case nA.YPositive:
+                        case Axes.YPositive:
                             t = "images/rotation_axis_y_positive.svg";
                             break;
-                        case nA.YNegative:
+                        case Axes.YNegative:
                             t = "images/rotation_axis_y_negative.svg";
                             break;
-                        case nA.XPositive:
+                        case Axes.XPositive:
                             t = "images/rotation_axis_x_positive.svg";
                             break;
-                        case nA.XNegative:
+                        case Axes.XNegative:
                             t = "images/rotation_axis_x_negative.svg";
                             break;
-                        case nA.ZPositive:
+                        case Axes.ZPositive:
                             t = "images/rotation_axis_z_positive.svg";
                             break;
-                        case nA.ZNegative:
+                        case Axes.ZNegative:
                             t = "images/rotation_axis_z_negative.svg";
                     }
                     dE(this, oE, "f").innerHTML = "";
@@ -48215,13 +48310,13 @@
                         A.appendChild(b);
                     const x = document.createElement("button");
                     (x.className = "button environment-button"),
-                        a.environment == QA.Summer &&
+                        a.environment == Environments.Summer &&
                             (x.classList.add("selected"), (x.disabled = !0)),
                         (x.innerHTML = '<img src="images/summer.svg"> '),
                         x.append(document.createTextNode(t.get("Summer"))),
                         x.addEventListener("click", () => {
                             e.playUIClick(),
-                                s(QA.Summer),
+                                s(Environments.Summer),
                                 x.classList.add("selected"),
                                 k.classList.remove("selected"),
                                 E.classList.remove("selected"),
@@ -48232,13 +48327,13 @@
                         A.appendChild(x);
                     const k = document.createElement("button");
                     (k.className = "button environment-button"),
-                        a.environment == QA.Winter &&
+                        a.environment == Environments.Winter &&
                             (k.classList.add("selected"), (k.disabled = !0)),
                         (k.innerHTML = '<img src="images/winter.svg"> '),
                         k.append(document.createTextNode(t.get("Winter"))),
                         k.addEventListener("click", () => {
                             e.playUIClick(),
-                                s(QA.Winter),
+                                s(Environments.Winter),
                                 x.classList.remove("selected"),
                                 k.classList.add("selected"),
                                 E.classList.remove("selected"),
@@ -48249,13 +48344,13 @@
                         A.appendChild(k);
                     const E = document.createElement("button");
                     (E.className = "button environment-button"),
-                        a.environment == QA.Desert &&
+                        a.environment == Environments.Desert &&
                             (E.classList.add("selected"), (E.disabled = !0)),
                         (E.innerHTML = '<img src="images/desert.svg"> '),
                         E.append(document.createTextNode(t.get("Desert"))),
                         E.addEventListener("click", () => {
                             e.playUIClick(),
-                                s(QA.Desert),
+                                s(Environments.Desert),
                                 x.classList.remove("selected"),
                                 k.classList.remove("selected"),
                                 E.classList.add("selected"),
@@ -48821,7 +48916,7 @@
                     const t = CM(this, HE, "f").getAllParts();
                     for (let n = 0; n < t.length; n++) {
                         const i = t[n],
-                            r = i.colors.get(Jy.Summer);
+                            r = i.colors.get(Colours.Summer);
                         if (null == r) throw new Error("Mesh is not loaded");
                         const a = r.clone();
                         (a.material = CM(this, zS, "f")),
@@ -48884,7 +48979,7 @@
                             (h = document.createElement("div")),
                                 (h.className = "color-panel hidden"),
                                 CM(this, iS, "f").prepend(h);
-                            const e = [Jy.Default].concat(
+                            const e = [Colours.Default].concat(
                                 Array.from(i.colors.keys())
                             );
                             for (const t of e) {
@@ -48902,7 +48997,7 @@
                                         t != e &&
                                             t.classList.remove("selected");
                                 }),
-                                    t == Jy.Default &&
+                                    t == Colours.Default &&
                                         e.classList.add("selected"),
                                     h.appendChild(e);
                                 const n = document.createElement("img");
@@ -48929,12 +49024,12 @@
                     }
                 }),
                 (fM = function () {
-                    if (null == CM(this, rM, "f")) return Jy.Default;
+                    if (null == CM(this, rM, "f")) return Colours.Default;
                     return CM(this, iM, "f")[
                         CM(this, rM, "f")
                     ].colorButtons.some(([e]) => e == CM(this, aM, "f"))
                         ? CM(this, aM, "f")
-                        : Jy.Default;
+                        : Colours.Default;
                 }),
                 (mM = function (e) {
                     (CM(this, VE, "f").environment = e),
@@ -48959,14 +49054,14 @@
                     }
                     let e;
                     switch (CM(this, VE, "f").environment) {
-                        case QA.Summer:
-                            e = Jy.Summer;
+                        case Environments.Summer:
+                            e = Colours.Summer;
                             break;
-                        case QA.Winter:
-                            e = Jy.Winter;
+                        case Environments.Winter:
+                            e = Colours.Winter;
                             break;
-                        case QA.Desert:
-                            e = Jy.Desert;
+                        case Environments.Desert:
+                            e = Colours.Desert;
                     }
                     for (const t of CM(this, iM, "f"))
                         if (null != t.id)
@@ -49004,14 +49099,14 @@
                         else {
                             let n;
                             switch (CM(this, VE, "f").environment) {
-                                case QA.Summer:
-                                    n = Jy.Summer;
+                                case Environments.Summer:
+                                    n = Colours.Summer;
                                     break;
-                                case QA.Winter:
-                                    n = Jy.Winter;
+                                case Environments.Winter:
+                                    n = Colours.Winter;
                                     break;
-                                case QA.Desert:
-                                    n = Jy.Desert;
+                                case Environments.Desert:
+                                    n = Colours.Desert;
                             }
                             for (const t of CM(this, iM, "f"))
                                 if (
@@ -49115,7 +49210,7 @@
                                         : n.classList.remove("selected"),
                                     !r.hasAttribute("src"))
                                 )
-                                    if (e == Jy.Default)
+                                    if (e == Colours.Default)
                                         (r.src = "images/empty.svg"),
                                             (r.className = "");
                                     else {
@@ -49238,16 +49333,16 @@
                         let t, n;
                         (t = CM(this, ZS, "f") ? 4 : 1),
                             (n =
-                                CM(this, XS, "f") == nA.XPositive ||
-                                CM(this, XS, "f") == nA.XNegative
+                                CM(this, XS, "f") == Axes.XPositive ||
+                                CM(this, XS, "f") == Axes.XNegative
                                     ? Math.round(e.x)
                                     : Math.round(e.x / t) * t);
                         const i = Math.round(e.y) + CM(this, KS, "f");
                         let r;
                         return (
                             (r =
-                                CM(this, XS, "f") == nA.ZPositive ||
-                                CM(this, XS, "f") == nA.ZNegative
+                                CM(this, XS, "f") == Axes.ZPositive ||
+                                CM(this, XS, "f") == Axes.ZNegative
                                     ? Math.round(e.z)
                                     : Math.round(e.z / t) * t),
                             new yn(n, i, r)
@@ -49434,7 +49529,7 @@
                         YS.set(this, null),
                         KS.set(this, 0),
                         qS.set(this, 0),
-                        XS.set(this, nA.YPositive),
+                        XS.set(this, Axes.YPositive),
                         ZS.set(this, !0),
                         JS.set(this, !1),
                         $S.set(this, null),
@@ -49443,7 +49538,7 @@
                         nM.set(this, null),
                         iM.set(this, []),
                         rM.set(this, null),
-                        aM.set(this, Jy.Default),
+                        aM.set(this, Colours.Default),
                         sM.set(this, []),
                         oM.set(this, null),
                         _M(this, OE, e, "f"),
@@ -50399,8 +50494,8 @@
                                                             4 * R.z,
                                                             R.type,
                                                             R.direction,
-                                                            nA.YPositive,
-                                                            Jy.Default,
+                                                            Axes.YPositive,
+                                                            Colours.Default,
                                                             null,
                                                             L
                                                         );
@@ -50856,19 +50951,19 @@
                             CM(this, UE, "f").playUIClick();
                             const e = CM(this, HE, "f")
                                 .getPart(eA.Start)
-                                .colors.get(Jy.Summer);
+                                .colors.get(Colours.Summer);
                             if (null == e)
                                 throw new Error("Starting point mesh is null");
                             const t = NE(e),
                                 n = CM(this, HE, "f")
                                     .getPart(eA.Checkpoint)
-                                    .colors.get(Jy.Summer);
+                                    .colors.get(Colours.Summer);
                             if (null == n)
                                 throw new Error("Checkpoint mesh is null");
                             const i = NE(n),
                                 r = CM(this, HE, "f")
                                     .getPart(eA.Finish)
-                                    .colors.get(Jy.Summer);
+                                    .colors.get(Colours.Summer);
                             if (null == r)
                                 throw new Error("Finish line mesh is null");
                             const a = NE(r);
@@ -51517,8 +51612,8 @@
                             0,
                             eA.Start,
                             0,
-                            nA.YPositive,
-                            Jy.Default,
+                            Axes.YPositive,
+                            Colours.Default,
                             null,
                             0
                         ),
@@ -54961,7 +55056,7 @@
                 constructor(e) {
                     _P.add(this),
                         PP.set(this, void 0),
-                        IP.set(this, QA.Summer),
+                        IP.set(this, Environments.Summer),
                         RP.set(this, void 0),
                         LP.set(this, void 0),
                         DP.set(this, void 0),
@@ -54995,7 +55090,7 @@
                         (FP(this, NP, "f").receiveShadow = !0),
                         (FP(this, NP, "f").renderOrder = -2),
                         e.scene.add(FP(this, NP, "f")),
-                        FP(this, _P, "m", zP).call(this, QA.Summer);
+                        FP(this, _P, "m", zP).call(this, Environments.Summer);
                 }
                 clearMountains() {
                     null != FP(this, BP, "f") &&
@@ -55138,13 +55233,13 @@
                 (UP = function (e) {
                     let t;
                     switch (e) {
-                        case QA.Summer:
+                        case Environments.Summer:
                             t = new Wi(3495480);
                             break;
-                        case QA.Winter:
+                        case Environments.Winter:
                             t = new Wi(11053224);
                             break;
-                        case QA.Desert:
+                        case Environments.Desert:
                             t = new Wi(11171394);
                     }
                     return t;
@@ -57117,13 +57212,13 @@
                         x.appendChild(k),
                         l.environment)
                     ) {
-                        case QA.Summer:
+                        case Environments.Summer:
                             E = "images/summer.svg";
                             break;
-                        case QA.Winter:
+                        case Environments.Winter:
                             E = "images/winter.svg";
                             break;
-                        case QA.Desert:
+                        case Environments.Desert:
                             E = "images/desert.svg";
                     }
                     const S = document.createElement("img");
@@ -61253,18 +61348,18 @@
                                 e.y == t.y + 3 &&
                                 e.z == t.z &&
                                 e.rotation == t.rotation &&
-                                ((e.rotationAxis == nA.YPositive &&
-                                    t.rotationAxis == nA.YNegative) ||
-                                    (e.rotationAxis == nA.YNegative &&
-                                        t.rotationAxis == nA.YPositive) ||
-                                    (e.rotationAxis == nA.XPositive &&
-                                        t.rotationAxis == nA.XNegative) ||
-                                    (e.rotationAxis == nA.XNegative &&
-                                        t.rotationAxis == nA.XPositive) ||
-                                    (e.rotationAxis == nA.ZPositive &&
-                                        t.rotationAxis == nA.ZNegative) ||
-                                    (e.rotationAxis == nA.ZNegative &&
-                                        t.rotationAxis == nA.ZPositive)));
+                                ((e.rotationAxis == Axes.YPositive &&
+                                    t.rotationAxis == Axes.YNegative) ||
+                                    (e.rotationAxis == Axes.YNegative &&
+                                        t.rotationAxis == Axes.YPositive) ||
+                                    (e.rotationAxis == Axes.XPositive &&
+                                        t.rotationAxis == Axes.XNegative) ||
+                                    (e.rotationAxis == Axes.XNegative &&
+                                        t.rotationAxis == Axes.XPositive) ||
+                                    (e.rotationAxis == Axes.ZPositive &&
+                                        t.rotationAxis == Axes.ZNegative) ||
+                                    (e.rotationAxis == Axes.ZNegative &&
+                                        t.rotationAxis == Axes.ZPositive)));
                         return (
                             l(
                                 eA.BlockSlopeVerticalBottom,
@@ -61414,22 +61509,22 @@
                                 (e, t) => {
                                     let n;
                                     switch (e.rotationAxis) {
-                                        case nA.YPositive:
+                                        case Axes.YPositive:
                                             n = new yn(0, 1, 0);
                                             break;
-                                        case nA.YNegative:
+                                        case Axes.YNegative:
                                             n = new yn(0, -1, 0);
                                             break;
-                                        case nA.XPositive:
+                                        case Axes.XPositive:
                                             n = new yn(1, 0, 0);
                                             break;
-                                        case nA.XNegative:
+                                        case Axes.XNegative:
                                             n = new yn(-1, 0, 0);
                                             break;
-                                        case nA.ZPositive:
+                                        case Axes.ZPositive:
                                             n = new yn(0, 0, 1);
                                             break;
-                                        case nA.ZNegative:
+                                        case Axes.ZNegative:
                                             n = new yn(0, 0, -1);
                                             break;
                                         default:
@@ -61452,22 +61547,22 @@
                                 (e, t) => {
                                     let n;
                                     switch (e.rotationAxis) {
-                                        case nA.YPositive:
+                                        case Axes.YPositive:
                                             n = new yn(0, 1, 0);
                                             break;
-                                        case nA.YNegative:
+                                        case Axes.YNegative:
                                             n = new yn(0, -1, 0);
                                             break;
-                                        case nA.XPositive:
+                                        case Axes.XPositive:
                                             n = new yn(1, 0, 0);
                                             break;
-                                        case nA.XNegative:
+                                        case Axes.XNegative:
                                             n = new yn(-1, 0, 0);
                                             break;
-                                        case nA.ZPositive:
+                                        case Axes.ZPositive:
                                             n = new yn(0, 0, 1);
                                             break;
-                                        case nA.ZNegative:
+                                        case Axes.ZNegative:
                                             n = new yn(0, 0, -1);
                                             break;
                                         default:
@@ -61609,14 +61704,14 @@
                             n = this.getPart(eA.SignArrowLeft);
                     }
                     switch (t) {
-                        case QA.Summer:
-                            i = Jy.Summer;
+                        case Environments.Summer:
+                            i = Colours.Summer;
                             break;
-                        case QA.Winter:
-                            i = Jy.Winter;
+                        case Environments.Winter:
+                            i = Colours.Winter;
                             break;
-                        case QA.Desert:
-                            i = Jy.Desert;
+                        case Environments.Desert:
+                            i = Colours.Desert;
                     }
                     const r = n.colors.get(i);
                     if (null == r)
