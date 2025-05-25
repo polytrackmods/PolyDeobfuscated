@@ -57,8 +57,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             println!("Found {} files to compare", files.len());
 
             for file in files.iter() {
-                let original_path = PathBuf::from(&original_dir).join(&file);
-                let modified_path = PathBuf::from(&modified_dir).join(&file);
+                let original_path = PathBuf::from(&original_dir).join(file);
+                let modified_path = PathBuf::from(&modified_dir).join(file);
 
                 let original_source = fs::read_to_string(&original_path).unwrap_or_else(|_| {
                     eprintln!("Error reading original file: {:?}", original_path);
@@ -114,7 +114,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                 }
 
                 let source_map_path = PathBuf::from(&source_map_dir)
-                    .join(&file)
+                    .join(file)
                     .with_extension("json");
 
                 let mut mappings: Vec<Mapping> = if source_map_path.exists() {
