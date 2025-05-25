@@ -3,36 +3,42 @@
     "original": "e",
     "modified": "modules",
     "scope_id": 2,
-    "id": 0
+    "id": 0,
+    "declaration_type": "variable"
   },
   {
     "original": "t",
     "modified": "moduleRequireCache",
     "scope_id": 2,
-    "id": 131
+    "id": 131,
+    "declaration_type": "variable"
   },
   {
     "original": "n",
     "modified": "require",
     "scope_id": 2,
-    "id": 132
-  },
-  {
-    "original": "r",
-    "modified": "cacheHit",
-    "scope_id": 3,
-    "id": 134
-  },
-  {
-    "original": "a",
-    "modified": "module",
-    "scope_id": 3,
-    "id": 135
+    "id": 132,
+    "declaration_type": "function"
   },
   {
     "original": "i",
     "modified": "id",
     "scope_id": 2,
-    "id": 133
+    "id": 133,
+    "declaration_type": "function_parameter"
+  },
+  {
+    "original": "r",
+    "modified": "cacheHit",
+    "scope_id": 3,
+    "id": 134,
+    "declaration_type": "variable"
+  },
+  {
+    "original": "a",
+    "modified": "module",
+    "scope_id": 3,
+    "id": 135,
+    "declaration_type": "variable"
   }
 ]

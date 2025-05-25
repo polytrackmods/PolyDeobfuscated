@@ -6,9 +6,9 @@ use oxc_parser::Parser;
 use oxc_span::SourceType;
 use walkdir::WalkDir;
 
+use crate::types::*;
 use crate::visitor::IdentifierCollector;
 
-/// Collects all JavaScript/TypeScript files from a directory
 pub fn collect_js_files(dir: &str) -> Result<Vec<PathBuf>, Box<dyn std::error::Error>> {
     let files: Result<Vec<_>, _> = WalkDir::new(dir)
         .into_iter()
@@ -32,8 +32,7 @@ pub fn collect_js_files(dir: &str) -> Result<Vec<PathBuf>, Box<dyn std::error::E
     files
 }
 
-/// Extracts identifiers from JavaScript source code
-pub fn extract_identifiers(source_code: &str) -> Result<Vec<(String, u32, usize)>, String> {
+pub fn extract_identifiers(source_code: &str) -> Result<Vec<IdentifierDeclarationType>, String> {
     let allocator = Allocator::default();
     let source_type = SourceType::default();
     let parser = Parser::new(&allocator, source_code, source_type);
@@ -49,11 +48,13 @@ pub fn extract_identifiers(source_code: &str) -> Result<Vec<(String, u32, usize)
     Ok(collector.identifiers)
 }
 
-/// Compares identifiers between two files and returns the differences
 pub fn compare_identifiers(
-    identifiers1: &[(String, u32, usize)],
-    identifiers2: &[(String, u32, usize)],
-) -> (Vec<(String, u32, usize)>, Vec<(String, u32, usize)>) {
+    identifiers1: &[IdentifierDeclarationType],
+    identifiers2: &[IdentifierDeclarationType],
+) -> (
+    Vec<IdentifierDeclarationType>,
+    Vec<IdentifierDeclarationType>,
+) {
     let set1: HashSet<_> = identifiers1.iter().collect();
     let set2: HashSet<_> = identifiers2.iter().collect();
 
@@ -72,30 +73,25 @@ pub fn compare_identifiers(
     (only_in_first, only_in_second)
 }
 
-/// Updates the temporary directory with files from the code directory
 pub fn update_temp_dir(code_dir: &str, temp_dir: &str) -> Result<(), Box<dyn std::error::Error>> {
-    // Copy files from code_dir to temp_dir (which are js files)
     let files = collect_js_files(code_dir)?;
     for file in files {
         let original_path = PathBuf::from(code_dir).join(&file);
         let temp_path = PathBuf::from(temp_dir).join(&file);
 
-        // Create the destination directory if it doesn't exist
         if let Some(parent) = temp_path.parent() {
             fs::create_dir_all(parent)?;
         }
 
-        // Copy the file
         fs::copy(original_path, temp_path)?;
     }
 
     Ok(())
 }
 
-/// Checks that the changed identifiers are located in the same scope with the same unique ID
 pub fn check_identifier_matches(
-    original_identifiers: &[(String, u32, usize)],
-    modified_identifiers: &[(String, u32, usize)],
+    original_identifiers: &[IdentifierDeclarationType],
+    modified_identifiers: &[IdentifierDeclarationType],
 ) -> bool {
     let original: Vec<_> = original_identifiers
         .iter()

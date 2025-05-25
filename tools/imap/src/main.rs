@@ -1,3 +1,4 @@
+mod types;
 mod utils;
 mod visitor;
 
@@ -47,6 +48,7 @@ struct Mapping {
     modified: String,
     scope_id: u32,
     id: usize,
+    declaration_type: String,
 }
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -54,7 +56,6 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     match cli.command {
         Commands::Update { code_dir, temp_dir } => {
-            // Copy files from code_dir to temp_dir
             update_temp_dir(&code_dir, &temp_dir)?;
             println!(
                 "Files copied successfully from {} to {}",
@@ -66,26 +67,24 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             temp_dir,
             source_map_dir,
         } => {
-            // Compare identifiers between code_dir and temp_dir
             let modified_dir = code_dir.clone();
             let original_dir = temp_dir.clone();
 
             let files = collect_js_files(&original_dir)?;
             println!("Found {} files to compare", files.len());
 
-            for file in files {
+            let mut all_mappings: Vec<Vec<Mapping>> = vec![];
+
+            for file in files.iter() {
                 let original_path = PathBuf::from(&original_dir).join(&file);
                 let modified_path = PathBuf::from(&modified_dir).join(&file);
 
-                // Read source files
                 let original_source = fs::read_to_string(&original_path)?;
                 let modified_source = fs::read_to_string(&modified_path)?;
 
-                // Extract identifiers
                 let original_identifiers = extract_identifiers(&original_source)?;
                 let modified_identifiers = extract_identifiers(&modified_source)?;
 
-                // Compare identifiers
                 let (only_in_original, only_in_modified) =
                     compare_identifiers(&original_identifiers, &modified_identifiers);
 
@@ -98,7 +97,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                                 file, orig_count, mod_count
                             );
 
-                            continue; // Skip files with mismatched identifier counts
+                            std::process::exit(1);
                         }
 
                         let matches =
@@ -110,10 +109,10 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                                 only_in_original.len(),
                                 only_in_modified.len()
                             );
-                            continue; // Skip files with mismatched identifiers
+
+                            std::process::exit(1);
                         }
 
-                        // Create source map entries
                         let mut mappings_new = vec![];
                         for (orig, modif) in only_in_original.iter().zip(only_in_modified.iter()) {
                             println!(
@@ -126,6 +125,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                                 modified: modif.0.clone(),
                                 scope_id: orig.1,
                                 id: orig.2,
+                                declaration_type: orig.3.clone(),
                             });
                         }
 
@@ -133,7 +133,6 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                             .join(&file)
                             .with_extension("json");
 
-                        // If the path exists, load the existing mappings
                         let mut mappings: Vec<Mapping> = if source_map_path.exists() {
                             println!("Loading existing source map file: {:?}", source_map_path);
                             let data = fs::read_to_string(&source_map_path)?;
@@ -145,23 +144,25 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                             vec![]
                         };
 
-                        // Add the new mappings
                         mappings.extend(mappings_new);
-
-                        // Write the updated mappings to the file
-                        let json_data = serde_json::to_string_pretty(&mappings)?;
-                        fs::write(&source_map_path, json_data)?;
-                        println!("Source map updated: {:?}", source_map_path);
-
-                        // Update temp_dir
-                        update_temp_dir(&code_dir, &temp_dir)?;
-                        println!(
-                            "Files copied successfully from {} to {}",
-                            code_dir, temp_dir
-                        );
+                        all_mappings.push(mappings);
                     }
                 }
             }
+
+            for (i, mappings) in all_mappings.iter().enumerate() {
+                let source_map_path = PathBuf::from(&source_map_dir).join(files[i].clone()).with_extension("json");
+
+                let json_data = serde_json::to_string_pretty(&mappings)?;
+                fs::write(&source_map_path, json_data)?;
+                println!("Source map updated: {:?}", source_map_path);
+            }
+
+            update_temp_dir(&code_dir, &temp_dir)?;
+            println!(
+                "Files copied successfully from {} to {}",
+                code_dir, temp_dir
+            );
         }
     }
 

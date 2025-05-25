@@ -2,16 +2,26 @@ use oxc_ast::ast;
 use oxc_ast_visit::{Visit, walk};
 use oxc_syntax::scope::ScopeFlags;
 
+use crate::types::*;
+
 #[derive(Debug, Default)]
 pub struct IdentifierCollector {
-    pub identifiers: Vec<(String, u32, usize)>,
+    pub identifiers: Vec<IdentifierDeclarationType>,
     current_scope: u32,
 }
 
 impl IdentifierCollector {
-    fn get_identifier_name(&self, name: String) -> (String, u32, usize) {
-        // We do this to avoid name collisions
-        (name, self.current_scope, self.identifiers.len())
+    fn get_identifier_name(
+        &self,
+        name: String,
+        declaration_type: &str,
+    ) -> IdentifierDeclarationType {
+        (
+            name,
+            self.current_scope,
+            self.identifiers.len(),
+            declaration_type.to_string(),
+        )
     }
 }
 
@@ -31,24 +41,23 @@ impl<'a> Visit<'a> for IdentifierCollector {
     fn visit_variable_declarator(&mut self, declarator: &ast::VariableDeclarator<'a>) {
         if let Some(identifier_name) = declarator.id.get_identifier_name() {
             self.identifiers
-                .push(self.get_identifier_name(identifier_name.to_string()));
+                .push(self.get_identifier_name(identifier_name.to_string(), "variable"));
         }
 
         walk::walk_variable_declarator(self, declarator);
     }
 
     fn visit_function(&mut self, function: &ast::Function<'a>, flags: ScopeFlags) {
-        // Add function name if it exists
         if let Some(id) = &function.id {
             self.identifiers
-                .push(self.get_identifier_name(id.name.to_string()));
+                .push(self.get_identifier_name(id.name.to_string(), "function"));
         }
 
-        // Add parameter names
         for param in &function.params.items {
             if let Some(identifier_name) = param.pattern.get_identifier_name() {
-                self.identifiers
-                    .push(self.get_identifier_name(identifier_name.to_string()));
+                self.identifiers.push(
+                    self.get_identifier_name(identifier_name.to_string(), "function_parameter"),
+                );
             }
         }
 
@@ -56,11 +65,14 @@ impl<'a> Visit<'a> for IdentifierCollector {
     }
 
     fn visit_arrow_function_expression(&mut self, arrow_fn: &ast::ArrowFunctionExpression<'a>) {
-        // Add parameter names
         for param in &arrow_fn.params.items {
             if let Some(identifier_name) = param.pattern.get_identifier_name() {
-                self.identifiers
-                    .push(self.get_identifier_name(identifier_name.to_string()));
+                self.identifiers.push(
+                    self.get_identifier_name(
+                        identifier_name.to_string(),
+                        "arrow_function_parameter",
+                    ),
+                );
             }
         }
 
@@ -68,27 +80,25 @@ impl<'a> Visit<'a> for IdentifierCollector {
     }
 
     fn visit_class(&mut self, class: &ast::Class<'a>) {
-        // Add class name if it exists
         if let Some(id) = &class.id {
             self.identifiers
-                .push(self.get_identifier_name(id.name.to_string()));
+                .push(self.get_identifier_name(id.name.to_string(), "class"));
         }
 
         walk::walk_class(self, class);
     }
 
     fn visit_method_definition(&mut self, method: &ast::MethodDefinition<'a>) {
-        // Add method name
         if let Some(method_name) = method.key.name() {
             self.identifiers
-                .push(self.get_identifier_name(method_name.to_string()));
+                .push(self.get_identifier_name(method_name.to_string(), "method"));
         }
 
-        // Add parameter names
         for param in &method.value.params.items {
             if let Some(identifier_name) = param.pattern.get_identifier_name() {
-                self.identifiers
-                    .push(self.get_identifier_name(identifier_name.to_string()));
+                self.identifiers.push(
+                    self.get_identifier_name(identifier_name.to_string(), "method_parameter"),
+                );
             }
         }
 
@@ -96,10 +106,9 @@ impl<'a> Visit<'a> for IdentifierCollector {
     }
 
     fn visit_property_definition(&mut self, property: &ast::PropertyDefinition<'a>) {
-        // Add property name
         if let Some(property_name) = property.key.name() {
             self.identifiers
-                .push(self.get_identifier_name(property_name.to_string()));
+                .push(self.get_identifier_name(property_name.to_string(), "property"));
         }
 
         walk::walk_property_definition(self, property);

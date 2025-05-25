@@ -44,12 +44,20 @@ The source map for the file will be created in the `source_maps` directory, and 
 
 The source map is a JSON file that contains the mapping between the original code and the deobfuscated code. It includes the following fields:
 
-- `original`: It is in the format of `(original_identifier):(scope_id):(unique_id)`.
-- `new`: It is in the format of `(new_identifier):(scope_id):(unique_id)`.
+```rust
+struct Mapping {
+    original: String, // The original identifier from the obfuscated code
+    modified: String, // The deobfuscated identifier
+    scope_id: u32, // The scope ID of the identifier
+    id: usize, // The unique ID of the mapping
+    declaration_type: String, // The type of declaration (e.g., "function", "variable", etc.)
+}
+```
 
 ## TODO
 
 - Add support for other identifier declarations.
+- Clean up the code.
 
 ## License
 
