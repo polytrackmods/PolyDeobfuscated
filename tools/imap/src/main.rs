@@ -6,6 +6,8 @@ use std::{fs, path::PathBuf};
 
 use clap::{Parser as ClapParser, Subcommand};
 
+use colored::Colorize;
+
 use crate::types::*;
 use crate::utils::*;
 
@@ -43,7 +45,11 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             source_map_dir,
         } => {
             fs::create_dir_all(&source_map_dir).unwrap_or_else(|_| {
-                eprintln!("Error creating source map directory: {:?}", source_map_dir);
+                eprintln!(
+                    "{} {}",
+                    "Error creating source map directory:".red(),
+                    source_map_dir.blue()
+                );
                 std::process::exit(1);
             });
 
@@ -51,37 +57,56 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             let original_dir = original_dir.clone();
 
             let files = collect_js_files(&original_dir).unwrap_or_else(|_| {
-                eprintln!("Error collecting files from directory: {:?}", original_dir);
+                eprintln!(
+                    "{} {}",
+                    "Error collecting files from directory:".red(),
+                    original_dir.blue(),
+                );
                 std::process::exit(1);
             });
-            println!("Found {} files to compare", files.len());
+            println!(
+                "{} {} {}",
+                "🛈 Found".cyan(),
+                files.len().to_string().yellow(),
+                "files to compare".cyan(),
+            );
 
             for file in files.iter() {
                 let original_path = PathBuf::from(&original_dir).join(file);
                 let modified_path = PathBuf::from(&modified_dir).join(file);
 
                 let original_source = fs::read_to_string(&original_path).unwrap_or_else(|_| {
-                    eprintln!("Error reading original file: {:?}", original_path);
+                    eprintln!(
+                        "{} {}",
+                        "Error reading original file:".red(),
+                        original_path.to_string_lossy().to_string().blue(),
+                    );
                     std::process::exit(1);
                 });
                 let modified_source = fs::read_to_string(&modified_path).unwrap_or_else(|_| {
-                    eprintln!("Error reading modified file: {:?}", modified_path);
+                    eprintln!(
+                        "{} {}",
+                        "Error reading modified file:".red(),
+                        modified_path.to_string_lossy().to_string().blue(),
+                    );
                     std::process::exit(1);
                 });
 
                 let original_identifiers =
                     extract_identifiers(&original_source).unwrap_or_else(|_| {
                         eprintln!(
-                            "Error extracting identifiers from original file: {:?}",
-                            original_path
+                            "{} {}",
+                            "Error extracting identifiers from original file:".red(),
+                            original_path.to_string_lossy().to_string().blue(),
                         );
                         std::process::exit(1);
                     });
                 let modified_identifiers =
                     extract_identifiers(&modified_source).unwrap_or_else(|_| {
                         eprintln!(
-                            "Error extracting identifiers from modified file: {:?}",
-                            modified_path
+                            "{} {}",
+                            "Error extracting identifiers from modified file:".red(),
+                            modified_path.to_string_lossy().to_string().blue(),
                         );
                         std::process::exit(1);
                     });
@@ -94,22 +119,24 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
                 if orig_count != mod_count {
                     eprintln!(
-                        "⚠ Identifier count mismatch in {:?}: {} original, {} modified",
-                        file, orig_count, mod_count
+                        "{} {}: {} original, {} modified",
+                        "⚠ Identifier count mismatch in".red(),
+                        file.to_string_lossy().to_string().blue(),
+                        orig_count.to_string().red(),
+                        mod_count.to_string().red(),
                     );
-
                     std::process::exit(1);
                 }
 
                 let matches = check_identifier_matches(&only_in_original, &only_in_modified);
                 if !matches {
                     eprintln!(
-                        "⚠ Identifier mismatch in {:?}: {} original, {} modified",
-                        file,
-                        only_in_original.len(),
-                        only_in_modified.len()
+                        "{} {}: {} original, {} modified",
+                        "⚠ Identifier mismatch in".red(),
+                        file.to_string_lossy().to_string().blue(),
+                        orig_count.to_string().red(),
+                        mod_count.to_string().red(),
                     );
-
                     std::process::exit(1);
                 }
 
@@ -118,19 +145,39 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                     .with_extension("json");
 
                 let mut mappings: Vec<Mapping> = if source_map_path.exists() {
-                    println!("Loading existing source map file: {:?}", source_map_path);
+                    println!(
+                        "{} {}",
+                        "⏳ Loading existing source map file:".cyan(),
+                        source_map_path.to_string_lossy().to_string().blue(),
+                    );
                     let data = fs::read_to_string(&source_map_path).unwrap_or_else(|_| {
-                        eprintln!("Error reading source map file: {:?}", source_map_path);
+                        eprintln!(
+                            "{} {}",
+                            "Error reading source map file:".red(),
+                            source_map_path.to_string_lossy().to_string().blue(),
+                        );
                         std::process::exit(1);
                     });
                     serde_json::from_str(&data).unwrap_or_else(|_| {
-                        eprintln!("Error parsing source map file: {:?}", source_map_path);
+                        eprintln!(
+                            "{} {}",
+                            "Error parsing source map file:".red(),
+                            source_map_path.to_string_lossy().to_string().blue(),
+                        );
                         std::process::exit(1);
                     })
                 } else {
-                    println!("Creating new source map file: {:?}", source_map_path);
+                    println!(
+                        "{} {}",
+                        "⏳ Creating new source map file:".yellow(),
+                        source_map_path.to_string_lossy().to_string().blue()
+                    );
                     fs::File::create(&source_map_path).unwrap_or_else(|_| {
-                        eprintln!("Error creating source map file: {:?}", source_map_path);
+                        eprintln!(
+                            "{} {}",
+                            "Error creating source map file:".red(),
+                            source_map_path.to_string_lossy().to_string().blue(),
+                        );
                         std::process::exit(1);
                     });
                     vec![]
@@ -143,8 +190,11 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                     }
 
                     println!(
-                        "→ Identifier change in {:?}: '{}' → '{}'",
-                        file, orig.0, modif.0
+                        "{} {}: '{}' → '{}'",
+                        "→ Identifier change in".green(),
+                        file.to_string_lossy().to_string().blue(),
+                        orig.0.yellow().italic(),
+                        modif.0.green().italic()
                     );
 
                     mappings_new.push(Mapping {
@@ -160,16 +210,25 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
                 let json_data = serde_json::to_string_pretty(&mappings).unwrap_or_else(|_| {
                     eprintln!(
-                        "Error serializing mappings to JSON for file: {:?}",
-                        source_map_path
+                        "{} {}",
+                        "Error serializing mappings to JSON for file:".red(),
+                        source_map_path.to_string_lossy().to_string().blue(),
                     );
                     std::process::exit(1);
                 });
                 fs::write(&source_map_path, json_data).unwrap_or_else(|_| {
-                    eprintln!("Error writing source map file: {:?}", source_map_path);
+                    eprintln!(
+                        "{} {}",
+                        "Error writing source map file:".red(),
+                        source_map_path.to_string_lossy().to_string().blue(),
+                    );
                     std::process::exit(1);
                 });
-                println!("Source map updated: {:?}", source_map_path);
+                println!(
+                    "{} {}",
+                    "✓ Source map updated:".green(),
+                    source_map_path.to_string_lossy().to_string().blue(),
+                );
             }
         }
     }

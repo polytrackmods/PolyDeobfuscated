@@ -5,6 +5,7 @@ edition = "2024"
 
 [dependencies]
 clap = { version = "4.5.38", features = ["derive"] }
+colored = "3.0.0"
 oxc_allocator = "0.72.0"
 oxc_ast = "0.72.0"
 oxc_ast_visit = "0.72.0"
