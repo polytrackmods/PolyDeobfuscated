@@ -33,8 +33,6 @@ You can optionally add the build directory to your `PATH` environment variable t
 imap --help
 ```
 
-The source map for the file will be created in the `source_maps` directory, and the temp directory will be updated with the latest code.
-
 ## Usage
 
 1. Edit the obfuscated code in the `PolyTrack` folder as needed.
