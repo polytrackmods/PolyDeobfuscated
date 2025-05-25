@@ -74,14 +74,12 @@ pub fn compare_identifiers(
 }
 
 pub fn update_temp_dir(code_dir: &str, temp_dir: &str) -> Result<(), Box<dyn std::error::Error>> {
+    fs::create_dir_all(temp_dir)?;
+
     let files = collect_js_files(code_dir)?;
     for file in files {
         let original_path = PathBuf::from(code_dir).join(&file);
         let temp_path = PathBuf::from(temp_dir).join(&file);
-
-        if let Some(parent) = temp_path.parent() {
-            fs::create_dir_all(parent)?;
-        }
 
         fs::copy(original_path, temp_path)?;
     }

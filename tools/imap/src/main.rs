@@ -5,8 +5,8 @@ mod visitor;
 use std::{fs, path::PathBuf};
 
 use clap::{Parser as ClapParser, Subcommand};
-use serde::{Deserialize, Serialize};
 
+use crate::types::*;
 use crate::utils::*;
 
 #[derive(ClapParser)]
@@ -42,21 +42,18 @@ enum Commands {
     },
 }
 
-#[derive(Serialize, Deserialize)]
-struct Mapping {
-    original: String,
-    modified: String,
-    scope_id: u32,
-    id: usize,
-    declaration_type: String,
-}
-
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let cli = Cli::parse();
 
     match cli.command {
         Commands::Update { code_dir, temp_dir } => {
-            update_temp_dir(&code_dir, &temp_dir)?;
+            update_temp_dir(&code_dir, &temp_dir).unwrap_or_else(|_| {
+                eprintln!(
+                    "Error updating temp directory from {} to {}",
+                    code_dir, temp_dir
+                );
+                std::process::exit(1);
+            });
             println!(
                 "Files copied successfully from {} to {}",
                 code_dir, temp_dir
@@ -70,7 +67,10 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             let modified_dir = code_dir.clone();
             let original_dir = temp_dir.clone();
 
-            let files = collect_js_files(&original_dir)?;
+            let files = collect_js_files(&original_dir).unwrap_or_else(|_| {
+                eprintln!("Error collecting files from directory: {:?}", original_dir);
+                std::process::exit(1);
+            });
             println!("Found {} files to compare", files.len());
 
             let mut all_mappings: Vec<Vec<Mapping>> = vec![];
@@ -79,11 +79,31 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                 let original_path = PathBuf::from(&original_dir).join(&file);
                 let modified_path = PathBuf::from(&modified_dir).join(&file);
 
-                let original_source = fs::read_to_string(&original_path)?;
-                let modified_source = fs::read_to_string(&modified_path)?;
+                let original_source = fs::read_to_string(&original_path).unwrap_or_else(|_| {
+                    eprintln!("Error reading original file: {:?}", original_path);
+                    std::process::exit(1);
+                });
+                let modified_source = fs::read_to_string(&modified_path).unwrap_or_else(|_| {
+                    eprintln!("Error reading modified file: {:?}", modified_path);
+                    std::process::exit(1);
+                });
 
-                let original_identifiers = extract_identifiers(&original_source)?;
-                let modified_identifiers = extract_identifiers(&modified_source)?;
+                let original_identifiers =
+                    extract_identifiers(&original_source).unwrap_or_else(|_| {
+                        eprintln!(
+                            "Error extracting identifiers from original file: {:?}",
+                            original_path
+                        );
+                        std::process::exit(1);
+                    });
+                let modified_identifiers =
+                    extract_identifiers(&modified_source).unwrap_or_else(|_| {
+                        eprintln!(
+                            "Error extracting identifiers from modified file: {:?}",
+                            modified_path
+                        );
+                        std::process::exit(1);
+                    });
 
                 let (only_in_original, only_in_modified) =
                     compare_identifiers(&original_identifiers, &modified_identifiers);
@@ -135,12 +155,29 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
                         let mut mappings: Vec<Mapping> = if source_map_path.exists() {
                             println!("Loading existing source map file: {:?}", source_map_path);
-                            let data = fs::read_to_string(&source_map_path)?;
-                            serde_json::from_str(&data)?
+                            let data = fs::read_to_string(&source_map_path).unwrap_or_else(|_| {
+                                eprintln!("Error reading source map file: {:?}", source_map_path);
+                                std::process::exit(1);
+                            });
+                            serde_json::from_str(&data).unwrap_or_else(|_| {
+                                eprintln!("Error parsing source map file: {:?}", source_map_path);
+                                std::process::exit(1);
+                            })
                         } else {
                             println!("Creating new source map file: {:?}", source_map_path);
-                            fs::create_dir_all(source_map_path.parent().unwrap())?;
-                            fs::File::create(&source_map_path)?;
+                            fs::create_dir_all(source_map_path.parent().unwrap()).unwrap_or_else(
+                                |_| {
+                                    eprintln!(
+                                        "Error creating source map directory: {:?}",
+                                        source_map_path.parent().unwrap()
+                                    );
+                                    std::process::exit(1);
+                                },
+                            );
+                            fs::File::create(&source_map_path).unwrap_or_else(|_| {
+                                eprintln!("Error creating source map file: {:?}", source_map_path);
+                                std::process::exit(1);
+                            });
                             vec![]
                         };
 
@@ -151,14 +188,31 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             }
 
             for (i, mappings) in all_mappings.iter().enumerate() {
-                let source_map_path = PathBuf::from(&source_map_dir).join(files[i].clone()).with_extension("json");
+                let source_map_path = PathBuf::from(&source_map_dir)
+                    .join(files[i].clone())
+                    .with_extension("json");
 
-                let json_data = serde_json::to_string_pretty(&mappings)?;
-                fs::write(&source_map_path, json_data)?;
+                let json_data = serde_json::to_string_pretty(&mappings).unwrap_or_else(|_| {
+                    eprintln!(
+                        "Error serializing mappings to JSON for file: {:?}",
+                        source_map_path
+                    );
+                    std::process::exit(1);
+                });
+                fs::write(&source_map_path, json_data).unwrap_or_else(|_| {
+                    eprintln!("Error writing source map file: {:?}", source_map_path);
+                    std::process::exit(1);
+                });
                 println!("Source map updated: {:?}", source_map_path);
             }
 
-            update_temp_dir(&code_dir, &temp_dir)?;
+            update_temp_dir(&code_dir, &temp_dir).unwrap_or_else(|_| {
+                eprintln!(
+                    "Error updating temp directory from {} to {}",
+                    code_dir, temp_dir
+                );
+                std::process::exit(1);
+            });
             println!(
                 "Files copied successfully from {} to {}",
                 code_dir, temp_dir
