@@ -19,23 +19,14 @@ struct Cli {
 
 #[derive(Subcommand)]
 enum Commands {
-    /// Copies files from code_dir to temp_dir
-    Update {
-        /// Directory containing the code to be copied
-        #[arg(short, long, default_value = "PolyTrack")]
-        code_dir: String,
-        /// Directory to copy files to
-        #[arg(short, long, default_value = "temp")]
-        temp_dir: String,
-    },
     /// Compares identifiers between two directories and creates the source map
     Create {
         /// Directory containing the modified code
         #[arg(short, long, default_value = "PolyTrack")]
         code_dir: String,
         /// Directory containing the original code
-        #[arg(short, long, default_value = "temp")]
-        temp_dir: String,
+        #[arg(short, long, default_value = "original")]
+        original_dir: String,
         /// Directory in which to create the source map
         #[arg(short, long, default_value = "source_maps")]
         source_map_dir: String,
@@ -46,34 +37,24 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let cli = Cli::parse();
 
     match cli.command {
-        Commands::Update { code_dir, temp_dir } => {
-            update_temp_dir(&code_dir, &temp_dir).unwrap_or_else(|_| {
-                eprintln!(
-                    "Error updating temp directory from {} to {}",
-                    code_dir, temp_dir
-                );
-                std::process::exit(1);
-            });
-            println!(
-                "Files copied successfully from {} to {}",
-                code_dir, temp_dir
-            );
-        }
         Commands::Create {
             code_dir,
-            temp_dir,
+            original_dir,
             source_map_dir,
         } => {
+            fs::create_dir_all(&source_map_dir).unwrap_or_else(|_| {
+                eprintln!("Error creating source map directory: {:?}", source_map_dir);
+                std::process::exit(1);
+            });
+
             let modified_dir = code_dir.clone();
-            let original_dir = temp_dir.clone();
+            let original_dir = original_dir.clone();
 
             let files = collect_js_files(&original_dir).unwrap_or_else(|_| {
                 eprintln!("Error collecting files from directory: {:?}", original_dir);
                 std::process::exit(1);
             });
             println!("Found {} files to compare", files.len());
-
-            let mut all_mappings: Vec<Vec<Mapping>> = vec![];
 
             for file in files.iter() {
                 let original_path = PathBuf::from(&original_dir).join(&file);
@@ -108,89 +89,74 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                 let (only_in_original, only_in_modified) =
                     compare_identifiers(&original_identifiers, &modified_identifiers);
 
-                match (only_in_original.len(), only_in_modified.len()) {
-                    (0, 0) => println!("✓ No identifier differences in file: {:?}", file),
-                    (orig_count, mod_count) => {
-                        if orig_count != mod_count {
-                            eprintln!(
-                                "⚠ Identifier count mismatch in {:?}: {} original, {} modified",
-                                file, orig_count, mod_count
-                            );
+                let orig_count = only_in_original.len();
+                let mod_count = only_in_modified.len();
 
-                            std::process::exit(1);
-                        }
+                if orig_count != mod_count {
+                    eprintln!(
+                        "⚠ Identifier count mismatch in {:?}: {} original, {} modified",
+                        file, orig_count, mod_count
+                    );
 
-                        let matches =
-                            check_identifier_matches(&only_in_original, &only_in_modified);
-                        if !matches {
-                            eprintln!(
-                                "⚠ Identifier mismatch in {:?}: {} original, {} modified",
-                                file,
-                                only_in_original.len(),
-                                only_in_modified.len()
-                            );
-
-                            std::process::exit(1);
-                        }
-
-                        let mut mappings_new = vec![];
-                        for (orig, modif) in only_in_original.iter().zip(only_in_modified.iter()) {
-                            println!(
-                                "→ Identifier change in {:?}: '{}' → '{}'",
-                                file, orig.0, modif.0
-                            );
-
-                            mappings_new.push(Mapping {
-                                original: orig.0.clone(),
-                                modified: modif.0.clone(),
-                                scope_id: orig.1,
-                                id: orig.2,
-                                declaration_type: orig.3.clone(),
-                            });
-                        }
-
-                        let source_map_path = PathBuf::from(&source_map_dir)
-                            .join(&file)
-                            .with_extension("json");
-
-                        let mut mappings: Vec<Mapping> = if source_map_path.exists() {
-                            println!("Loading existing source map file: {:?}", source_map_path);
-                            let data = fs::read_to_string(&source_map_path).unwrap_or_else(|_| {
-                                eprintln!("Error reading source map file: {:?}", source_map_path);
-                                std::process::exit(1);
-                            });
-                            serde_json::from_str(&data).unwrap_or_else(|_| {
-                                eprintln!("Error parsing source map file: {:?}", source_map_path);
-                                std::process::exit(1);
-                            })
-                        } else {
-                            println!("Creating new source map file: {:?}", source_map_path);
-                            fs::create_dir_all(source_map_path.parent().unwrap()).unwrap_or_else(
-                                |_| {
-                                    eprintln!(
-                                        "Error creating source map directory: {:?}",
-                                        source_map_path.parent().unwrap()
-                                    );
-                                    std::process::exit(1);
-                                },
-                            );
-                            fs::File::create(&source_map_path).unwrap_or_else(|_| {
-                                eprintln!("Error creating source map file: {:?}", source_map_path);
-                                std::process::exit(1);
-                            });
-                            vec![]
-                        };
-
-                        mappings.extend(mappings_new);
-                        all_mappings.push(mappings);
-                    }
+                    std::process::exit(1);
                 }
-            }
 
-            for (i, mappings) in all_mappings.iter().enumerate() {
+                let matches = check_identifier_matches(&only_in_original, &only_in_modified);
+                if !matches {
+                    eprintln!(
+                        "⚠ Identifier mismatch in {:?}: {} original, {} modified",
+                        file,
+                        only_in_original.len(),
+                        only_in_modified.len()
+                    );
+
+                    std::process::exit(1);
+                }
+
                 let source_map_path = PathBuf::from(&source_map_dir)
-                    .join(files[i].clone())
+                    .join(&file)
                     .with_extension("json");
+
+                let mut mappings: Vec<Mapping> = if source_map_path.exists() {
+                    println!("Loading existing source map file: {:?}", source_map_path);
+                    let data = fs::read_to_string(&source_map_path).unwrap_or_else(|_| {
+                        eprintln!("Error reading source map file: {:?}", source_map_path);
+                        std::process::exit(1);
+                    });
+                    serde_json::from_str(&data).unwrap_or_else(|_| {
+                        eprintln!("Error parsing source map file: {:?}", source_map_path);
+                        std::process::exit(1);
+                    })
+                } else {
+                    println!("Creating new source map file: {:?}", source_map_path);
+                    fs::File::create(&source_map_path).unwrap_or_else(|_| {
+                        eprintln!("Error creating source map file: {:?}", source_map_path);
+                        std::process::exit(1);
+                    });
+                    vec![]
+                };
+
+                let mut mappings_new = vec![];
+                for (orig, modif) in only_in_original.iter().zip(only_in_modified.iter()) {
+                    if mappings.iter().any(|m| m.id == orig.2 && m.id == modif.2) {
+                        continue;
+                    }
+
+                    println!(
+                        "→ Identifier change in {:?}: '{}' → '{}'",
+                        file, orig.0, modif.0
+                    );
+
+                    mappings_new.push(Mapping {
+                        original: orig.0.clone(),
+                        modified: modif.0.clone(),
+                        scope_id: orig.1,
+                        id: orig.2,
+                        declaration_type: orig.3.clone(),
+                    });
+                }
+
+                mappings.extend(mappings_new);
 
                 let json_data = serde_json::to_string_pretty(&mappings).unwrap_or_else(|_| {
                     eprintln!(
@@ -205,18 +171,6 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                 });
                 println!("Source map updated: {:?}", source_map_path);
             }
-
-            update_temp_dir(&code_dir, &temp_dir).unwrap_or_else(|_| {
-                eprintln!(
-                    "Error updating temp directory from {} to {}",
-                    code_dir, temp_dir
-                );
-                std::process::exit(1);
-            });
-            println!(
-                "Files copied successfully from {} to {}",
-                code_dir, temp_dir
-            );
         }
     }
 

@@ -1,4 +1,4 @@
-use std::{collections::HashSet, fs, path::PathBuf};
+use std::{collections::HashSet, path::PathBuf};
 
 use oxc_allocator::Allocator;
 use oxc_ast_visit::Visit;
@@ -71,20 +71,6 @@ pub fn compare_identifiers(
         .collect();
 
     (only_in_first, only_in_second)
-}
-
-pub fn update_temp_dir(code_dir: &str, temp_dir: &str) -> Result<(), Box<dyn std::error::Error>> {
-    fs::create_dir_all(temp_dir)?;
-
-    let files = collect_js_files(code_dir)?;
-    for file in files {
-        let original_path = PathBuf::from(code_dir).join(&file);
-        let temp_path = PathBuf::from(temp_dir).join(&file);
-
-        fs::copy(original_path, temp_path)?;
-    }
-
-    Ok(())
 }
 
 pub fn check_identifier_matches(

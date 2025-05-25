@@ -35,10 +35,16 @@ imap --help
 
 The source map for the file will be created in the `source_maps` directory, and the temp directory will be updated with the latest code.
 
-## Reminders
+## Usage
 
-- If you add a comment or anything that is not renaming an identifier, you must run the `update` command again to update the temp directory with the latest code.
-- Do not modify the structure of the obfuscated code. The tool relies on the structure of the code to create accurate source maps.
+1. Edit the obfuscated code in the `PolyTrack` folder as needed.
+2. Run the `imap create` command to generate the source maps:
+
+    ```bash
+    imap create
+    ```
+
+3. The generated source maps will be placed in the `source_maps` folder.
 
 ## The Source Map
 
@@ -61,4 +67,4 @@ struct Mapping {
 
 ## License
 
-IMap is licensed under the [MIT License](https://opensource.org/licenses/MIT). See the [LICENSE](LICENSE) file for more information. This does not mean that the actual deobfuscated code is licensed under the MIT license.
+IMap is licensed under the [MIT License](https://opensource.org/licenses/MIT). See the [LICENSE](LICENSE) file for more information.
