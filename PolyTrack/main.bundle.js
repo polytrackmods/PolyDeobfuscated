@@ -12704,7 +12704,7 @@
                     })(e, r)
                 );
             }
-            class Ja extends Curve {
+            class CubicBezierCurve extends Curve {
                 constructor(
                     e = new Vector2(),
                     t = new Vector2(),
@@ -12764,7 +12764,7 @@
                     );
                 }
             }
-            class $a extends Curve {
+            class LineCurve extends Curve {
                 constructor(e = new Vector2(), t = new Vector2()) {
                     super(),
                         (this.isLineCurve = !0),
@@ -12816,7 +12816,7 @@
                     );
                 }
             }
-            class es extends Curve {
+            class QuadraticBezierCurve extends Curve {
                 constructor(e = new Vector2(), t = new Vector2(), n = new Vector2()) {
                     super(),
                         (this.isQuadraticBezierCurve = !0),
@@ -12860,7 +12860,7 @@
                     );
                 }
             }
-            class ts extends Curve {
+            class QuadraticBezierCurve3 extends Curve {
                 constructor(e = new Vector3(), t = new Vector3(), n = new Vector3()) {
                     super(),
                         (this.isQuadraticBezierCurve3 = !0),
@@ -12911,7 +12911,7 @@
                     );
                 }
             }
-            class ns extends Curve {
+            class SplineCurve extends Curve {
                 constructor(e = []) {
                     super(),
                         (this.isSplineCurve = !0),
@@ -12962,7 +12962,7 @@
                     return this;
                 }
             }
-            var is = Object.freeze({
+            var ArcCurve = Object.freeze({
                 __proto__: null,
                 ArcCurve: class extends EllipseCurve {
                     constructor(e, t, n, i, r, a) {
@@ -13112,7 +13112,7 @@
                         );
                     }
                 },
-                CubicBezierCurve: Ja,
+                CubicBezierCurve: CubicBezierCurve,
                 CubicBezierCurve3: class extends Curve {
                     constructor(
                         e = new Vector3(),
@@ -13175,7 +13175,7 @@
                     }
                 },
                 EllipseCurve: EllipseCurve,
-                LineCurve: $a,
+                LineCurve: LineCurve,
                 LineCurve3: class extends Curve {
                     constructor(e = new Vector3(), t = new Vector3()) {
                         super(),
@@ -13228,11 +13228,11 @@
                         );
                     }
                 },
-                QuadraticBezierCurve: es,
-                QuadraticBezierCurve3: ts,
-                SplineCurve: ns,
+                QuadraticBezierCurve: QuadraticBezierCurve,
+                QuadraticBezierCurve3: QuadraticBezierCurve3,
+                SplineCurve: SplineCurve,
             });
-            class rs extends Curve {
+            class CurvePath extends Curve {
                 constructor() {
                     super(),
                         (this.type = "CurvePath"),
@@ -13248,7 +13248,7 @@
                     if (!e.equals(t)) {
                         const n =
                             !0 === e.isVector2 ? "LineCurve" : "LineCurve3";
-                        this.curves.push(new is[n](t, e));
+                        this.curves.push(new ArcCurve[n](t, e));
                     }
                     return this;
                 }
@@ -13343,12 +13343,12 @@
                         (this.curves = []);
                     for (let t = 0, n = e.curves.length; t < n; t++) {
                         const n = e.curves[t];
-                        this.curves.push(new is[n.type]().fromJSON(n));
+                        this.curves.push(new ArcCurve[n.type]().fromJSON(n));
                     }
                     return this;
                 }
             }
-            class as extends rs {
+            class Path extends CurvePath {
                 constructor(e) {
                     super(),
                         (this.type = "Path"),
@@ -13365,13 +13365,13 @@
                     return this.currentPoint.set(e, t), this;
                 }
                 lineTo(e, t) {
-                    const n = new $a(this.currentPoint.clone(), new Vector2(e, t));
+                    const n = new LineCurve(this.currentPoint.clone(), new Vector2(e, t));
                     return (
                         this.curves.push(n), this.currentPoint.set(e, t), this
                     );
                 }
                 quadraticCurveTo(e, t, n, i) {
-                    const r = new es(
+                    const r = new QuadraticBezierCurve(
                         this.currentPoint.clone(),
                         new Vector2(e, t),
                         new Vector2(n, i)
@@ -13381,7 +13381,7 @@
                     );
                 }
                 bezierCurveTo(e, t, n, i, r, a) {
-                    const s = new Ja(
+                    const s = new CubicBezierCurve(
                         this.currentPoint.clone(),
                         new Vector2(e, t),
                         new Vector2(n, i),
@@ -13393,7 +13393,7 @@
                 }
                 splineThru(e) {
                     const t = [this.currentPoint.clone()].concat(e),
-                        n = new ns(t);
+                        n = new SplineCurve(t);
                     return (
                         this.curves.push(n),
                         this.currentPoint.copy(e[e.length - 1]),
@@ -13444,7 +13444,7 @@
                     );
                 }
             }
-            class ss extends as {
+            class Shape extends Path {
                 constructor(e) {
                     super(e),
                         (this.uuid = generateUUID()),
@@ -13484,16 +13484,16 @@
                     super.fromJSON(e), (this.uuid = e.uuid), (this.holes = []);
                     for (let t = 0, n = e.holes.length; t < n; t++) {
                         const n = e.holes[t];
-                        this.holes.push(new as().fromJSON(n));
+                        this.holes.push(new Path().fromJSON(n));
                     }
                     return this;
                 }
             }
-            class os {
+            class PolygonTriangulator {
                 static triangulate(e, t, n = 2) {
                     const i = t && t.length,
                         r = i ? t[0] * n : e.length;
-                    let a = ls(e, 0, r, n, !0);
+                    let a = createVertexLinkedList(e, 0, r, n, !0);
                     const s = [];
                     if (!a || a.next === a.prev) return s;
                     let o, l, c, h, d, u, p;
@@ -13508,11 +13508,11 @@
                                             a < s - 1
                                                 ? t[a + 1] * i
                                                 : e.length),
-                                        (c = ls(e, o, l, i, !1)),
+                                        (c = createVertexLinkedList(e, o, l, i, !1)),
                                         c === c.next && (c.steiner = !0),
                                         r.push(ys(c));
-                                for (r.sort(ms), a = 0; a < r.length; a++)
-                                    n = gs(r[a], n);
+                                for (r.sort(sortHoleNodes), a = 0; a < r.length; a++)
+                                    n = mergeHoleIntoPolygon(r[a], n);
                                 return n;
                             })(e, t, a, n)),
                         e.length > 80 * n)
@@ -13528,10 +13528,10 @@
                         (p = Math.max(c - o, h - l)),
                             (p = 0 !== p ? 32767 / p : 0);
                     }
-                    return hs(a, s, n, o, l, p, 0), s;
+                    return performEarClipping(a, s, n, o, l, p, 0), s;
                 }
             }
-            function ls(e, t, n, i, r) {
+            function createVertexLinkedList(e, t, n, i, r) {
                 let a, s;
                 if (
                     r ===
@@ -13548,28 +13548,28 @@
                 else
                     for (a = n - i; a >= t; a -= i)
                         s = Cs(a, e[a], e[a + 1], s);
-                return s && ks(s, s.next) && (Ps(s), (s = s.next)), s;
+                return s && isVertexConvex(s, s.next) && (removeVertex(s), (s = s.next)), s;
             }
-            function cs(e, t) {
-                if (!e) return e;
-                t || (t = e);
+            function simplifyPolygon(startNode, tailNode) {
+                if (!startNode) return startNode;
+                tailNode || (tailNode = startNode);
                 let n,
-                    i = e;
+                    i = startNode;
                 do {
                     if (
                         ((n = !1),
                         i.steiner ||
-                            (!ks(i, i.next) && 0 !== xs(i.prev, i, i.next)))
+                            (!isVertexConvex(i, i.next) && 0 !== calculateSignedArea(i.prev, i, i.next)))
                     )
                         i = i.next;
                     else {
-                        if ((Ps(i), (i = t = i.prev), i === i.next)) break;
+                        if ((removeVertex(i), (i = tailNode = i.prev), i === i.next)) break;
                         n = !0;
                     }
-                } while (n || i !== t);
-                return t;
+                } while (n || i !== tailNode);
+                return tailNode;
             }
-            function hs(e, t, n, i, r, a, s) {
+            function performEarClipping(e, t, n, i, r, a, s) {
                 if (!e) return;
                 !s &&
                     a &&
@@ -13623,28 +13623,28 @@
                     c = e;
                 for (; e.prev !== e.next; )
                     if (
-                        ((o = e.prev), (l = e.next), a ? us(e, i, r, a) : ds(e))
+                        ((o = e.prev), (l = e.next), a ? isValidEarWithSpatialIndex(e, i, r, a) : isValidEarTriangle(e))
                     )
                         t.push((o.i / n) | 0),
                             t.push((e.i / n) | 0),
                             t.push((l.i / n) | 0),
-                            Ps(e),
+                            removeVertex(e),
                             (e = l.next),
                             (c = l.next);
                     else if ((e = l) === c) {
                         s
                             ? 1 === s
-                                ? hs((e = ps(cs(e), t, n)), t, n, i, r, a, 2)
-                                : 2 === s && fs(e, t, n, i, r, a)
-                            : hs(cs(e), t, n, i, r, a, 1);
+                                ? performEarClipping((e = processPolygonEars(simplifyPolygon(e), t, n)), t, n, i, r, a, 2)
+                                : 2 === s && splitAndTriangulatePolygon(e, t, n, i, r, a)
+                            : performEarClipping(simplifyPolygon(e), t, n, i, r, a, 1);
                         break;
                     }
             }
-            function ds(e) {
+            function isValidEarTriangle(e) {
                 const t = e.prev,
                     n = e,
                     i = e.next;
-                if (xs(t, n, i) >= 0) return !1;
+                if (calculateSignedArea(t, n, i) >= 0) return !1;
                 const r = t.x,
                     a = n.x,
                     s = i.x,
@@ -13663,18 +13663,18 @@
                         f.y >= d &&
                         f.y <= p &&
                         As(r, o, a, l, s, c, f.x, f.y) &&
-                        xs(f.prev, f, f.next) >= 0
+                        calculateSignedArea(f.prev, f, f.next) >= 0
                     )
                         return !1;
                     f = f.next;
                 }
                 return !0;
             }
-            function us(e, t, n, i) {
+            function isValidEarWithSpatialIndex(e, t, n, i) {
                 const r = e.prev,
                     a = e,
                     s = e.next;
-                if (xs(r, a, s) >= 0) return !1;
+                if (calculateSignedArea(r, a, s) >= 0) return !1;
                 const o = r.x,
                     l = a.x,
                     c = s.x,
@@ -13698,7 +13698,7 @@
                         y !== r &&
                         y !== s &&
                         As(o, h, l, d, c, u, y.x, y.y) &&
-                        xs(y.prev, y, y.next) >= 0
+                        calculateSignedArea(y.prev, y, y.next) >= 0
                     )
                         return !1;
                     if (
@@ -13710,7 +13710,7 @@
                             A !== r &&
                             A !== s &&
                             As(o, h, l, d, c, u, A.x, A.y) &&
-                            xs(A.prev, A, A.next) >= 0)
+                            calculateSignedArea(A.prev, A, A.next) >= 0)
                     )
                         return !1;
                     A = A.nextZ;
@@ -13724,7 +13724,7 @@
                         y !== r &&
                         y !== s &&
                         As(o, h, l, d, c, u, y.x, y.y) &&
-                        xs(y.prev, y, y.next) >= 0
+                        calculateSignedArea(y.prev, y, y.next) >= 0
                     )
                         return !1;
                     y = y.prevZ;
@@ -13738,44 +13738,44 @@
                         A !== r &&
                         A !== s &&
                         As(o, h, l, d, c, u, A.x, A.y) &&
-                        xs(A.prev, A, A.next) >= 0
+                        calculateSignedArea(A.prev, A, A.next) >= 0
                     )
                         return !1;
                     A = A.nextZ;
                 }
                 return !0;
             }
-            function ps(e, t, n) {
+            function processPolygonEars(e, t, n) {
                 let i = e;
                 do {
                     const r = i.prev,
                         a = i.next.next;
-                    !ks(r, a) &&
-                        Es(r, i, i.next, a) &&
-                        Ts(r, a) &&
-                        Ts(a, r) &&
+                    !isVertexConvex(r, a) &&
+                        isDiagonalValid(r, i, i.next, a) &&
+                        isLocallyInside(r, a) &&
+                        isLocallyInside(a, r) &&
                         (t.push((r.i / n) | 0),
                         t.push((i.i / n) | 0),
                         t.push((a.i / n) | 0),
-                        Ps(i),
-                        Ps(i.next),
+                        removeVertex(i),
+                        removeVertex(i.next),
                         (i = e = a)),
                         (i = i.next);
                 } while (i !== e);
-                return cs(i);
+                return simplifyPolygon(i);
             }
-            function fs(e, t, n, i, r, a) {
+            function splitAndTriangulatePolygon(e, t, n, i, r, a) {
                 let s = e;
                 do {
                     let e = s.next.next;
                     for (; e !== s.prev; ) {
-                        if (s.i !== e.i && bs(s, e)) {
+                        if (s.i !== e.i && canFormValidDiagonal(s, e)) {
                             let o = _s(s, e);
                             return (
-                                (s = cs(s, s.next)),
-                                (o = cs(o, o.next)),
-                                hs(s, t, n, i, r, a, 0),
-                                void hs(o, t, n, i, r, a, 0)
+                                (s = simplifyPolygon(s, s.next)),
+                                (o = simplifyPolygon(o, o.next)),
+                                performEarClipping(s, t, n, i, r, a, 0),
+                                void performEarClipping(o, t, n, i, r, a, 0)
                             );
                         }
                         e = e.next;
@@ -13783,10 +13783,10 @@
                     s = s.next;
                 } while (s !== e);
             }
-            function ms(e, t) {
+            function sortHoleNodes(e, t) {
                 return e.x - t.x;
             }
-            function gs(e, t) {
+            function mergeHoleIntoPolygon(e, t) {
                 const n = (function (e, t) {
                     let n,
                         i = t,
@@ -13832,11 +13832,11 @@
                                 i.y
                             ) &&
                             ((h = Math.abs(s - i.y) / (a - i.x)),
-                            Ts(i, e) &&
+                            isLocallyInside(i, e) &&
                                 (h < d ||
                                     (h === d &&
                                         (i.x > n.x ||
-                                            (i.x === n.x && vs(n, i))))) &&
+                                            (i.x === n.x && isValidDiagonal(n, i))))) &&
                                 ((n = i), (d = h))),
                             (i = i.next);
                     } while (i !== o);
@@ -13844,10 +13844,10 @@
                 })(e, t);
                 if (!n) return t;
                 const i = _s(n, e);
-                return cs(i, i.next), cs(n, n.next);
+                return simplifyPolygon(i, i.next), simplifyPolygon(n, n.next);
             }
-            function vs(e, t) {
-                return xs(e.prev, e, t.prev) < 0 && xs(t.next, e, e.next) < 0;
+            function isValidDiagonal(e, t) {
+                return calculateSignedArea(e.prev, e, t.prev) < 0 && calculateSignedArea(t.next, e, e.next) < 0;
             }
             function ws(e, t, n, i, r) {
                 return (
@@ -13894,7 +13894,7 @@
                     (n - s) * (a - o) >= (r - s) * (i - o)
                 );
             }
-            function bs(e, t) {
+            function canFormValidDiagonal(e, t) {
                 return (
                     e.next.i !== t.i &&
                     e.prev.i !== t.i &&
@@ -13906,15 +13906,15 @@
                                 n.next.i !== e.i &&
                                 n.i !== t.i &&
                                 n.next.i !== t.i &&
-                                Es(n, n.next, e, t)
+                                isDiagonalValid(n, n.next, e, t)
                             )
                                 return !0;
                             n = n.next;
                         } while (n !== e);
                         return !1;
                     })(e, t) &&
-                    ((Ts(e, t) &&
-                        Ts(t, e) &&
+                    ((isLocallyInside(e, t) &&
+                        isLocallyInside(t, e) &&
                         (function (e, t) {
                             let n = e,
                                 i = !1;
@@ -13932,23 +13932,23 @@
                             } while (n !== e);
                             return i;
                         })(e, t) &&
-                        (xs(e.prev, e, t.prev) || xs(e, t.prev, t))) ||
-                        (ks(e, t) &&
-                            xs(e.prev, e, e.next) > 0 &&
-                            xs(t.prev, t, t.next) > 0))
+                        (calculateSignedArea(e.prev, e, t.prev) || calculateSignedArea(e, t.prev, t))) ||
+                        (isVertexConvex(e, t) &&
+                            calculateSignedArea(e.prev, e, e.next) > 0 &&
+                            calculateSignedArea(t.prev, t, t.next) > 0))
                 );
             }
-            function xs(e, t, n) {
+            function calculateSignedArea(e, t, n) {
                 return (t.y - e.y) * (n.x - t.x) - (t.x - e.x) * (n.y - t.y);
             }
-            function ks(e, t) {
+            function isVertexConvex(e, t) {
                 return e.x === t.x && e.y === t.y;
             }
-            function Es(e, t, n, i) {
-                const r = Ms(xs(e, t, n)),
-                    a = Ms(xs(e, t, i)),
-                    s = Ms(xs(n, i, e)),
-                    o = Ms(xs(n, i, t));
+            function isDiagonalValid(e, t, n, i) {
+                const r = Ms(calculateSignedArea(e, t, n)),
+                    a = Ms(calculateSignedArea(e, t, i)),
+                    s = Ms(calculateSignedArea(n, i, e)),
+                    o = Ms(calculateSignedArea(n, i, t));
                 return (
                     (r !== a && s !== o) ||
                     !(0 !== r || !Ss(e, n, t)) ||
@@ -13968,10 +13968,10 @@
             function Ms(e) {
                 return e > 0 ? 1 : e < 0 ? -1 : 0;
             }
-            function Ts(e, t) {
-                return xs(e.prev, e, e.next) < 0
-                    ? xs(e, t, e.next) >= 0 && xs(e, e.prev, t) >= 0
-                    : xs(e, t, e.prev) < 0 || xs(e, e.next, t) < 0;
+            function isLocallyInside(e, t) {
+                return calculateSignedArea(e.prev, e, e.next) < 0
+                    ? calculateSignedArea(e, t, e.next) >= 0 && calculateSignedArea(e, e.prev, t) >= 0
+                    : calculateSignedArea(e, t, e.prev) < 0 || calculateSignedArea(e, e.next, t) < 0;
             }
             function _s(e, t) {
                 const n = new Is(e.i, e.x, e.y),
@@ -14002,7 +14002,7 @@
                     r
                 );
             }
-            function Ps(e) {
+            function removeVertex(e) {
                 (e.next.prev = e.prev),
                     (e.prev.next = e.next),
                     e.prevZ && (e.prevZ.nextZ = e.nextZ),
@@ -14039,7 +14039,7 @@
                     t.forEach(Ls);
                     for (let e = 0; e < t.length; e++)
                         i.push(a), (a += t[e].length), Ds(n, t[e]);
-                    const s = os.triangulate(n, i);
+                    const s = PolygonTriangulator.triangulate(n, i);
                     for (let e = 0; e < s.length; e += 3)
                         r.push(s.slice(e, e + 3));
                     return r;
@@ -14116,7 +14116,7 @@
             }
             class Bs extends BufferGeometry {
                 constructor(
-                    e = new ss([
+                    e = new Shape([
                         new Vector2(0, 0.5),
                         new Vector2(-0.5, -0.5),
                         new Vector2(0.5, -0.5),
@@ -16798,7 +16798,7 @@
                 }
                 moveTo(e, t) {
                     return (
-                        (this.currentPath = new as()),
+                        (this.currentPath = new Path()),
                         this.subPaths.push(this.currentPath),
                         this.currentPath.moveTo(e, t),
                         this
@@ -16864,7 +16864,7 @@
                     if (1 === i.length)
                         return (
                             (a = i[0]),
-                            (s = new ss()),
+                            (s = new Shape()),
                             (s.curves = a.curves),
                             o.push(s),
                             o
@@ -16885,7 +16885,7 @@
                             (r = e ? !r : r),
                             r
                                 ? (!l && h[f] && f++,
-                                  (h[f] = { s: new ss(), p: d }),
+                                  (h[f] = { s: new Shape(), p: d }),
                                   (h[f].s.curves = a.curves),
                                   l && f++,
                                   (p[f] = []))
@@ -16895,7 +16895,7 @@
                             const t = [];
                             for (let n = 0, i = e.length; n < i; n++) {
                                 const i = e[n],
-                                    r = new ss();
+                                    r = new Shape();
                                 (r.curves = i.curves), t.push(r);
                             }
                             return t;
