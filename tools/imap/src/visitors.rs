@@ -199,10 +199,11 @@ impl<'a> Visit<'a> for Renamer {
     }
 
     fn visit_static_member_expression(&mut self, it: &ast::StaticMemberExpression<'a>) {
-        if let ast::Expression::ThisExpression(_) = it.object
-            && let Some(new_name) = self.get_new_identifier(it.property.name.as_ref()) {
+        if let ast::Expression::ThisExpression(_) = it.object {
+            if let Some(new_name) = self.get_new_identifier(it.property.name.as_ref()) {
                 self.add_change(it.property.span, new_name);
             }
+        }
 
         walk::walk_static_member_expression(self, it);
     }
@@ -221,19 +222,22 @@ impl<'a> Visit<'a> for Renamer {
             if let Some(new_name) = self.get_new_identifier(static_identifier.name.as_ref()) {
                 self.add_change(static_identifier.span, new_name);
             }
-        } else if let ast::PropertyKey::PrivateIdentifier(private_identifier) = it
-            && let Some(new_name) = self.get_new_identifier(private_identifier.name.as_ref()) {
+        }
+        if let ast::PropertyKey::PrivateIdentifier(private_identifier) = it {
+            if let Some(new_name) = self.get_new_identifier(private_identifier.name.as_ref()) {
                 self.add_change(private_identifier.span, format!("#{new_name}"));
             }
+        }
 
         walk::walk_property_key(self, it);
     }
 
     fn visit_function(&mut self, it: &ast::Function<'a>, flags: oxc::syntax::scope::ScopeFlags) {
-        if let Some(id) = &it.id
-            && let Some(new_name) = self.get_new_identifier(id.name.as_ref()) {
+        if let Some(id) = &it.id {
+            if let Some(new_name) = self.get_new_identifier(id.name.as_ref()) {
                 self.add_change(id.span, new_name);
             }
+        }
 
         walk::walk_function(self, it, flags);
     }
