@@ -1,5 +1,5 @@
 (() => {
-    var modules = {
+    var e = {
             1312: (e, t, n) => {
                 var i;
                 /**
@@ -931,15 +931,15 @@
                 ];
             },
         },
-        moduleRequireCache = {};
-    function require(id) {
-        var cacheHit = moduleRequireCache[id];
-        if (void 0 !== cacheHit) return cacheHit.exports;
-        var module = (moduleRequireCache[id] = { exports: {} });
-        return modules[id](module, module.exports, require), module.exports;
+        t = {};
+    function n(i) {
+        var r = t[i];
+        if (void 0 !== r) return r.exports;
+        var a = (t[i] = { exports: {} });
+        return e[i](a, a.exports, n), a.exports;
     }
-    (require.amdO = {}),
-        (require.g = (function () {
+    (n.amdO = {}),
+        (n.g = (function () {
             if ("object" == typeof globalThis) return globalThis;
             try {
                 return this || new Function("return this")();
@@ -949,7 +949,7 @@
         })()),
         (() => {
             "use strict";
-            require(6925);
+            n(6925);
             /**
              * @license
              * Copyright 2010-2025 Three.js Authors
@@ -36533,7 +36533,7 @@
                     return v_(this, A_, "f").getFrame(e);
                 }
             };
-            var y_ = require(1312);
+            var y_ = n(1312);
             const x_ = [
                     "A",
                     "B",

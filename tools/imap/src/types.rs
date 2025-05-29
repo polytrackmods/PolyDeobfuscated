@@ -1,12 +1,14 @@
 use serde::{Deserialize, Serialize};
 
-pub type IdentifierDeclarationType = (String, u32, usize, String);
-
-#[derive(Serialize, Deserialize)]
-pub struct Mapping {
-    pub original: String,
-    pub modified: String,
-    pub scope_id: u32,
+#[derive(Debug, Clone, PartialEq, Eq, Hash, Serialize, Deserialize)]
+pub struct Identifier {
+    pub name: String,
+    pub scope_id: usize,
     pub id: usize,
-    pub declaration_type: String,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct Mapping {
+    pub original: Identifier,
+    pub modified: Identifier,
 }
