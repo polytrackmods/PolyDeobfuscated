@@ -21,7 +21,6 @@ Clean, readable, and deobfuscated source of PolyTrack, rebuilt for analysis, mod
 3. After renaming, run the following command to format the code:
 
     ```bash
-    cd polytrack-deobfuscated
     npx prettier --write .
     ```
 
