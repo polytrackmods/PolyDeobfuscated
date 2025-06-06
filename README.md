@@ -31,10 +31,10 @@ Clean, readable, and deobfuscated source of PolyTrack, rebuilt for analysis, mod
 First, setup the `Mergiraf` tool:
 
 ```bash
-git config --global merge.conflictStyle diff3
-git config --global merge.mergiraf.name mergiraf
-git config --global merge.mergiraf.driver 'mergiraf merge --git %O %A %B -s %S -x %X -y %Y -p %P -l %L'
-git config --global core.attributesfile .gitattributes
+git config merge.conflictStyle diff3
+git config merge.mergiraf.name mergiraf
+git config merge.mergiraf.driver 'mergiraf merge --git %O %A %B -s %S -x %X -y %Y -p %P -l %L'
+git config core.attributesfile .gitattributes
 ```
 
 `Mergiraf` will automatically resolve merge conflicts in the deobfuscated code... for more information, refer to the [Mergiraf documentation](https://mergiraf.org/usage.html).

@@ -39653,7 +39653,7 @@
                     (e[(e.Custom7 = 39)] = "Custom7"),
                     (e[(e.Custom8 = 40)] = "Custom8");
             })(Zy || (Zy = {}));
-            const Jy = Zy;
+            const Colours = Zy;
             var $y;
             !(function (e) {
                 (e[(e.Straight = 0)] = "Straight"),
@@ -39850,7 +39850,7 @@
                         "BlockSlopeVerticalInnerCornerTop"),
                     (e[(e.BlockInnerCorner = 155)] = "BlockInnerCorner");
             })($y || ($y = {}));
-            const eA = $y;
+            const TrackIDs_v0_3_1 = $y;
             var tA;
             !(function (e) {
                 (e[(e.YPositive = 0)] = "YPositive"),
@@ -39860,7 +39860,7 @@
                     (e[(e.ZPositive = 4)] = "ZPositive"),
                     (e[(e.ZNegative = 5)] = "ZNegative");
             })(tA || (tA = {}));
-            const nA = tA;
+            const Axes = tA;
             var iA,
                 rA,
                 aA,
@@ -39936,10 +39936,10 @@
                                   0,
                                   0,
                                   4 * e,
-                                  eA.Start,
+                                  TrackIDs_v0_3_1.Start,
                                   2,
-                                  nA.YPositive,
-                                  Jy.Default,
+                                  Axes.YPositive,
+                                  Colours.Default,
                                   null,
                                   0
                               )
@@ -39947,10 +39947,10 @@
                                   0,
                                   0,
                                   4 * e,
-                                  eA.Straight,
+                                  TrackIDs_v0_3_1.Straight,
                                   0,
-                                  nA.YPositive,
-                                  Jy.Default,
+                                  Axes.YPositive,
+                                  Colours.Default,
                                   null,
                                   null
                               );
@@ -40342,7 +40342,7 @@
                     36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50,
                     51,
                 ];
-            function BA(e) {
+            function base62_encode(e) {
                 let t = 0,
                     n = "";
                 for (; t < 8 * e.length; ) {
@@ -40353,7 +40353,7 @@
                 }
                 return n;
             }
-            function UA(e) {
+            function base62_decode(e) {
                 let t = 0;
                 const n = [],
                     i = e.length;
@@ -40458,14 +40458,14 @@
                 }
             }
             FA = new WeakMap();
-            const GA = HA;
+            const SunDirection = HA;
             var jA;
             !(function (e) {
                 (e[(e.Summer = 0)] = "Summer"),
                     (e[(e.Winter = 1)] = "Winter"),
                     (e[(e.Desert = 2)] = "Desert");
             })(jA || (jA = {}));
-            const QA = jA;
+            const Environments = jA;
             var YA;
             !(function (e) {
                 (e[(e.Special = 0)] = "Special"),
@@ -40478,13 +40478,13 @@
                     (e[(e.Pillar = 7)] = "Pillar"),
                     (e[(e.Sign = 8)] = "Sign");
             })(YA || (YA = {}));
-            const KA = YA;
+            const BlockCategories = YA;
             var qA;
             !(function (e) {
                 (e[(e.Checkpoint = 0)] = "Checkpoint"),
                     (e[(e.Finish = 1)] = "Finish");
             })(qA || (qA = {}));
-            const XA = qA;
+            const BlockType = qA;
             var ZA,
                 JA = function (e, t, n, i, r) {
                     if ("m" === i)
@@ -40532,9 +40532,9 @@
                 }
                 rotated(e, t) {
                     const n =
-                        t == nA.YNegative ||
-                        t == nA.XNegative ||
-                        t == nA.ZNegative;
+                        t == Axes.YNegative ||
+                        t == Axes.XNegative ||
+                        t == Axes.ZNegative;
                     return new eb(
                         $A(this, ZA, "f").map(([i, r, a]) => {
                             if (n)
@@ -40570,14 +40570,14 @@
                                         throw new Error("Invalid rotation");
                                 }
                             return (
-                                t == nA.YPositive ||
-                                    (t == nA.YNegative
+                                t == Axes.YPositive ||
+                                    (t == Axes.YNegative
                                         ? ([i, r] = [-i - 1, -r - 1])
-                                        : t == nA.XPositive
+                                        : t == Axes.XPositive
                                           ? ([i, r] = [r, -i - 1])
-                                          : t == nA.XNegative
+                                          : t == Axes.XNegative
                                             ? ([i, r] = [-r - 1, i])
-                                            : t == nA.ZPositive
+                                            : t == Axes.ZPositive
                                               ? ([r, a] = [-a - 1, r])
                                               : ([r, a] = [a, -r - 1])),
                                 [i, r, a]
@@ -40598,9 +40598,9 @@
             ZA = new WeakMap();
             const tb = eb,
                 nb = [
-                    { id: Jy.Summer, colors: {} },
+                    { id: Colours.Summer, colors: {} },
                     {
-                        id: Jy.Winter,
+                        id: Colours.Winter,
                         colors: {
                             Road: "#5077b2",
                             RoadBarrier: "#898989",
@@ -40620,7 +40620,7 @@
                         },
                     },
                     {
-                        id: Jy.Desert,
+                        id: Colours.Desert,
                         colors: {
                             Road: "#997240",
                             RoadBarrier: "#211001",
@@ -40641,17 +40641,44 @@
                     },
                 ],
                 ib = nb.concat([
-                    { id: Jy.Custom0, colors: { BlockSurface: "#131313" } },
-                    { id: Jy.Custom1, colors: { BlockSurface: "#501b1b" } },
-                    { id: Jy.Custom2, colors: { BlockSurface: "#7f4d2b" } },
-                    { id: Jy.Custom3, colors: { BlockSurface: "#93862d" } },
-                    { id: Jy.Custom4, colors: { BlockSurface: "#2a5e30" } },
-                    { id: Jy.Custom5, colors: { BlockSurface: "#236363" } },
-                    { id: Jy.Custom6, colors: { BlockSurface: "#20244b" } },
-                    { id: Jy.Custom7, colors: { BlockSurface: "#592759" } },
-                    { id: Jy.Custom8, colors: { BlockSurface: "#302318" } },
+                    {
+                        id: Colours.Custom0,
+                        colors: { BlockSurface: "#131313" },
+                    },
+                    {
+                        id: Colours.Custom1,
+                        colors: { BlockSurface: "#501b1b" },
+                    },
+                    {
+                        id: Colours.Custom2,
+                        colors: { BlockSurface: "#7f4d2b" },
+                    },
+                    {
+                        id: Colours.Custom3,
+                        colors: { BlockSurface: "#93862d" },
+                    },
+                    {
+                        id: Colours.Custom4,
+                        colors: { BlockSurface: "#2a5e30" },
+                    },
+                    {
+                        id: Colours.Custom5,
+                        colors: { BlockSurface: "#236363" },
+                    },
+                    {
+                        id: Colours.Custom6,
+                        colors: { BlockSurface: "#20244b" },
+                    },
+                    {
+                        id: Colours.Custom7,
+                        colors: { BlockSurface: "#592759" },
+                    },
+                    {
+                        id: Colours.Custom8,
+                        colors: { BlockSurface: "#302318" },
+                    },
                 ]);
-            class rb {
+            class Block {
                 constructor(e, t, n, i, r, a, s = null, o = null) {
                     const l = [];
                     for (const [e, t] of a)
@@ -40681,11 +40708,11 @@
                         Object.freeze(this);
                 }
             }
-            const ab = [
-                    new rb(
+            const AllBlocks = [
+                    new Block(
                         "6d94d798abd14dc3bce4e99c180309d993ad43adb5f2c90eef8e350eedafe7cf",
-                        KA.Special,
-                        eA.Start,
+                        BlockCategories.Special,
+                        TrackIDs_v0_3_1.Start,
                         [["Road", "Start"]],
                         nb,
                         [
@@ -40697,10 +40724,10 @@
                         null,
                         new yn(0, 0.35, 1.35)
                     ),
-                    new rb(
+                    new Block(
                         "f29e34b2e05e0a4751109ae564b03fe8878a79cc6b26288f1117ed296d09c5bb",
-                        KA.Special,
-                        eA.StartWide,
+                        BlockCategories.Special,
+                        TrackIDs_v0_3_1.StartWide,
                         [["RoadWide", "StartWide"]],
                         nb,
                         [
@@ -40712,10 +40739,10 @@
                         null,
                         new yn(-10, 0.35, 1.35)
                     ),
-                    new rb(
+                    new Block(
                         "3c304054f415fbede4f73a43517db04302f38b16fa2cd4e587082b37b75e20e5",
-                        KA.Special,
-                        eA.PlaneStart,
+                        BlockCategories.Special,
+                        TrackIDs_v0_3_1.PlaneStart,
                         [["Planes", "PlaneStart"]],
                         nb,
                         [
@@ -40727,10 +40754,10 @@
                         null,
                         new yn(0, 0.35, 1.35)
                     ),
-                    new rb(
+                    new Block(
                         "f08710416bdaa3d91d0d43f014e45d421fdb4587a334993bad0056f3dbbcb6bb",
-                        KA.Special,
-                        eA.PlaneStartWide,
+                        BlockCategories.Special,
+                        TrackIDs_v0_3_1.PlaneStartWide,
                         [["Planes", "PlaneStartWide"]],
                         nb,
                         [
@@ -40742,10 +40769,10 @@
                         null,
                         new yn(-10, 0.35, 1.35)
                     ),
-                    new rb(
+                    new Block(
                         "223fc87c72bb64b58677062ffa08ab7eafd78071bced7c53233606763cd5316b",
-                        KA.Special,
-                        eA.Checkpoint,
+                        BlockCategories.Special,
+                        TrackIDs_v0_3_1.Checkpoint,
                         [["Road", "Checkpoint"]],
                         nb,
                         [
@@ -40755,15 +40782,15 @@
                             ],
                         ],
                         {
-                            type: XA.Checkpoint,
+                            type: BlockType.Checkpoint,
                             center: [0, 2.2, 0],
                             size: [10.5, 3.8, 1],
                         }
                     ),
-                    new rb(
+                    new Block(
                         "82d9a9879cee92c04c8d4ba2e16fc31bb1917a31f5802a3bb5177ca9a5cfee01",
-                        KA.Special,
-                        eA.CheckpointWide,
+                        BlockCategories.Special,
+                        TrackIDs_v0_3_1.CheckpointWide,
                         [["RoadWide", "CheckpointWide"]],
                         nb,
                         [
@@ -40773,15 +40800,15 @@
                             ],
                         ],
                         {
-                            type: XA.Checkpoint,
+                            type: BlockType.Checkpoint,
                             center: [10, 2.2, 0],
                             size: [30.6, 3.8, 1],
                         }
                     ),
-                    new rb(
+                    new Block(
                         "fe8946d7f09724b5e11f493eb5c2a5b5e3d502b15beaad003f8134ac63558948",
-                        KA.Special,
-                        eA.PlaneCheckpoint,
+                        BlockCategories.Special,
+                        TrackIDs_v0_3_1.PlaneCheckpoint,
                         [["Planes", "PlaneCheckpoint"]],
                         nb,
                         [
@@ -40791,15 +40818,15 @@
                             ],
                         ],
                         {
-                            type: XA.Checkpoint,
+                            type: BlockType.Checkpoint,
                             center: [0, 2.2, 0],
                             size: [18.25, 3.8, 1],
                         }
                     ),
-                    new rb(
+                    new Block(
                         "d486d9b851db35dd44c15f9e0bb3bf582118daf7be514598a19307f61cf46678",
-                        KA.Special,
-                        eA.PlaneCheckpointWide,
+                        BlockCategories.Special,
+                        TrackIDs_v0_3_1.PlaneCheckpointWide,
                         [["Planes", "PlaneCheckpointWide"]],
                         nb,
                         [
@@ -40809,15 +40836,15 @@
                             ],
                         ],
                         {
-                            type: XA.Checkpoint,
+                            type: BlockType.Checkpoint,
                             center: [10, 2.2, 0],
                             size: [38.25, 3.8, 1],
                         }
                     ),
-                    new rb(
+                    new Block(
                         "c01200d573a3594a6a4cb73ebb600964d653e4a89267d3297f3969220742aa79",
-                        KA.Special,
-                        eA.Finish,
+                        BlockCategories.Special,
+                        TrackIDs_v0_3_1.Finish,
                         [["Road", "Finish"]],
                         nb,
                         [
@@ -40827,15 +40854,15 @@
                             ],
                         ],
                         {
-                            type: XA.Finish,
+                            type: BlockType.Finish,
                             center: [0, 2.2, 0],
                             size: [10.5, 3.8, 2],
                         }
                     ),
-                    new rb(
+                    new Block(
                         "a9cefdff816e94a643210c58582c2809de0e3e0e0478b8d5baabd7fe81f13e73",
-                        KA.Special,
-                        eA.FinishWide,
+                        BlockCategories.Special,
+                        TrackIDs_v0_3_1.FinishWide,
                         [["RoadWide", "FinishWide"]],
                         nb,
                         [
@@ -40845,15 +40872,15 @@
                             ],
                         ],
                         {
-                            type: XA.Finish,
+                            type: BlockType.Finish,
                             center: [10, 2.2, 0],
                             size: [30.6, 3.8, 2],
                         }
                     ),
-                    new rb(
+                    new Block(
                         "75e5f09fe8a18ecafaf1fb80929173ef0a7dc0b785596bbe0ccd85a934d79578",
-                        KA.Special,
-                        eA.PlaneFinish,
+                        BlockCategories.Special,
+                        TrackIDs_v0_3_1.PlaneFinish,
                         [["Planes", "PlaneFinish"]],
                         nb,
                         [
@@ -40863,15 +40890,15 @@
                             ],
                         ],
                         {
-                            type: XA.Finish,
+                            type: BlockType.Finish,
                             center: [0, 2.2, 0],
                             size: [18.25, 3.8, 2],
                         }
                     ),
-                    new rb(
+                    new Block(
                         "5801b3268c75809728c63450d06000c5f6fcfd5d72691902f99d7d19d25e1d78",
-                        KA.Special,
-                        eA.PlaneFinishWide,
+                        BlockCategories.Special,
+                        TrackIDs_v0_3_1.PlaneFinishWide,
                         [["Planes", "PlaneFinishWide"]],
                         nb,
                         [
@@ -40881,15 +40908,15 @@
                             ],
                         ],
                         {
-                            type: XA.Finish,
+                            type: BlockType.Finish,
                             center: [10, 2.2, 0],
                             size: [38.25, 3.8, 2],
                         }
                     ),
-                    new rb(
+                    new Block(
                         "3421096c1986d008da88b5fac64cd4c475603138c9bf8a98ab6d581dda6befa7",
-                        KA.Road,
-                        eA.Straight,
+                        BlockCategories.Road,
+                        TrackIDs_v0_3_1.Straight,
                         [["Road", "Straight"]],
                         nb,
                         [
@@ -40899,10 +40926,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "bdc3bcdafec9bc26835dc76159f7223da7da5babb3a5770129fa11046c748b69",
-                        KA.Road,
-                        eA.StraightPillarBottom,
+                        BlockCategories.Road,
+                        TrackIDs_v0_3_1.StraightPillarBottom,
                         [
                             ["Road", "Straight"],
                             ["Pillar", "SurfacePillarBottom"],
@@ -40915,10 +40942,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "2758e984d87b3170f6618c9c689554ef169fd5f80ea7f0df292ffd69792d414e",
-                        KA.Road,
-                        eA.StraightPillarShort,
+                        BlockCategories.Road,
+                        TrackIDs_v0_3_1.StraightPillarShort,
                         [
                             ["Road", "Straight"],
                             ["Pillar", "SurfacePillarShort"],
@@ -40931,10 +40958,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "fb5a81784022cfc2d3d0007a032976c8dfd066e72a3bc92f671c98c5cca36aaa",
-                        KA.Road,
-                        eA.TurnSharp,
+                        BlockCategories.Road,
+                        TrackIDs_v0_3_1.TurnSharp,
                         [["Road", "TurnSharp"]],
                         nb,
                         [
@@ -40944,10 +40971,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "3da2e9a93da06b1376c33486f30a5f02d8c2f125f5b7d8b41166049ecd95f269",
-                        KA.Road,
-                        eA.TurnSharpPillarBottom,
+                        BlockCategories.Road,
+                        TrackIDs_v0_3_1.TurnSharpPillarBottom,
                         [
                             ["Road", "TurnSharp"],
                             ["Pillar", "SurfacePillarBottom"],
@@ -40960,10 +40987,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "c642122276547382e37dcb857b130088f4dc0d208dc7fdb6055b2a93080a3ffe",
-                        KA.Road,
-                        eA.TurnSharpPillarShort,
+                        BlockCategories.Road,
+                        TrackIDs_v0_3_1.TurnSharpPillarShort,
                         [
                             ["Road", "TurnSharp"],
                             ["Pillar", "SurfacePillarShort"],
@@ -40976,10 +41003,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "110efb0facc096e1c875e545b075b0effaa1b78d50b97f906aec44796501544b",
-                        KA.RoadTurns,
-                        eA.TurnShort,
+                        BlockCategories.RoadTurns,
+                        TrackIDs_v0_3_1.TurnShort,
                         [["Road", "TurnShort"]],
                         nb,
                         [
@@ -41013,10 +41040,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "20a164840b0e83f3eac96ba9e3650a30e3b3dec4bb635946e3e9e9a1b74820d2",
-                        KA.RoadTurns,
-                        eA.TurnLong,
+                        BlockCategories.RoadTurns,
+                        TrackIDs_v0_3_1.TurnLong,
                         [["Road", "TurnLong"]],
                         nb,
                         [
@@ -41062,10 +41089,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "c36dddde35a740c6f01227522bf35e1a450cddbfdd8bde1617873bef0d47c95c",
-                        KA.RoadTurns,
-                        eA.TurnLong2,
+                        BlockCategories.RoadTurns,
+                        TrackIDs_v0_3_1.TurnLong2,
                         [["Road", "TurnLong2"]],
                         nb,
                         [
@@ -41119,10 +41146,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "0ed20c04a941708c23fe6ced4af3f357c0e435f09278e06f3de2806786d44059",
-                        KA.RoadTurns,
-                        eA.TurnLong3,
+                        BlockCategories.RoadTurns,
+                        TrackIDs_v0_3_1.TurnLong3,
                         [["Road", "TurnLong3"]],
                         nb,
                         [
@@ -41192,10 +41219,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "034ef287319877f2fcc32fbd6f32415539a4c287dfcd620360386a781adad22a",
-                        KA.RoadTurns,
-                        eA.TurnSLeft,
+                        BlockCategories.RoadTurns,
+                        TrackIDs_v0_3_1.TurnSLeft,
                         [["Road", "TurnS", { flipX: !0 }]],
                         nb,
                         [
@@ -41225,10 +41252,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "0d49e9feb603d0899927c7e5184f4f4fdd4363d2e1fd296f0b7b3cf4dbbf0e8d",
-                        KA.RoadTurns,
-                        eA.TurnSRight,
+                        BlockCategories.RoadTurns,
+                        TrackIDs_v0_3_1.TurnSRight,
                         [["Road", "TurnS"]],
                         nb,
                         [
@@ -41258,10 +41285,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "26bca19e63867bc0b755ff6fcca65de296c9d1f109f87540103565eb88a0e03d",
-                        KA.RoadTurns,
-                        eA.TurnShortLeftWide,
+                        BlockCategories.RoadTurns,
+                        TrackIDs_v0_3_1.TurnShortLeftWide,
                         [["RoadWide", "TurnShortLeftWide"]],
                         nb,
                         [
@@ -41303,10 +41330,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "e3845854f85dafd8cec193bcbecdac6cb79f625066de29524d5c10c5580611c5",
-                        KA.RoadTurns,
-                        eA.TurnShortRightWide,
+                        BlockCategories.RoadTurns,
+                        TrackIDs_v0_3_1.TurnShortRightWide,
                         [["RoadWide", "TurnShortRightWide"]],
                         nb,
                         [
@@ -41328,10 +41355,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "dc6088960a65a55c74353a1e7c8a1ca8ec99e683f6273bf666d6909b288bb84b",
-                        KA.RoadTurns,
-                        eA.TurnLongLeftWide,
+                        BlockCategories.RoadTurns,
+                        TrackIDs_v0_3_1.TurnLongLeftWide,
                         [["RoadWide", "TurnLongLeftWide"]],
                         nb,
                         [
@@ -41381,10 +41408,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "0bbb8d6c1e4a325e10643cf45546da725c1ea18e92a3a95f753339629a06ef6c",
-                        KA.RoadTurns,
-                        eA.TurnLongRightWide,
+                        BlockCategories.RoadTurns,
+                        TrackIDs_v0_3_1.TurnLongRightWide,
                         [["RoadWide", "TurnLongRightWide"]],
                         nb,
                         [
@@ -41414,10 +41441,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "7d8d1eed719515ba7e48b5ef4a53b6b4bb2bef42496b6b40d2551230435ecb66",
-                        KA.Road,
-                        eA.SlopeUp,
+                        BlockCategories.Road,
+                        TrackIDs_v0_3_1.SlopeUp,
                         [["Road", "SlopeUp"]],
                         nb,
                         [
@@ -41431,10 +41458,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "d6d54dbf283f7209032541fc6b924dc879d914f253e391cf8b34dde8354661be",
-                        KA.Road,
-                        eA.SlopeUpLong,
+                        BlockCategories.Road,
+                        TrackIDs_v0_3_1.SlopeUpLong,
                         [["Road", "SlopeUpLong"]],
                         nb,
                         [
@@ -41452,10 +41479,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "435e8cf33d28e52f75890cba1cb6529991148afd701f9b40e9ab876c11b2c448",
-                        KA.Road,
-                        eA.SlopeDown,
+                        BlockCategories.Road,
+                        TrackIDs_v0_3_1.SlopeDown,
                         [["Road", "SlopeDown"]],
                         nb,
                         [
@@ -41469,10 +41496,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "01990158f65e5d499030d8c6d0ce80d34c136189ae1a9430d4260ea7a85e91a9",
-                        KA.Road,
-                        eA.SlopeDownLong,
+                        BlockCategories.Road,
+                        TrackIDs_v0_3_1.SlopeDownLong,
                         [["Road", "SlopeDownLong"]],
                         nb,
                         [
@@ -41490,10 +41517,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "4afecc8b9bd7a3b074112008831fef6b11f9a55ab8c1e570e3e73c1e92b43c6d",
-                        KA.Road,
-                        eA.Slope,
+                        BlockCategories.Road,
+                        TrackIDs_v0_3_1.Slope,
                         [["Road", "Slope"]],
                         nb,
                         [
@@ -41511,10 +41538,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "27f9b25126b1006514941bd148c8f19dc2d82022b0c1aa2358f36cb711d4b59c",
-                        KA.Road,
-                        eA.SlopePillar,
+                        BlockCategories.Road,
+                        TrackIDs_v0_3_1.SlopePillar,
                         [
                             ["Road", "Slope"],
                             ["Pillar", "PillarTopSlope"],
@@ -41539,10 +41566,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "eb236f0ac4bd895c170db53cb518c8df5167a9db5af4bb4f33f73c02deec5265",
-                        KA.Road,
-                        eA.SlopePillarShort,
+                        BlockCategories.Road,
+                        TrackIDs_v0_3_1.SlopePillarShort,
                         [
                             ["Road", "Slope"],
                             ["Pillar", "PillarShortSlope"],
@@ -41567,10 +41594,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "99cb9068cb3f97e7cbfdbb3f1edc1085ea37514f3d5dd8936bc32089cc066a5c",
-                        KA.Road,
-                        eA.SlopeUpVertical,
+                        BlockCategories.Road,
+                        TrackIDs_v0_3_1.SlopeUpVertical,
                         [["Road", "SlopeUpVertical"]],
                         nb,
                         [
@@ -41588,10 +41615,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "63628b23e104a3eb3c2ba8189cd408a10fbb6ebcd6fa4359d981e3c3804c13d8",
-                        KA.Road,
-                        eA.IntersectionT,
+                        BlockCategories.Road,
+                        TrackIDs_v0_3_1.IntersectionT,
                         [["Road", "IntersectionT"]],
                         nb,
                         [
@@ -41601,10 +41628,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "400dc4643653001d283bb13f740593fc2300c547bb4d2a962054ba6aabf3721c",
-                        KA.Road,
-                        eA.IntersectionTPillarBottom,
+                        BlockCategories.Road,
+                        TrackIDs_v0_3_1.IntersectionTPillarBottom,
                         [
                             ["Road", "IntersectionT"],
                             ["Pillar", "SurfacePillarBottom"],
@@ -41617,10 +41644,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "60355388650d35fcbddaaac29e0d03bc2ae46db1a05cd23ddd3f2722ec2d409e",
-                        KA.Road,
-                        eA.IntersectionTPillarShort,
+                        BlockCategories.Road,
+                        TrackIDs_v0_3_1.IntersectionTPillarShort,
                         [
                             ["Road", "IntersectionT"],
                             ["Pillar", "SurfacePillarShort"],
@@ -41633,10 +41660,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "74197b3731c2befd03498bf5172859f0b3652f1972c19e43a99bb938769573df",
-                        KA.Road,
-                        eA.IntersectionCross,
+                        BlockCategories.Road,
+                        TrackIDs_v0_3_1.IntersectionCross,
                         [["Road", "IntersectionCross"]],
                         nb,
                         [
@@ -41646,10 +41673,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "464e69b5c4f2667c246ade9ed33fd3e50b49438ed0ab787a086dfe74c217ff6c",
-                        KA.Road,
-                        eA.IntersectionCrossPillarBottom,
+                        BlockCategories.Road,
+                        TrackIDs_v0_3_1.IntersectionCrossPillarBottom,
                         [
                             ["Road", "IntersectionCross"],
                             ["Pillar", "SurfacePillarBottom"],
@@ -41662,10 +41689,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "90004caf354627289265314966f11b5656e6879ca7de10507e6c50cd95254b75",
-                        KA.Road,
-                        eA.IntersectionCrossPillarShort,
+                        BlockCategories.Road,
+                        TrackIDs_v0_3_1.IntersectionCrossPillarShort,
                         [
                             ["Road", "IntersectionCross"],
                             ["Pillar", "SurfacePillarShort"],
@@ -41678,10 +41705,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "2af8aa6050028dd6ee69b7150e83a6d8819e1848a7b1c782848d3f6448c5091a",
-                        KA.RoadWide,
-                        eA.ToWideMiddle,
+                        BlockCategories.RoadWide,
+                        TrackIDs_v0_3_1.ToWideMiddle,
                         [["RoadWide", "ToWideMiddle"]],
                         nb,
                         [
@@ -41691,10 +41718,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "26341cfe6bec34f46b10ffcd9a7706a8156b9ac41ed2cdfd166f9f8d3e9bc8f3",
-                        KA.RoadWide,
-                        eA.ToWideLeft,
+                        BlockCategories.RoadWide,
+                        TrackIDs_v0_3_1.ToWideLeft,
                         [["RoadWide", "ToWideSide", { flipX: !0 }]],
                         nb,
                         [
@@ -41704,10 +41731,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "3f82ebd6c72110b532a20673f8b54c7b25ae5988a51d3793bf383fea8ffcffc3",
-                        KA.RoadWide,
-                        eA.ToWideRight,
+                        BlockCategories.RoadWide,
+                        TrackIDs_v0_3_1.ToWideRight,
                         [["RoadWide", "ToWideSide"]],
                         nb,
                         [
@@ -41717,10 +41744,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "f5cecce9870f41f8cba7a9fbe631c315370a7a82824d04977ec857dbb1dfed29",
-                        KA.RoadWide,
-                        eA.ToWideDouble,
+                        BlockCategories.RoadWide,
+                        TrackIDs_v0_3_1.ToWideDouble,
                         [["RoadWide", "ToWideDouble"]],
                         nb,
                         [
@@ -41730,10 +41757,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "99dc726611397f81b47459d32c7bfb8232322d1ca976ba9a3e71cc15451d8cfb",
-                        KA.RoadWide,
-                        eA.ToWideDiagonal,
+                        BlockCategories.RoadWide,
+                        TrackIDs_v0_3_1.ToWideDiagonal,
                         [["RoadWide", "ToWideDiagonal"]],
                         nb,
                         [
@@ -41743,10 +41770,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "47d7e3fb334681911e122babef127881a36a763fb22176854114495802d5ce84",
-                        KA.RoadWide,
-                        eA.StraightWide,
+                        BlockCategories.RoadWide,
+                        TrackIDs_v0_3_1.StraightWide,
                         [["RoadWide", "StraightWide"]],
                         nb,
                         [
@@ -41756,10 +41783,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "521adc95ed5a4809eeff7eec872c3d6449e4d6a7e4941d672f1e06a50a6615de",
-                        KA.RoadWide,
-                        eA.InnerCornerWide,
+                        BlockCategories.RoadWide,
+                        TrackIDs_v0_3_1.InnerCornerWide,
                         [["RoadWide", "InnerCornerWide"]],
                         nb,
                         [
@@ -41769,10 +41796,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "d82274b362794e3c1772510002d5015dde345f1e72dd675c8bac41cf2331398b",
-                        KA.RoadWide,
-                        eA.OuterCornerWide,
+                        BlockCategories.RoadWide,
+                        TrackIDs_v0_3_1.OuterCornerWide,
                         [["RoadWide", "OuterCornerWide"]],
                         nb,
                         [
@@ -41782,10 +41809,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "9b1df4dd4687404adb5789f3b90af39ea6fa65ef741a07b116dc436dc14a2aa1",
-                        KA.RoadWide,
-                        eA.SlopeUpLeftWide,
+                        BlockCategories.RoadWide,
+                        TrackIDs_v0_3_1.SlopeUpLeftWide,
                         [["RoadWide", "SlopeUpWide", { flipX: !0 }]],
                         nb,
                         [
@@ -41799,10 +41826,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "651d4e988913b84359ad10e0c4745965b6a388eaa8c9bfbba4b6a50ae6d4f592",
-                        KA.RoadWide,
-                        eA.SlopeUpRightWide,
+                        BlockCategories.RoadWide,
+                        TrackIDs_v0_3_1.SlopeUpRightWide,
                         [["RoadWide", "SlopeUpWide"]],
                         nb,
                         [
@@ -41816,10 +41843,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "848d9930c58e66152090d7853af87c8bb7971e1771d3c337ac1a50aaa4975a78",
-                        KA.RoadWide,
-                        eA.SlopeUpLongLeftWide,
+                        BlockCategories.RoadWide,
+                        TrackIDs_v0_3_1.SlopeUpLongLeftWide,
                         [["RoadWide", "SlopeUpLongWide", { flipX: !0 }]],
                         nb,
                         [
@@ -41837,10 +41864,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "e4d54c6c3b6011a1acfb6766b6b3e7ea0de6f9c6569a5ec88c47968ad4105b2a",
-                        KA.RoadWide,
-                        eA.SlopeUpLongRightWide,
+                        BlockCategories.RoadWide,
+                        TrackIDs_v0_3_1.SlopeUpLongRightWide,
                         [["RoadWide", "SlopeUpLongWide"]],
                         nb,
                         [
@@ -41858,10 +41885,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "106ad1d4c5aded30cc3ef4cd1bdc40babab84464ce7dbce3b81cc20d55fd615f",
-                        KA.RoadWide,
-                        eA.SlopeDownLeftWide,
+                        BlockCategories.RoadWide,
+                        TrackIDs_v0_3_1.SlopeDownLeftWide,
                         [["RoadWide", "SlopeDownWide", { flipX: !0 }]],
                         nb,
                         [
@@ -41875,10 +41902,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "23a693633b8453c7a531de9723e6ca14d0676b1d7a4df7f78278914467b90a27",
-                        KA.RoadWide,
-                        eA.SlopeDownRightWide,
+                        BlockCategories.RoadWide,
+                        TrackIDs_v0_3_1.SlopeDownRightWide,
                         [["RoadWide", "SlopeDownWide"]],
                         nb,
                         [
@@ -41892,10 +41919,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "0f2e33a8b68667e30e80ceaefdb890a77643799d63c7f20672ca3185bbc04270",
-                        KA.RoadWide,
-                        eA.SlopeDownLongLeftWide,
+                        BlockCategories.RoadWide,
+                        TrackIDs_v0_3_1.SlopeDownLongLeftWide,
                         [["RoadWide", "SlopeDownLongWide", { flipX: !0 }]],
                         nb,
                         [
@@ -41913,10 +41940,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "164903518c7efa4890a792017ea2b8125a2c3dae76bba4c6f1f56fb0f7e40ebc",
-                        KA.RoadWide,
-                        eA.SlopeDownLongRightWide,
+                        BlockCategories.RoadWide,
+                        TrackIDs_v0_3_1.SlopeDownLongRightWide,
                         [["RoadWide", "SlopeDownLongWide"]],
                         nb,
                         [
@@ -41934,10 +41961,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "c20560fd35288c5cc74af61834b9a56efaeacdde55eb793d400b7c5b97904993",
-                        KA.RoadWide,
-                        eA.SlopeLeftWide,
+                        BlockCategories.RoadWide,
+                        TrackIDs_v0_3_1.SlopeLeftWide,
                         [["RoadWide", "SlopeWide", { flipX: !0 }]],
                         nb,
                         [
@@ -41955,10 +41982,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "b6a26eb3cefee53d4deef24544e5b5c1ecd25e8e8bd7c3070c7947ada55c57c2",
-                        KA.RoadWide,
-                        eA.SlopeRightWide,
+                        BlockCategories.RoadWide,
+                        TrackIDs_v0_3_1.SlopeRightWide,
                         [["RoadWide", "SlopeWide"]],
                         nb,
                         [
@@ -41976,10 +42003,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "b598ff14bda99600434b24a619132fec4bffcc535483b9b57b0c8c09c1be1f1b",
-                        KA.RoadWide,
-                        eA.SlopeUpVerticalLeftWide,
+                        BlockCategories.RoadWide,
+                        TrackIDs_v0_3_1.SlopeUpVerticalLeftWide,
                         [["RoadWide", "SlopeUpVerticalWide"]],
                         nb,
                         [
@@ -41997,10 +42024,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "4e0275d3a01eaca6ec5118b8b816ed292cb7172710cf9b7801068424ab684b22",
-                        KA.RoadWide,
-                        eA.SlopeUpVerticalRightWide,
+                        BlockCategories.RoadWide,
+                        TrackIDs_v0_3_1.SlopeUpVerticalRightWide,
                         [["RoadWide", "SlopeUpVerticalWide", { flipX: !0 }]],
                         nb,
                         [
@@ -42018,10 +42045,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "896b47675cc2ff58494979168f6fd36c27c43da29aed6a52fdf80f054630166a",
-                        KA.Plane,
-                        eA.Plane,
+                        BlockCategories.Plane,
+                        TrackIDs_v0_3_1.Plane,
                         [["Planes", "Plane"]],
                         nb,
                         [
@@ -42031,10 +42058,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "dc9afb98a8bb998d3b76c3563385e58c1749e56ff43fbc7577b1f57ba8360702",
-                        KA.Plane,
-                        eA.PlanePillarBottom,
+                        BlockCategories.Plane,
+                        TrackIDs_v0_3_1.PlanePillarBottom,
                         [
                             ["Planes", "Plane"],
                             ["Pillar", "SurfacePillarBottom"],
@@ -42047,10 +42074,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "f59ad95edd26814236ab30b73f6f4f68003885ef150201a4ace14b832abcf438",
-                        KA.Plane,
-                        eA.PlanePillarShort,
+                        BlockCategories.Plane,
+                        TrackIDs_v0_3_1.PlanePillarShort,
                         [
                             ["Planes", "Plane"],
                             ["Pillar", "SurfacePillarShort"],
@@ -42063,10 +42090,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "48247a66b232461083fa2aa36644e7e8779f5b426d474efd375ee7d21d009c9a",
-                        KA.Plane,
-                        eA.HalfPlane,
+                        BlockCategories.Plane,
+                        TrackIDs_v0_3_1.HalfPlane,
                         [["Planes", "HalfPlane"]],
                         nb,
                         [
@@ -42088,10 +42115,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "eac8530d1a025291674bf34b206f75700dc8626012d8d33ed398f7aed746dac8",
-                        KA.Plane,
-                        eA.QuarterPlane,
+                        BlockCategories.Plane,
+                        TrackIDs_v0_3_1.QuarterPlane,
                         [["Planes", "QuarterPlane"]],
                         nb,
                         [
@@ -42109,10 +42136,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "1da4dcad366aa90a5977e1b20c5d79297106ed3b4f664be04b6b3f6370c105b4",
-                        KA.Plane,
-                        eA.PlaneSlopeUp,
+                        BlockCategories.Plane,
+                        TrackIDs_v0_3_1.PlaneSlopeUp,
                         [["Planes", "PlaneSlopeUp"]],
                         nb,
                         [
@@ -42126,10 +42153,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "3e203219ec0ea114da510b37a4c392b90417af796e2b089da6d996e628c0a323",
-                        KA.Plane,
-                        eA.PlaneSlopeUpLong,
+                        BlockCategories.Plane,
+                        TrackIDs_v0_3_1.PlaneSlopeUpLong,
                         [["Planes", "PlaneSlopeUpLong"]],
                         nb,
                         [
@@ -42147,10 +42174,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "053dbf6c03eea5102b67168ccb479d8364233b36c4210aff093928bbb83d859d",
-                        KA.Plane,
-                        eA.PlaneSlopeDown,
+                        BlockCategories.Plane,
+                        TrackIDs_v0_3_1.PlaneSlopeDown,
                         [["Planes", "PlaneSlopeDown"]],
                         nb,
                         [
@@ -42164,10 +42191,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "d68121a3cb0ee19cab45adb136e0df6145f43ca9ecbde8a417c02a6d4a75a757",
-                        KA.Plane,
-                        eA.PlaneSlopeDownLong,
+                        BlockCategories.Plane,
+                        TrackIDs_v0_3_1.PlaneSlopeDownLong,
                         [["Planes", "PlaneSlopeDownLong"]],
                         nb,
                         [
@@ -42185,10 +42212,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "67ec222e8fe770a8d728bb76ff571377c261d2f232134d4cb328c9ab772cf3ca",
-                        KA.Plane,
-                        eA.PlaneSlope,
+                        BlockCategories.Plane,
+                        TrackIDs_v0_3_1.PlaneSlope,
                         [["Planes", "PlaneSlope"]],
                         nb,
                         [
@@ -42206,10 +42233,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "a52c09d87d37088b68420db07626f274c74f792cb223764624d887a5ed145a2e",
-                        KA.Plane,
-                        eA.PlaneSlopePillar,
+                        BlockCategories.Plane,
+                        TrackIDs_v0_3_1.PlaneSlopePillar,
                         [
                             ["Planes", "PlaneSlope"],
                             ["Pillar", "PillarTopSlope"],
@@ -42234,10 +42261,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "57df805433e706ec946d767d7ff0881f163c2e36bb1db00b0e3259954a787dec",
-                        KA.Plane,
-                        eA.PlaneSlopePillarShort,
+                        BlockCategories.Plane,
+                        TrackIDs_v0_3_1.PlaneSlopePillarShort,
                         [
                             ["Planes", "PlaneSlope"],
                             ["Pillar", "PillarShortSlope"],
@@ -42262,10 +42289,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "ba0d6ec33647740bf4c60e542d1758095afa3ef451bdaec76c783dd32116e4cb",
-                        KA.Plane,
-                        eA.PlaneSlopeVerticalBottom,
+                        BlockCategories.Plane,
+                        TrackIDs_v0_3_1.PlaneSlopeVerticalBottom,
                         [["Planes", "PlaneSlopeVertical"]],
                         nb,
                         [
@@ -42283,10 +42310,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "78a372de15f3151f901cf7fa7a3983ee6513cf19fa8568f10946e195c5a62515",
-                        KA.Plane,
-                        eA.PlaneSlopeToVertical,
+                        BlockCategories.Plane,
+                        TrackIDs_v0_3_1.PlaneSlopeToVertical,
                         [["Planes", "PlaneSlopeToVertical"]],
                         nb,
                         [
@@ -42304,10 +42331,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "5f6d1ece085d450643f1399af53673dcc6bbbf413094d8dd5ee6816d80e1c8ae",
-                        KA.Plane,
-                        eA.PlaneBridge,
+                        BlockCategories.Plane,
+                        TrackIDs_v0_3_1.PlaneBridge,
                         [["Planes", "PlaneBridge"]],
                         nb,
                         [
@@ -42317,10 +42344,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "32b91fc4cdf95f5b7a490d81058522bae14741601dd44c73cc110121aa1dd6e6",
-                        KA.Plane,
-                        eA.PlaneBridgeCorner,
+                        BlockCategories.Plane,
+                        TrackIDs_v0_3_1.PlaneBridgeCorner,
                         [["Planes", "PlaneBridgeCorner"]],
                         nb,
                         [
@@ -42334,10 +42361,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "2db870b1821fb655437bd0527569d5a6843718fa0775682701437432265a1a88",
-                        KA.Plane,
-                        eA.PlaneBridgeIntersectionT,
+                        BlockCategories.Plane,
+                        TrackIDs_v0_3_1.PlaneBridgeIntersectionT,
                         [["Planes", "PlaneBridgeIntersectionT"]],
                         nb,
                         [
@@ -42355,10 +42382,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "33aa0e7524b74dcdae4aed89856c09d25248c4cab8f70dcc31b347f0a00fcb52",
-                        KA.Plane,
-                        eA.PlaneBridgeIntersectionCross,
+                        BlockCategories.Plane,
+                        TrackIDs_v0_3_1.PlaneBridgeIntersectionCross,
                         [["Planes", "PlaneBridgeIntersectionCross"]],
                         nb,
                         [
@@ -42380,10 +42407,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "bd7cc4ab180fc0a6936fef828ae3a91566b3dd621b888fbcc57c9ac11dcb713b",
-                        KA.Plane,
-                        eA.PlaneWall,
+                        BlockCategories.Plane,
+                        TrackIDs_v0_3_1.PlaneWall,
                         [["Planes", "PlaneWall"]],
                         nb,
                         [
@@ -42393,10 +42420,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "d92568164028bb2e65799abd9dc6ba66cfe8a28515c09fbe5ac175f5966af66a",
-                        KA.Plane,
-                        eA.PlaneWallCorner,
+                        BlockCategories.Plane,
+                        TrackIDs_v0_3_1.PlaneWallCorner,
                         [["Planes", "PlaneWallCorner"]],
                         nb,
                         [
@@ -42410,10 +42437,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "792ab5a6f0e2bf8e556575ef12731ec30755855d4394f98eb4ca7ec8b713933c",
-                        KA.Plane,
-                        eA.PlaneWallInnerCorner,
+                        BlockCategories.Plane,
+                        TrackIDs_v0_3_1.PlaneWallInnerCorner,
                         [["Planes", "PlaneWallInnerCorner"]],
                         nb,
                         [
@@ -42423,10 +42450,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "de0d588c4b2fe6b32d72a7e0e2984285955f805ccb86d3c269f7155401cd6b20",
-                        KA.Block,
-                        eA.Block,
+                        BlockCategories.Block,
+                        TrackIDs_v0_3_1.Block,
                         [["Blocks", "Block"]],
                         ib,
                         [
@@ -42436,10 +42463,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "1ce6b585c0e99d71877fefe015ff16336ae62eb0caebeca62dd09d836092d7b6",
-                        KA.Block,
-                        eA.HalfBlock,
+                        BlockCategories.Block,
+                        TrackIDs_v0_3_1.HalfBlock,
                         [["Blocks", "HalfBlock"]],
                         ib,
                         [
@@ -42461,10 +42488,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "0d5f0609c3c98f687d55d3a73313225c1642f6285ddaca3ed536db742c85958d",
-                        KA.Block,
-                        eA.QuarterBlock,
+                        BlockCategories.Block,
+                        TrackIDs_v0_3_1.QuarterBlock,
                         [["Blocks", "QuarterBlock"]],
                         ib,
                         [
@@ -42482,10 +42509,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "18fc1c569c6fc04f95f10174143d19e7a9ea4e387302363f4ae60883c1acd3f0",
-                        KA.Block,
-                        eA.BlockSlopedDown,
+                        BlockCategories.Block,
+                        TrackIDs_v0_3_1.BlockSlopedDown,
                         [["Blocks", "BlockSlopedDown"]],
                         ib,
                         [
@@ -42499,10 +42526,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "22dd5b2804c88994a4d283cb822f47de3c72f82376e4c9332d39feae85206c0f",
-                        KA.Block,
-                        eA.BlockSlopedDownInnerCorner,
+                        BlockCategories.Block,
+                        TrackIDs_v0_3_1.BlockSlopedDownInnerCorner,
                         [["Blocks", "BlockSlopedDownInnerCorner"]],
                         ib,
                         [
@@ -42520,10 +42547,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "81a71b4cc6ef8520f20fd738457abc31b04258c97f9862f70190fd2a0ba91382",
-                        KA.Block,
-                        eA.BlockSlopedDownOuterCorner,
+                        BlockCategories.Block,
+                        TrackIDs_v0_3_1.BlockSlopedDownOuterCorner,
                         [["Blocks", "BlockSlopedDownOuterCorner"]],
                         ib,
                         [
@@ -42537,10 +42564,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "f4e19d3bc49994a85fecd187b76c21d258e7f30f0506d90bc6f173336e11627d",
-                        KA.Block,
-                        eA.BlockSlopedUp,
+                        BlockCategories.Block,
+                        TrackIDs_v0_3_1.BlockSlopedUp,
                         [["Blocks", "BlockSlopedUp"]],
                         ib,
                         [
@@ -42554,10 +42581,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "fd9309468e97131bbbd1404fac34a7137cb176327789b955c1aea30267e1cded",
-                        KA.Block,
-                        eA.BlockSlopedUpInnerCorner,
+                        BlockCategories.Block,
+                        TrackIDs_v0_3_1.BlockSlopedUpInnerCorner,
                         [["Blocks", "BlockSlopedUpInnerCorner"]],
                         ib,
                         [
@@ -42575,10 +42602,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "1321fb07ece1b80b99dc4671b52673ac028fbf43322e9e652ad633ff6afac21b",
-                        KA.Block,
-                        eA.BlockSlopedUpOuterCorner,
+                        BlockCategories.Block,
+                        TrackIDs_v0_3_1.BlockSlopedUpOuterCorner,
                         [["Blocks", "BlockSlopedUpOuterCorner"]],
                         ib,
                         [
@@ -42592,10 +42619,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "b97c17388fc38139f2f5a98a36d94831095f79db709dd97748ad2904bc54d689",
-                        KA.Block,
-                        eA.BlockSlopeDown,
+                        BlockCategories.Block,
+                        TrackIDs_v0_3_1.BlockSlopeDown,
                         [["Blocks", "BlockSlopeDown"]],
                         ib,
                         [
@@ -42605,10 +42632,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "50276826bbfb9fcb11a8519b8dae8a2b1cf82817d5431418d9a376664261be82",
-                        KA.Block,
-                        eA.BlockSlopeUp,
+                        BlockCategories.Block,
+                        TrackIDs_v0_3_1.BlockSlopeUp,
                         [["Blocks", "BlockSlopeUp"]],
                         ib,
                         [
@@ -42618,10 +42645,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "63fd3032796397f8e25669c1c1d3fc97b8ec0e5fc88bfcb5c00a2a2c2b517888",
-                        KA.Block,
-                        eA.BlockSlopeDownLong,
+                        BlockCategories.Block,
+                        TrackIDs_v0_3_1.BlockSlopeDownLong,
                         [["Blocks", "BlockSlopeDownLong"]],
                         ib,
                         [
@@ -42635,10 +42662,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "2d29131222a8d891b4350e6a2f335b114e001cf22e4e2f170dc9b86c4b2fd325",
-                        KA.Block,
-                        eA.BlockSlopeUpLong,
+                        BlockCategories.Block,
+                        TrackIDs_v0_3_1.BlockSlopeUpLong,
                         [["Blocks", "BlockSlopeUpLong"]],
                         ib,
                         [
@@ -42652,10 +42679,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "0bbcd96c91b69e6e8005bfae5b64455b0d6510cb1595f3fca7f77c86ddda4560",
-                        KA.Block,
-                        eA.BlockSlopeVerticalTop,
+                        BlockCategories.Block,
+                        TrackIDs_v0_3_1.BlockSlopeVerticalTop,
                         [["Blocks", "BlockSlopeVertical", { flipY: !0 }]],
                         ib,
                         [
@@ -42673,10 +42700,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "e81a123c0be3f8f168fb584d53e8aa038785569bbf2cd1c1cead2272889591e0",
-                        KA.Block,
-                        eA.BlockSlopeVerticalBottom,
+                        BlockCategories.Block,
+                        TrackIDs_v0_3_1.BlockSlopeVerticalBottom,
                         [["Blocks", "BlockSlopeVertical"]],
                         ib,
                         [
@@ -42694,10 +42721,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "94e14468f31af7f39b9d7ba188a364089ae81da2bd6a9db2b8f5b1b8cedce741",
-                        KA.Block,
-                        eA.BlockSlopeToVertical,
+                        BlockCategories.Block,
+                        TrackIDs_v0_3_1.BlockSlopeToVertical,
                         [["Blocks", "BlockSlopeToVertical"]],
                         ib,
                         [
@@ -42715,10 +42742,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "3a2f05b1c2c2fd976997fa473f1adb3ba14495701dc5a998f8697798384c6946",
-                        KA.Block,
-                        eA.BlockSlopeVerticalCornerTop,
+                        BlockCategories.Block,
+                        TrackIDs_v0_3_1.BlockSlopeVerticalCornerTop,
                         [
                             [
                                 "Blocks",
@@ -42778,10 +42805,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "3e4fa43e69aa1dbee584e16451a95a16229bba8d638df2bf6f6c9ffb3a9629c9",
-                        KA.Block,
-                        eA.BlockInnerCorner,
+                        BlockCategories.Block,
+                        TrackIDs_v0_3_1.BlockInnerCorner,
                         [["Blocks", "BlockInnerCorner"]],
                         ib,
                         [
@@ -42799,10 +42826,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "cc9c95eef56def4cf013e4ac85b8013a2b4f4b4346f1f5dd41fa017de763ef17",
-                        KA.Block,
-                        eA.BlockSlopeVerticalCornerBottom,
+                        BlockCategories.Block,
+                        TrackIDs_v0_3_1.BlockSlopeVerticalCornerBottom,
                         [["Blocks", "BlockSlopeVerticalCornerBottom"]],
                         ib,
                         [
@@ -42856,10 +42883,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "e4c82c8e512d52269cb6588fa34b06c179340ea40e71f74cbadadc7e8353f5a2",
-                        KA.Block,
-                        eA.BlockSlopeVerticalInnerCornerTop,
+                        BlockCategories.Block,
+                        TrackIDs_v0_3_1.BlockSlopeVerticalInnerCornerTop,
                         [
                             [
                                 "Blocks",
@@ -42891,10 +42918,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "926fdc6e82ecd709cc535faea6bb8778c6e2e91edb39eb6ae6308076dca2ed18",
-                        KA.Block,
-                        eA.BlockSlopeVerticalInnerCornerBottom,
+                        BlockCategories.Block,
+                        TrackIDs_v0_3_1.BlockSlopeVerticalInnerCornerBottom,
                         [["Blocks", "BlockSlopeVerticalInnerCorner"]],
                         ib,
                         [
@@ -42920,10 +42947,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "1086515ba3c1d8e5ec76b378f0bdbc77fc5a57fc8eba8972f0d5e611be945235",
-                        KA.Block,
-                        eA.BlockBridge,
+                        BlockCategories.Block,
+                        TrackIDs_v0_3_1.BlockBridge,
                         [["Blocks", "BlockBridge"]],
                         ib,
                         [
@@ -42933,10 +42960,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "5426ad4ff64af3f1a0f0794ad30cfc20434dfffdf44d93010f5f98671c246ff3",
-                        KA.Block,
-                        eA.BlockBridgeCorner,
+                        BlockCategories.Block,
+                        TrackIDs_v0_3_1.BlockBridgeCorner,
                         [["Blocks", "BlockBridgeCorner"]],
                         ib,
                         [
@@ -42950,10 +42977,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "784b9b4459e838e5b8f74f6250769ffa52ec5cc3608abc24c380a2e792c3d338",
-                        KA.Block,
-                        eA.BlockBridgeIntersectionT,
+                        BlockCategories.Block,
+                        TrackIDs_v0_3_1.BlockBridgeIntersectionT,
                         [["Blocks", "BlockBridgeIntersectionT"]],
                         ib,
                         [
@@ -42971,10 +42998,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "dfbcbc107a3c12217bfa3b224a5757d08e995705d1c122bb2c2665bbb8447b1c",
-                        KA.Block,
-                        eA.BlockBridgeIntersectionCross,
+                        BlockCategories.Block,
+                        TrackIDs_v0_3_1.BlockBridgeIntersectionCross,
                         [["Blocks", "BlockBridgeIntersectionCross"]],
                         ib,
                         [
@@ -42996,10 +43023,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "5fe53442e559418b7cc9483315b0ac45b8797f9630d5ecc4c7604dab4be25584",
-                        KA.WallTrack,
-                        eA.WallTrackTop,
+                        BlockCategories.WallTrack,
+                        TrackIDs_v0_3_1.WallTrackTop,
                         [["WallTrack", "WallTrackBottom", { flipY: !0 }]],
                         nb,
                         [
@@ -43017,10 +43044,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "010d187fbfbd399bfe880bbea1b548678c239eba0be2913e5cb8a69fbd17adf7",
-                        KA.WallTrack,
-                        eA.WallTrackMiddle,
+                        BlockCategories.WallTrack,
+                        TrackIDs_v0_3_1.WallTrackMiddle,
                         [["WallTrack", "WallTrackMiddle"]],
                         nb,
                         [
@@ -43030,10 +43057,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "33216a4dcb734511a80c5bf70ca6f66de555800426686eae5a2519d4c837090e",
-                        KA.WallTrack,
-                        eA.WallTrackBottom,
+                        BlockCategories.WallTrack,
+                        TrackIDs_v0_3_1.WallTrackBottom,
                         [["WallTrack", "WallTrackBottom"]],
                         nb,
                         [
@@ -43051,10 +43078,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "1e306d2a6347b68d6e275bf4ccc9c8942e0a633bf625a3bba95fa9f98ecd50ff",
-                        KA.WallTrack,
-                        eA.WallTrackSlopeToVertical,
+                        BlockCategories.WallTrack,
+                        TrackIDs_v0_3_1.WallTrackSlopeToVertical,
                         [["WallTrack", "WallTrackSlopeToVertical"]],
                         nb,
                         [
@@ -43072,10 +43099,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "3ed21ddbc756a6644e05f5e1ca78ff8df6d51affc472c2d86e7f23d85911e273",
-                        KA.WallTrack,
-                        eA.WallTrackTopCorner,
+                        BlockCategories.WallTrack,
+                        TrackIDs_v0_3_1.WallTrackTopCorner,
                         [["WallTrack", "WallTrackBottomCorner", { flipY: !0 }]],
                         nb,
                         [
@@ -43137,10 +43164,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "4027a2439cc3e42ceda50ff3d427a31e127b25a6457b55edc2d498b474a296a7",
-                        KA.WallTrack,
-                        eA.WallTrackMiddleCorner,
+                        BlockCategories.WallTrack,
+                        TrackIDs_v0_3_1.WallTrackMiddleCorner,
                         [["WallTrack", "WallTrackMiddleCorner"]],
                         nb,
                         [
@@ -43158,10 +43185,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "498286e062056a537a482ed3385fe0ac0343b399f29d470641df8f74c0532672",
-                        KA.WallTrack,
-                        eA.WallTrackBottomCorner,
+                        BlockCategories.WallTrack,
+                        TrackIDs_v0_3_1.WallTrackBottomCorner,
                         [["WallTrack", "WallTrackBottomCorner"]],
                         nb,
                         [
@@ -43223,10 +43250,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "ac09cd62c83af376f23d37dd88273614a2a11cc04a04bff6075fd749bb1ff421",
-                        KA.WallTrack,
-                        eA.WallTrackTopInnerCorner,
+                        BlockCategories.WallTrack,
+                        TrackIDs_v0_3_1.WallTrackTopInnerCorner,
                         [
                             [
                                 "WallTrack",
@@ -43254,10 +43281,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "16c9c8ece47c097f60cfc7f8a2daa2f0e7ad0befb0ebfd185402013fd1ec8e0f",
-                        KA.WallTrack,
-                        eA.WallTrackInnerCorner,
+                        BlockCategories.WallTrack,
+                        TrackIDs_v0_3_1.WallTrackInnerCorner,
                         [["WallTrack", "WallTrackInnerCorner"]],
                         nb,
                         [
@@ -43267,10 +43294,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "404e7506c2f7e9302acac39c31a659e7e09e7852786e5f0244f9827727a0bf1e",
-                        KA.WallTrack,
-                        eA.WallTrackBottomInnerCorner,
+                        BlockCategories.WallTrack,
+                        TrackIDs_v0_3_1.WallTrackBottomInnerCorner,
                         [["WallTrack", "WallTrackBottomInnerCorner"]],
                         nb,
                         [
@@ -43292,10 +43319,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "8b7023471502607ef19109760bee3b954ea3b3883c32f3960f75c6651c912ffd",
-                        KA.WallTrack,
-                        eA.WallTrackFloor,
+                        BlockCategories.WallTrack,
+                        TrackIDs_v0_3_1.WallTrackFloor,
                         [["WallTrack", "WallTrackFloor"]],
                         nb,
                         [
@@ -43305,10 +43332,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "59e7f31827236c71db8b16f3f1f259c4c82c87a37e4d57a5a097c0d527d128f3",
-                        KA.WallTrack,
-                        eA.WallTrackFloorCorner,
+                        BlockCategories.WallTrack,
+                        TrackIDs_v0_3_1.WallTrackFloorCorner,
                         [["WallTrack", "WallTrackFloorCorner"]],
                         nb,
                         [
@@ -43326,10 +43353,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "d58e3805b550b70940c845a807086865b21a4c36da74ffddedcfe5ce2d08e093",
-                        KA.WallTrack,
-                        eA.WallTrackFloorPlaneCorner,
+                        BlockCategories.WallTrack,
+                        TrackIDs_v0_3_1.WallTrackFloorPlaneCorner,
                         [["WallTrack", "WallTrackFloorPlaneCorner"]],
                         nb,
                         [
@@ -43347,10 +43374,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "a56b0c1cf964b213a38167cbbac6f33acd403978ad75746eb51bcfd8c6a36148",
-                        KA.WallTrack,
-                        eA.WallTrackCeiling,
+                        BlockCategories.WallTrack,
+                        TrackIDs_v0_3_1.WallTrackCeiling,
                         [["WallTrack", "WallTrackCeiling"]],
                         nb,
                         [
@@ -43360,10 +43387,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "f87b592d02120312e8e93d8a27c02dcda1095ac2f09879c6efafb2ca2b49d127",
-                        KA.WallTrack,
-                        eA.WallTrackCeilingCorner,
+                        BlockCategories.WallTrack,
+                        TrackIDs_v0_3_1.WallTrackCeilingCorner,
                         [["WallTrack", "WallTrackCeilingCorner"]],
                         nb,
                         [
@@ -43381,10 +43408,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "cfce1fe50f8cd26393eadd475783830e02f0b39bad4c0e00f7aa69614b22decc",
-                        KA.WallTrack,
-                        eA.WallTrackCeilingPlaneCorner,
+                        BlockCategories.WallTrack,
+                        TrackIDs_v0_3_1.WallTrackCeilingPlaneCorner,
                         [["WallTrack", "WallTrackCeilingPlaneCorner"]],
                         nb,
                         [
@@ -43402,10 +43429,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "19656d02145f1a4ba07dbf2f236f865d34c86f823741b247b5d444a36d61c316",
-                        KA.Pillar,
-                        eA.PillarTop,
+                        BlockCategories.Pillar,
+                        TrackIDs_v0_3_1.PillarTop,
                         [["Pillar", "PillarTop"]],
                         nb,
                         [
@@ -43415,10 +43442,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "dde596d55ffc00f0f00d361667239d9f71c414f03304fecb6a7d11f6f5e702f1",
-                        KA.Pillar,
-                        eA.PillarMiddle,
+                        BlockCategories.Pillar,
+                        TrackIDs_v0_3_1.PillarMiddle,
                         [["Pillar", "PillarMiddle"]],
                         nb,
                         [
@@ -43428,10 +43455,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "dced5202d9373f9dd81a39530a87a1a7036c93ae71604a4e26c3a191abf3c197",
-                        KA.Pillar,
-                        eA.PillarBottom,
+                        BlockCategories.Pillar,
+                        TrackIDs_v0_3_1.PillarBottom,
                         [["Pillar", "PillarBottom"]],
                         nb,
                         [
@@ -43441,10 +43468,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "af83eebf50c302880377e4f8c1fb3b2ef96ae193e8d03c17e1fd77c73a847e63",
-                        KA.Pillar,
-                        eA.PillarShort,
+                        BlockCategories.Pillar,
+                        TrackIDs_v0_3_1.PillarShort,
                         [["Pillar", "PillarShort"]],
                         nb,
                         [
@@ -43454,10 +43481,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "25b41116fb04b1f3cdd3119f57e0000a6ea8cb12d435718ffd6bb765866c272f",
-                        KA.Pillar,
-                        eA.PillarBranch1,
+                        BlockCategories.Pillar,
+                        TrackIDs_v0_3_1.PillarBranch1,
                         [["Pillar", "PillarBranch1"]],
                         nb,
                         [
@@ -43467,10 +43494,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "05ae39aea4f1ddd818fa57860e688c9cb875544f9b82eafe58a2eb9c19d8d91d",
-                        KA.Pillar,
-                        eA.PillarBranch1Top,
+                        BlockCategories.Pillar,
+                        TrackIDs_v0_3_1.PillarBranch1Top,
                         [["Pillar", "PillarBranch1Top"]],
                         nb,
                         [
@@ -43480,10 +43507,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "06c29d92e42e0c32050af98d69eecc94ce15adf8ac81dbe53dfb577a83265f4e",
-                        KA.Pillar,
-                        eA.PillarBranch1Middle,
+                        BlockCategories.Pillar,
+                        TrackIDs_v0_3_1.PillarBranch1Middle,
                         [["Pillar", "PillarBranch1Middle"]],
                         nb,
                         [
@@ -43493,10 +43520,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "4a989027e0bd6db264f092bac729d9d450e012a710ea28d199f7ff52efd70fbd",
-                        KA.Pillar,
-                        eA.PillarBranch1Bottom,
+                        BlockCategories.Pillar,
+                        TrackIDs_v0_3_1.PillarBranch1Bottom,
                         [["Pillar", "PillarBranch1Bottom"]],
                         nb,
                         [
@@ -43506,10 +43533,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "78b2ff83ad71e7f3d692abc35923fa20c2ae14c01e37d44ec430746ca1bac992",
-                        KA.Pillar,
-                        eA.PillarBranch2,
+                        BlockCategories.Pillar,
+                        TrackIDs_v0_3_1.PillarBranch2,
                         [["Pillar", "PillarBranch2"]],
                         nb,
                         [
@@ -43523,10 +43550,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "b22c93bc73ec2da9dbff218da1676d7436527ed284e264f37294e48ef1307301",
-                        KA.Pillar,
-                        eA.PillarBranch2Top,
+                        BlockCategories.Pillar,
+                        TrackIDs_v0_3_1.PillarBranch2Top,
                         [["Pillar", "PillarBranch2Top"]],
                         nb,
                         [
@@ -43540,10 +43567,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "79a456a8fa3da24bec6c033f6c736fa1c728745f9624ae78ca20b6a4a76afae8",
-                        KA.Pillar,
-                        eA.PillarBranch2Middle,
+                        BlockCategories.Pillar,
+                        TrackIDs_v0_3_1.PillarBranch2Middle,
                         [["Pillar", "PillarBranch2Middle"]],
                         nb,
                         [
@@ -43557,10 +43584,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "3b81b3f965cbc9fda4fe09e830ba25f1b96ce512d87b0146a1192a6cd0d07335",
-                        KA.Pillar,
-                        eA.PillarBranch2Bottom,
+                        BlockCategories.Pillar,
+                        TrackIDs_v0_3_1.PillarBranch2Bottom,
                         [["Pillar", "PillarBranch2Bottom"]],
                         nb,
                         [
@@ -43574,10 +43601,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "27727678bbcac9d3b0172b165ca5c92b10f4b4584a3a18fef4c542f3e791f26f",
-                        KA.Pillar,
-                        eA.PillarBranch3,
+                        BlockCategories.Pillar,
+                        TrackIDs_v0_3_1.PillarBranch3,
                         [["Pillar", "PillarBranch3"]],
                         nb,
                         [
@@ -43595,10 +43622,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "50c7ac511d30ab9e065c928b776652f038be7683d948082bbefc419ee049e505",
-                        KA.Pillar,
-                        eA.PillarBranch3Top,
+                        BlockCategories.Pillar,
+                        TrackIDs_v0_3_1.PillarBranch3Top,
                         [["Pillar", "PillarBranch3Top"]],
                         nb,
                         [
@@ -43616,10 +43643,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "98b3bfe99e7132825f5aa93122e4e5fdec46eb2877c8eb91fa2648f709527b60",
-                        KA.Pillar,
-                        eA.PillarBranch3Middle,
+                        BlockCategories.Pillar,
+                        TrackIDs_v0_3_1.PillarBranch3Middle,
                         [["Pillar", "PillarBranch3Middle"]],
                         nb,
                         [
@@ -43637,10 +43664,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "7326bbb558f8bcc28d5875c43b1b8e3646caadb873a14fde3ab517f779aea345",
-                        KA.Pillar,
-                        eA.PillarBranch3Bottom,
+                        BlockCategories.Pillar,
+                        TrackIDs_v0_3_1.PillarBranch3Bottom,
                         [["Pillar", "PillarBranch3Bottom"]],
                         nb,
                         [
@@ -43658,10 +43685,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "0e23c2615cfdb350bb3a700b6169589265a1d1079f61294fb497b8f80191d523",
-                        KA.Pillar,
-                        eA.PillarBranch4,
+                        BlockCategories.Pillar,
+                        TrackIDs_v0_3_1.PillarBranch4,
                         [["Pillar", "PillarBranch4"]],
                         nb,
                         [
@@ -43683,10 +43710,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "e62b55e111dbcb3faefed0a203eac5b55051a2b11911946660310e3df3588da3",
-                        KA.Pillar,
-                        eA.PillarBranch4Top,
+                        BlockCategories.Pillar,
+                        TrackIDs_v0_3_1.PillarBranch4Top,
                         [["Pillar", "PillarBranch4Top"]],
                         nb,
                         [
@@ -43708,10 +43735,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "4e2cfb89c1c591803a1440532a74c3ace37ec7fe78a526c1b57f6679c620df2e",
-                        KA.Pillar,
-                        eA.PillarBranch4Middle,
+                        BlockCategories.Pillar,
+                        TrackIDs_v0_3_1.PillarBranch4Middle,
                         [["Pillar", "PillarBranch4Middle"]],
                         nb,
                         [
@@ -43733,10 +43760,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "e7807350788e4570c8bb74d4a635639ef731d83e52922fac5bc10f415f73f794",
-                        KA.Pillar,
-                        eA.PillarBranch4Bottom,
+                        BlockCategories.Pillar,
+                        TrackIDs_v0_3_1.PillarBranch4Bottom,
                         [["Pillar", "PillarBranch4Bottom"]],
                         nb,
                         [
@@ -43758,10 +43785,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "836bfd12791bfebd99aba70531da4c9bd6e332d16c1e120a8888ea54f59456f9",
-                        KA.Pillar,
-                        eA.PillarBranch5,
+                        BlockCategories.Pillar,
+                        TrackIDs_v0_3_1.PillarBranch5,
                         [["Pillar", "PillarBranch5"]],
                         nb,
                         [
@@ -43771,10 +43798,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "ab85228116faf9ae7b1e6cb4a03530cbec808df3d3c1d7883eb41eb7cfe231d7",
-                        KA.Pillar,
-                        eA.PillarBranch5Top,
+                        BlockCategories.Pillar,
+                        TrackIDs_v0_3_1.PillarBranch5Top,
                         [["Pillar", "PillarBranch5Top"]],
                         nb,
                         [
@@ -43784,10 +43811,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "db93d5cea4e523fd67a56f8d928084ab6355331a8e5d1899115c1841866006bb",
-                        KA.Pillar,
-                        eA.PillarBranch5Middle,
+                        BlockCategories.Pillar,
+                        TrackIDs_v0_3_1.PillarBranch5Middle,
                         [["Pillar", "PillarBranch5Middle"]],
                         nb,
                         [
@@ -43797,10 +43824,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "dd793efa234159e3a0ff28b064ecb715e6c8bb76e06acfe4bd0d9a2f2b9bba88",
-                        KA.Pillar,
-                        eA.PillarBranch5Bottom,
+                        BlockCategories.Pillar,
+                        TrackIDs_v0_3_1.PillarBranch5Bottom,
                         [["Pillar", "PillarBranch5Bottom"]],
                         nb,
                         [
@@ -43810,10 +43837,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "350f7d3591ffd0b2cfb8204d1c6cd0022fd3bda81ea7e950fce3abea7ec89e1a",
-                        KA.Sign,
-                        eA.SignArrowLeft,
+                        BlockCategories.Sign,
+                        TrackIDs_v0_3_1.SignArrowLeft,
                         [["Signs", "SignArrowRight", { flipX: !0 }]],
                         nb,
                         [
@@ -43823,10 +43850,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "22e104e58bba0a609d379578e391ce50ca523c9eee1c3fddebb6d1bb2246a0b9",
-                        KA.Sign,
-                        eA.SignArrowRight,
+                        BlockCategories.Sign,
+                        TrackIDs_v0_3_1.SignArrowRight,
                         [["Signs", "SignArrowRight"]],
                         nb,
                         [
@@ -43836,10 +43863,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "acba0cfe380e625285b973e09344e61740e77d6f8cac8691ef3e0a0b0878040e",
-                        KA.Sign,
-                        eA.SignArrowUp,
+                        BlockCategories.Sign,
+                        TrackIDs_v0_3_1.SignArrowUp,
                         [["Signs", "SignArrowUp"]],
                         nb,
                         [
@@ -43849,10 +43876,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "8d0dbea0a26bdf3addd372f5d9a2fdecfd776a48f31218acdeb036129b248ca5",
-                        KA.Sign,
-                        eA.SignArrowDown,
+                        BlockCategories.Sign,
+                        TrackIDs_v0_3_1.SignArrowDown,
                         [["Signs", "SignArrowUp", { flipY: !0 }]],
                         nb,
                         [
@@ -43862,10 +43889,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "e5e1b1ca69d7b230331171be07876c4b1bdebba557c19b18ab17d91eee2771d5",
-                        KA.Sign,
-                        eA.SignWarning,
+                        BlockCategories.Sign,
+                        TrackIDs_v0_3_1.SignWarning,
                         [["Signs", "SignWarning"]],
                         nb,
                         [
@@ -43875,10 +43902,10 @@
                             ],
                         ]
                     ),
-                    new rb(
+                    new Block(
                         "64ed1fba4990a25bc774575ff8835117638d2c3e7c8f41bf0032d219e1083e4c",
-                        KA.Sign,
-                        eA.SignWrongWay,
+                        BlockCategories.Sign,
+                        TrackIDs_v0_3_1.SignWrongWay,
                         [["Signs", "SignWrongWay"]],
                         nb,
                         [
@@ -43890,7 +43917,7 @@
                     ),
                 ],
                 sb = new Map();
-            for (const e of ab) {
+            for (const e of AllBlocks) {
                 if (sb.has(e.id))
                     throw new Error(
                         "Duplicate track part id " + e.id.toString()
@@ -43903,26 +43930,26 @@
                     throw new Error("Unknown track part id " + e.toString());
                 return t;
             }
-            const lb = ab
-                    .filter((e) => {
-                        var t;
-                        return (
-                            (null === (t = e.detector) || void 0 === t
-                                ? void 0
-                                : t.type) == XA.Checkpoint
-                        );
-                    })
-                    .map((e) => e.id),
-                cb = ab.filter((e) => null != e.startOffset).map((e) => e.id);
+            const checkpoints = AllBlocks.filter((e) => {
+                    var t;
+                    return (
+                        (null === (t = e.detector) || void 0 === t
+                            ? void 0
+                            : t.type) == BlockType.Checkpoint
+                    );
+                }).map((e) => e.id),
+                starts = AllBlocks.filter((e) => null != e.startOffset).map(
+                    (e) => e.id
+                );
             function hb(e) {
                 const t = e.parts;
                 if ("object" != typeof t && null !== t && !Array.isArray(t))
                     return null;
-                const n = new Sb(QA.Summer, new GA()),
+                const n = new Track(Environments.Summer, new SunDirection()),
                     i = Object.keys(t);
                 for (const e of i) {
                     const i = parseInt(e, 10);
-                    if (!(i in eA)) return null;
+                    if (!(i in TrackIDs_v0_3_1)) return null;
                     {
                         const e = t[i];
                         if (!Array.isArray(e)) return null;
@@ -43946,17 +43973,17 @@
                             )
                                 return null;
                             {
-                                if (lb.includes(i)) return null;
+                                if (checkpoints.includes(i)) return null;
                                 let e = null;
-                                cb.includes(i) && (e = 0),
+                                starts.includes(i) && (e = 0),
                                     n.addPart(
                                         4 * r,
                                         a,
                                         4 * s,
                                         i,
                                         o,
-                                        nA.YPositive,
-                                        Jy.Default,
+                                        Axes.YPositive,
+                                        Colours.Default,
                                         null,
                                         e
                                     );
@@ -43991,12 +44018,12 @@
             function ub(e) {
                 const t = Kg(e);
                 if (null == t) return null;
-                const n = new Sb(QA.Summer, new GA());
+                const n = new Track(Environments.Summer, new SunDirection());
                 let i = 0;
                 for (; i < t.length; ) {
                     if (t.length - i < 2) return null;
                     const e = t[i + 0] | (t[i + 1] << 8);
-                    if (((i += 2), !(e in eA))) return null;
+                    if (((i += 2), !(e in TrackIDs_v0_3_1))) return null;
                     if (t.length - i < 4) return null;
                     const r =
                         t[i + 0] |
@@ -44018,17 +44045,17 @@
                         if (((i += 3), t.length - i < 1)) return null;
                         const o = 3 & t[i + 0];
                         if (((i += 1), o < 0 || o > 3)) return null;
-                        if (lb.includes(e)) return null;
+                        if (checkpoints.includes(e)) return null;
                         let l = null;
-                        cb.includes(e) && (l = 0),
+                        starts.includes(e) && (l = 0),
                             n.addPart(
                                 4 * r,
                                 a,
                                 4 * s,
                                 e,
                                 o,
-                                nA.YPositive,
-                                Jy.Default,
+                                Axes.YPositive,
+                                Colours.Default,
                                 null,
                                 l
                             );
@@ -44036,283 +44063,343 @@
                 }
                 return n;
             }
-            function pb(e) {
-                const t = UA(e);
+            function parse_trackdata_v0_3_1(e) {
+                const t = base62_decode(e);
                 if (null == t) return null;
                 const n = new Yg.Inflate();
                 if ((n.push(t, !0), n.err)) return null;
-                const i = n.result;
-                if (!(i instanceof Uint8Array)) return null;
-                const r = new Sb(QA.Summer, new GA());
-                let a = 0;
-                for (; a < i.length; ) {
-                    if (i.length - a < 2) return null;
-                    const e = i[a + 0] | (i[a + 1] << 8);
-                    if (((a += 2), !(e in eA))) return null;
-                    if (i.length - a < 4) return null;
-                    const t =
-                        i[a + 0] |
-                        (i[a + 1] << 8) |
-                        (i[a + 2] << 16) |
-                        (i[a + 3] << 24);
-                    a += 4;
-                    for (let n = 0; n < t; ++n) {
-                        if (i.length - a < 3) return null;
-                        const t =
-                            (i[a + 0] | (i[a + 1] << 8) | (i[a + 2] << 16)) -
+                const data = n.result;
+                if (!(data instanceof Uint8Array)) return null;
+                const track = new Track(
+                    Environments.Summer,
+                    new SunDirection()
+                );
+                let index = 0;
+                for (; index < data.length; ) {
+                    if (data.length - index < 2) return null;
+                    const id = data[index + 0] | (data[index + 1] << 8);
+                    if (((index += 2), !(id in TrackIDs_v0_3_1))) return null;
+                    if (data.length - index < 4) return null;
+                    const num_parts =
+                        data[index + 0] |
+                        (data[index + 1] << 8) |
+                        (data[index + 2] << 16) |
+                        (data[index + 3] << 24);
+                    index += 4;
+                    for (let n = 0; n < num_parts; ++n) {
+                        if (data.length - index < 3) return null;
+                        const x =
+                            (data[index + 0] |
+                                (data[index + 1] << 8) |
+                                (data[index + 2] << 16)) -
                             Math.pow(2, 23);
-                        if (((a += 3), i.length - a < 3)) return null;
-                        const n = i[a + 0] | (i[a + 1] << 8) | (i[a + 2] << 16);
-                        if (((a += 3), i.length - a < 3)) return null;
-                        const s =
-                            (i[a + 0] | (i[a + 1] << 8) | (i[a + 2] << 16)) -
+                        if (((index += 3), data.length - index < 3))
+                            return null;
+                        const y =
+                            data[index + 0] |
+                            (data[index + 1] << 8) |
+                            (data[index + 2] << 16);
+                        if (((index += 3), data.length - index < 3))
+                            return null;
+                        const z =
+                            (data[index + 0] |
+                                (data[index + 1] << 8) |
+                                (data[index + 2] << 16)) -
                             Math.pow(2, 23);
-                        if (((a += 3), i.length - a < 1)) return null;
-                        const o = i[a + 0];
-                        if (((a += 1), o < 0 || o > 3)) return null;
-                        let l = null;
-                        if (lb.includes(e)) {
-                            if (i.length - a < 2) return null;
-                            (l = i[a + 0] | (i[a + 1] << 8)), (a += 2);
+                        if (((index += 3), data.length - index < 1))
+                            return null;
+                        const rotation = data[index + 0];
+                        if (((index += 1), rotation < 0 || rotation > 3))
+                            return null;
+                        let checkpoint_order = null;
+                        if (checkpoints.includes(id)) {
+                            if (data.length - index < 2) return null;
+                            (checkpoint_order =
+                                data[index + 0] | (data[index + 1] << 8)),
+                                (index += 2);
                         }
-                        let c = null;
-                        cb.includes(e) && (c = 0),
-                            r.addPart(
-                                4 * t,
-                                n,
-                                4 * s,
-                                e,
-                                o,
-                                nA.YPositive,
-                                Jy.Default,
-                                l,
-                                c
+                        let start_order = null;
+                        starts.includes(id) && (start_order = 0),
+                            track.addPart(
+                                4 * x,
+                                y,
+                                4 * z,
+                                id,
+                                rotation,
+                                Axes.YPositive,
+                                Colours.Default,
+                                checkpoint_order,
+                                start_order
                             );
                     }
                 }
-                return r;
+                return track;
             }
             function fb(e) {
-                const t = UA(e);
+                const t = base62_decode(e);
                 if (null == t) return null;
                 const n = new Yg.Inflate();
                 if ((n.push(t, !0), n.err)) return null;
                 const i = n.result;
                 if (!(i instanceof Uint8Array)) return null;
-                const r = new Sb(QA.Summer, new GA());
+                const r = new Track(Environments.Summer, new SunDirection());
                 let a = 0;
                 for (; a < i.length; ) {
                     if (i.length - a < 2) return null;
                     let e = i[a + 0] | (i[a + 1] << 8);
                     a += 2;
-                    let t = Jy.Default;
+                    let t = Colours.Default;
                     if (e >= 134 && e <= 178)
                         switch (e) {
                             case 134:
-                                (e = eA.Block), (t = Jy.Custom1);
+                                (e = TrackIDs_v0_3_1.Block),
+                                    (t = Colours.Custom1);
                                 break;
                             case 135:
-                                (e = eA.HalfBlock), (t = Jy.Custom1);
+                                (e = TrackIDs_v0_3_1.HalfBlock),
+                                    (t = Colours.Custom1);
                                 break;
                             case 136:
-                                (e = eA.QuarterBlock), (t = Jy.Custom1);
+                                (e = TrackIDs_v0_3_1.QuarterBlock),
+                                    (t = Colours.Custom1);
                                 break;
                             case 137:
-                                (e = eA.BlockSlopedDown), (t = Jy.Custom1);
+                                (e = TrackIDs_v0_3_1.BlockSlopedDown),
+                                    (t = Colours.Custom1);
                                 break;
                             case 138:
-                                (e = eA.BlockSlopedDownInnerCorner),
-                                    (t = Jy.Custom1);
+                                (e =
+                                    TrackIDs_v0_3_1.BlockSlopedDownInnerCorner),
+                                    (t = Colours.Custom1);
                                 break;
                             case 139:
-                                (e = eA.BlockSlopedDownOuterCorner),
-                                    (t = Jy.Custom1);
+                                (e =
+                                    TrackIDs_v0_3_1.BlockSlopedDownOuterCorner),
+                                    (t = Colours.Custom1);
                                 break;
                             case 140:
-                                (e = eA.BlockSlopedUp), (t = Jy.Custom1);
+                                (e = TrackIDs_v0_3_1.BlockSlopedUp),
+                                    (t = Colours.Custom1);
                                 break;
                             case 141:
-                                (e = eA.BlockSlopedUpInnerCorner),
-                                    (t = Jy.Custom1);
+                                (e = TrackIDs_v0_3_1.BlockSlopedUpInnerCorner),
+                                    (t = Colours.Custom1);
                                 break;
                             case 142:
-                                (e = eA.BlockSlopedUpOuterCorner),
-                                    (t = Jy.Custom1);
+                                (e = TrackIDs_v0_3_1.BlockSlopedUpOuterCorner),
+                                    (t = Colours.Custom1);
                                 break;
                             case 143:
-                                (e = eA.BlockSlopeDown), (t = Jy.Custom1);
+                                (e = TrackIDs_v0_3_1.BlockSlopeDown),
+                                    (t = Colours.Custom1);
                                 break;
                             case 144:
-                                (e = eA.BlockSlopeUp), (t = Jy.Custom1);
+                                (e = TrackIDs_v0_3_1.BlockSlopeUp),
+                                    (t = Colours.Custom1);
                                 break;
                             case 145:
-                                (e = eA.BlockBridge), (t = Jy.Custom1);
+                                (e = TrackIDs_v0_3_1.BlockBridge),
+                                    (t = Colours.Custom1);
                                 break;
                             case 146:
-                                (e = eA.BlockBridgeCorner), (t = Jy.Custom1);
+                                (e = TrackIDs_v0_3_1.BlockBridgeCorner),
+                                    (t = Colours.Custom1);
                                 break;
                             case 147:
-                                (e = eA.BlockBridgeIntersectionT),
-                                    (t = Jy.Custom1);
+                                (e = TrackIDs_v0_3_1.BlockBridgeIntersectionT),
+                                    (t = Colours.Custom1);
                                 break;
                             case 148:
-                                (e = eA.BlockBridgeIntersectionCross),
-                                    (t = Jy.Custom1);
+                                (e =
+                                    TrackIDs_v0_3_1.BlockBridgeIntersectionCross),
+                                    (t = Colours.Custom1);
                                 break;
                             case 149:
-                                (e = eA.Block), (t = Jy.Custom6);
+                                (e = TrackIDs_v0_3_1.Block),
+                                    (t = Colours.Custom6);
                                 break;
                             case 150:
-                                (e = eA.HalfBlock), (t = Jy.Custom6);
+                                (e = TrackIDs_v0_3_1.HalfBlock),
+                                    (t = Colours.Custom6);
                                 break;
                             case 151:
-                                (e = eA.QuarterBlock), (t = Jy.Custom6);
+                                (e = TrackIDs_v0_3_1.QuarterBlock),
+                                    (t = Colours.Custom6);
                                 break;
                             case 152:
-                                (e = eA.BlockSlopedDown), (t = Jy.Custom6);
+                                (e = TrackIDs_v0_3_1.BlockSlopedDown),
+                                    (t = Colours.Custom6);
                                 break;
                             case 153:
-                                (e = eA.BlockSlopedDownInnerCorner),
-                                    (t = Jy.Custom6);
+                                (e =
+                                    TrackIDs_v0_3_1.BlockSlopedDownInnerCorner),
+                                    (t = Colours.Custom6);
                                 break;
                             case 154:
-                                (e = eA.BlockSlopedDownOuterCorner),
-                                    (t = Jy.Custom6);
+                                (e =
+                                    TrackIDs_v0_3_1.BlockSlopedDownOuterCorner),
+                                    (t = Colours.Custom6);
                                 break;
                             case 155:
-                                (e = eA.BlockSlopedUp), (t = Jy.Custom6);
+                                (e = TrackIDs_v0_3_1.BlockSlopedUp),
+                                    (t = Colours.Custom6);
                                 break;
                             case 156:
-                                (e = eA.BlockSlopedUpInnerCorner),
-                                    (t = Jy.Custom6);
+                                (e = TrackIDs_v0_3_1.BlockSlopedUpInnerCorner),
+                                    (t = Colours.Custom6);
                                 break;
                             case 157:
-                                (e = eA.BlockSlopedUpOuterCorner),
-                                    (t = Jy.Custom6);
+                                (e = TrackIDs_v0_3_1.BlockSlopedUpOuterCorner),
+                                    (t = Colours.Custom6);
                                 break;
                             case 158:
-                                (e = eA.BlockSlopeDown), (t = Jy.Custom6);
+                                (e = TrackIDs_v0_3_1.BlockSlopeDown),
+                                    (t = Colours.Custom6);
                                 break;
                             case 159:
-                                (e = eA.BlockSlopeUp), (t = Jy.Custom6);
+                                (e = TrackIDs_v0_3_1.BlockSlopeUp),
+                                    (t = Colours.Custom6);
                                 break;
                             case 160:
-                                (e = eA.BlockBridge), (t = Jy.Custom6);
+                                (e = TrackIDs_v0_3_1.BlockBridge),
+                                    (t = Colours.Custom6);
                                 break;
                             case 161:
-                                (e = eA.BlockBridgeCorner), (t = Jy.Custom6);
+                                (e = TrackIDs_v0_3_1.BlockBridgeCorner),
+                                    (t = Colours.Custom6);
                                 break;
                             case 162:
-                                (e = eA.BlockBridgeIntersectionT),
-                                    (t = Jy.Custom6);
+                                (e = TrackIDs_v0_3_1.BlockBridgeIntersectionT),
+                                    (t = Colours.Custom6);
                                 break;
                             case 163:
-                                (e = eA.BlockBridgeIntersectionCross),
-                                    (t = Jy.Custom6);
+                                (e =
+                                    TrackIDs_v0_3_1.BlockBridgeIntersectionCross),
+                                    (t = Colours.Custom6);
                                 break;
                             case 164:
-                                (e = eA.Block), (t = Jy.Custom0);
+                                (e = TrackIDs_v0_3_1.Block),
+                                    (t = Colours.Custom0);
                                 break;
                             case 165:
-                                (e = eA.HalfBlock), (t = Jy.Custom0);
+                                (e = TrackIDs_v0_3_1.HalfBlock),
+                                    (t = Colours.Custom0);
                                 break;
                             case 166:
-                                (e = eA.QuarterBlock), (t = Jy.Custom0);
+                                (e = TrackIDs_v0_3_1.QuarterBlock),
+                                    (t = Colours.Custom0);
                                 break;
                             case 167:
-                                (e = eA.BlockSlopedDown), (t = Jy.Custom0);
+                                (e = TrackIDs_v0_3_1.BlockSlopedDown),
+                                    (t = Colours.Custom0);
                                 break;
                             case 168:
-                                (e = eA.BlockSlopedDownInnerCorner),
-                                    (t = Jy.Custom0);
+                                (e =
+                                    TrackIDs_v0_3_1.BlockSlopedDownInnerCorner),
+                                    (t = Colours.Custom0);
                                 break;
                             case 169:
-                                (e = eA.BlockSlopedDownOuterCorner),
-                                    (t = Jy.Custom0);
+                                (e =
+                                    TrackIDs_v0_3_1.BlockSlopedDownOuterCorner),
+                                    (t = Colours.Custom0);
                                 break;
                             case 170:
-                                (e = eA.BlockSlopedUp), (t = Jy.Custom0);
+                                (e = TrackIDs_v0_3_1.BlockSlopedUp),
+                                    (t = Colours.Custom0);
                                 break;
                             case 171:
-                                (e = eA.BlockSlopedUpInnerCorner),
-                                    (t = Jy.Custom0);
+                                (e = TrackIDs_v0_3_1.BlockSlopedUpInnerCorner),
+                                    (t = Colours.Custom0);
                                 break;
                             case 172:
-                                (e = eA.BlockSlopedUpOuterCorner),
-                                    (t = Jy.Custom0);
+                                (e = TrackIDs_v0_3_1.BlockSlopedUpOuterCorner),
+                                    (t = Colours.Custom0);
                                 break;
                             case 173:
-                                (e = eA.BlockSlopeDown), (t = Jy.Custom0);
+                                (e = TrackIDs_v0_3_1.BlockSlopeDown),
+                                    (t = Colours.Custom0);
                                 break;
                             case 174:
-                                (e = eA.BlockSlopeUp), (t = Jy.Custom0);
+                                (e = TrackIDs_v0_3_1.BlockSlopeUp),
+                                    (t = Colours.Custom0);
                                 break;
                             case 175:
-                                (e = eA.BlockBridge), (t = Jy.Custom0);
+                                (e = TrackIDs_v0_3_1.BlockBridge),
+                                    (t = Colours.Custom0);
                                 break;
                             case 176:
-                                (e = eA.BlockBridgeCorner), (t = Jy.Custom0);
+                                (e = TrackIDs_v0_3_1.BlockBridgeCorner),
+                                    (t = Colours.Custom0);
                                 break;
                             case 177:
-                                (e = eA.BlockBridgeIntersectionT),
-                                    (t = Jy.Custom0);
+                                (e = TrackIDs_v0_3_1.BlockBridgeIntersectionT),
+                                    (t = Colours.Custom0);
                                 break;
                             case 178:
-                                (e = eA.BlockBridgeIntersectionCross),
-                                    (t = Jy.Custom0);
+                                (e =
+                                    TrackIDs_v0_3_1.BlockBridgeIntersectionCross),
+                                    (t = Colours.Custom0);
                         }
                     let n = null,
                         s = { x: 0, y: 0, z: 0 };
-                    if (79 == e) n = eA.WallTrackFloorPlaneCorner;
+                    if (79 == e) n = TrackIDs_v0_3_1.WallTrackFloorPlaneCorner;
                     else if (81 == e)
-                        (n = eA.WallTrackCeilingPlaneCorner),
+                        (n = TrackIDs_v0_3_1.WallTrackCeilingPlaneCorner),
                             (s = { x: 0, y: 3, z: 0 });
                     else if (e >= 87 && e <= 98)
                         switch (e) {
                             case 87:
-                                (e = eA.Slope), (n = eA.BlockSlopedUp);
+                                (e = TrackIDs_v0_3_1.Slope),
+                                    (n = TrackIDs_v0_3_1.BlockSlopedUp);
                                 break;
                             case 88:
-                                (e = eA.SlopeUp), (n = eA.BlockSlopeUp);
+                                (e = TrackIDs_v0_3_1.SlopeUp),
+                                    (n = TrackIDs_v0_3_1.BlockSlopeUp);
                                 break;
                             case 89:
-                                (e = eA.SlopeDown), (n = eA.BlockSlopeDown);
+                                (e = TrackIDs_v0_3_1.SlopeDown),
+                                    (n = TrackIDs_v0_3_1.BlockSlopeDown);
                                 break;
                             case 90:
-                                (e = eA.SlopeUpLeftWide), (n = eA.BlockSlopeUp);
+                                (e = TrackIDs_v0_3_1.SlopeUpLeftWide),
+                                    (n = TrackIDs_v0_3_1.BlockSlopeUp);
                                 break;
                             case 91:
-                                (e = eA.SlopeUpRightWide),
-                                    (n = eA.BlockSlopeUp);
+                                (e = TrackIDs_v0_3_1.SlopeUpRightWide),
+                                    (n = TrackIDs_v0_3_1.BlockSlopeUp);
                                 break;
                             case 92:
-                                (e = eA.SlopeDownLeftWide),
-                                    (n = eA.BlockSlopeDown);
+                                (e = TrackIDs_v0_3_1.SlopeDownLeftWide),
+                                    (n = TrackIDs_v0_3_1.BlockSlopeDown);
                                 break;
                             case 93:
-                                (e = eA.SlopeDownRightWide),
-                                    (n = eA.BlockSlopeDown);
+                                (e = TrackIDs_v0_3_1.SlopeDownRightWide),
+                                    (n = TrackIDs_v0_3_1.BlockSlopeDown);
                                 break;
                             case 94:
-                                (e = eA.SlopeLeftWide), (n = eA.BlockSlopedUp);
+                                (e = TrackIDs_v0_3_1.SlopeLeftWide),
+                                    (n = TrackIDs_v0_3_1.BlockSlopedUp);
                                 break;
                             case 95:
-                                (e = eA.SlopeRightWide), (n = eA.BlockSlopedUp);
+                                (e = TrackIDs_v0_3_1.SlopeRightWide),
+                                    (n = TrackIDs_v0_3_1.BlockSlopedUp);
                                 break;
                             case 96:
-                                (e = eA.PlaneSlopeUp), (n = eA.BlockSlopeUp);
+                                (e = TrackIDs_v0_3_1.PlaneSlopeUp),
+                                    (n = TrackIDs_v0_3_1.BlockSlopeUp);
                                 break;
                             case 97:
-                                (e = eA.PlaneSlopeDown),
-                                    (n = eA.BlockSlopeDown);
+                                (e = TrackIDs_v0_3_1.PlaneSlopeDown),
+                                    (n = TrackIDs_v0_3_1.BlockSlopeDown);
                                 break;
                             case 98:
-                                (e = eA.PlaneSlope), (n = eA.BlockSlopedUp);
+                                (e = TrackIDs_v0_3_1.PlaneSlope),
+                                    (n = TrackIDs_v0_3_1.BlockSlopedUp);
                                 break;
                             default:
                                 throw new Error("Invalid track part id");
                         }
-                    if (!(e in eA)) return null;
+                    if (!(e in TrackIDs_v0_3_1)) return null;
                     if (i.length - a < 4) return null;
                     const o =
                         i[a + 0] |
@@ -44335,12 +44422,12 @@
                         const h = i[a + 0];
                         if (((a += 1), h < 0 || h > 3)) return null;
                         let d = null;
-                        if (lb.includes(e)) {
+                        if (checkpoints.includes(e)) {
                             if (i.length - a < 2) return null;
                             (d = i[a + 0] | (i[a + 1] << 8)), (a += 2);
                         }
                         let u = null;
-                        cb.includes(e) && (u = 0),
+                        starts.includes(e) && (u = 0),
                             null != n &&
                                 r.addPart(
                                     4 * o + s.x,
@@ -44348,8 +44435,8 @@
                                     4 * c + s.z,
                                     n,
                                     h,
-                                    nA.YPositive,
-                                    Jy.Default,
+                                    Axes.YPositive,
+                                    Colours.Default,
                                     null,
                                     u
                                 ),
@@ -44359,7 +44446,7 @@
                                 4 * c,
                                 e,
                                 h,
-                                nA.YPositive,
+                                Axes.YPositive,
                                 t,
                                 d,
                                 u
@@ -44368,92 +44455,134 @@
                 }
                 return r;
             }
-            function mb(e, t) {
-                let n = e;
-                if (t.length - n < 1) return null;
-                const i = t[n];
-                if (((n += 1), !(i in QA))) return null;
-                if (t.length - n < 1) return null;
-                const r = t[n];
-                if (((n += 1), !Number.isSafeInteger(r) || r < 0 || r >= 180))
-                    return null;
-                const a = new Sb(i, new GA(r));
-                if (t.length - n < 9) return null;
-                const s =
-                    t[n] |
-                    (t[n + 1] << 8) |
-                    (t[n + 2] << 16) |
-                    (t[n + 3] << 24);
-                n += 4;
-                const o =
-                    t[n] |
-                    (t[n + 1] << 8) |
-                    (t[n + 2] << 16) |
-                    (t[n + 3] << 24);
-                n += 4;
-                const l =
-                    t[n] |
-                    (t[n + 1] << 8) |
-                    (t[n + 2] << 16) |
-                    (t[n + 3] << 24);
-                n += 4;
-                const c = 3 & t[n],
-                    h = (t[n] >> 2) & 3,
-                    d = (t[n] >> 4) & 3;
+            function parse_trackdata_v0_5_0(offset, data) {
+                let index = offset;
+                if (data.length - index < 1) return null;
+                const env = data[index];
+                if (((index += 1), !(env in Environments))) return null;
+                if (data.length - index < 1) return null;
+                const sun_dir = data[index];
                 if (
-                    ((n += 1),
-                    c < 1 || c > 4 || h < 1 || h > 4 || d < 1 || d > 4)
+                    ((index += 1),
+                    !Number.isSafeInteger(sun_dir) ||
+                        sun_dir < 0 ||
+                        sun_dir >= 180)
                 )
                     return null;
-                for (; n < t.length; ) {
-                    if (t.length - n < 1) return null;
-                    const e = t[n + 0];
-                    if (((n += 1), !(e in eA))) return null;
-                    if (t.length - n < 4) return null;
-                    const i =
-                        t[n + 0] |
-                        (t[n + 1] << 8) |
-                        (t[n + 2] << 16) |
-                        (t[n + 3] << 24);
-                    n += 4;
-                    for (let r = 0; r < i; ++r) {
-                        if (t.length - n < c) return null;
-                        let i = 0;
-                        for (let e = 0; e < c; ++e) i |= t[n + e] << (8 * e);
-                        if (((i += s), (n += c), t.length - n < h)) return null;
-                        let r = 0;
-                        for (let e = 0; e < h; ++e) r |= t[n + e] << (8 * e);
-                        if (((r += o), (n += h), t.length - n < d)) return null;
-                        let u = 0;
-                        for (let e = 0; e < d; ++e) u |= t[n + e] << (8 * e);
-                        if (((u += l), (n += d), t.length - n < 1)) return null;
-                        const p = t[n + 0];
-                        if (((n += 1), p < 0 || p > 3)) return null;
-                        if (t.length - n < 1) return null;
-                        const f = t[n + 0];
-                        if (((n += 1), !(f in nA))) return null;
-                        if (t.length - n < 1) return null;
-                        const m = t[n + 0];
-                        if (((n += 1), !(m in Jy))) return null;
-                        let g = null;
-                        if (lb.includes(e)) {
-                            if (t.length - n < 2) return null;
-                            (g = t[n + 0] | (t[n + 1] << 8)), (n += 2);
+                const track = new Track(env, new SunDirection(sun_dir));
+                if (data.length - index < 9) return null;
+                const x_min =
+                    data[index] |
+                    (data[index + 1] << 8) |
+                    (data[index + 2] << 16) |
+                    (data[index + 3] << 24);
+                index += 4;
+                const y_min =
+                    data[index] |
+                    (data[index + 1] << 8) |
+                    (data[index + 2] << 16) |
+                    (data[index + 3] << 24);
+                index += 4;
+                const z_min =
+                    data[index] |
+                    (data[index + 1] << 8) |
+                    (data[index + 2] << 16) |
+                    (data[index + 3] << 24);
+                index += 4;
+                const x_bytes = 3 & data[index],
+                    y_bytes = (data[index] >> 2) & 3,
+                    z_bytes = (data[index] >> 4) & 3;
+                if (
+                    ((index += 1),
+                    x_bytes < 1 ||
+                        x_bytes > 4 ||
+                        y_bytes < 1 ||
+                        y_bytes > 4 ||
+                        z_bytes < 1 ||
+                        z_bytes > 4)
+                )
+                    return null;
+                for (; index < data.length; ) {
+                    if (data.length - index < 1) return null;
+                    const id = data[index + 0];
+                    if (((index += 1), !(id in TrackIDs_v0_3_1))) return null;
+                    if (data.length - index < 4) return null;
+                    const num_parts =
+                        data[index + 0] |
+                        (data[index + 1] << 8) |
+                        (data[index + 2] << 16) |
+                        (data[index + 3] << 24);
+                    index += 4;
+                    for (let r = 0; r < num_parts; ++r) {
+                        if (data.length - index < x_bytes) return null;
+                        let x = 0;
+                        for (let e = 0; e < x_bytes; ++e)
+                            x |= data[index + e] << (8 * e);
+                        if (
+                            ((x += x_min),
+                            (index += x_bytes),
+                            data.length - index < y_bytes)
+                        )
+                            return null;
+                        let y = 0;
+                        for (let e = 0; e < y_bytes; ++e)
+                            y |= data[index + e] << (8 * e);
+                        if (
+                            ((y += y_min),
+                            (index += y_bytes),
+                            data.length - index < z_bytes)
+                        )
+                            return null;
+                        let z = 0;
+                        for (let e = 0; e < z_bytes; ++e)
+                            z |= data[index + e] << (8 * e);
+                        if (
+                            ((z += z_min),
+                            (index += z_bytes),
+                            data.length - index < 1)
+                        )
+                            return null;
+                        const rotation = data[index + 0];
+                        if (((index += 1), rotation < 0 || rotation > 3))
+                            return null;
+                        if (data.length - index < 1) return null;
+                        const rotation_axis = data[index + 0];
+                        if (((index += 1), !(rotation_axis in Axes)))
+                            return null;
+                        if (data.length - index < 1) return null;
+                        const colour = data[index + 0];
+                        if (((index += 1), !(colour in Colours))) return null;
+                        let checkpoint_order = null;
+                        if (checkpoints.includes(id)) {
+                            if (data.length - index < 2) return null;
+                            (checkpoint_order =
+                                data[index + 0] | (data[index + 1] << 8)),
+                                (index += 2);
                         }
-                        let v = null;
-                        if (cb.includes(e)) {
-                            if (t.length - n < 4) return null;
-                            (v =
-                                t[n + 0] |
-                                (t[n + 1] << 8) |
-                                (t[n + 2] << 16) |
-                                (t[n + 3] << 24)),
-                                (n += 4);
+                        let start_order = null;
+                        if (starts.includes(id)) {
+                            if (data.length - index < 4) return null;
+                            (start_order =
+                                data[index + 0] |
+                                (data[index + 1] << 8) |
+                                (data[index + 2] << 16) |
+                                (data[index + 3] << 24)),
+                                (index += 4);
                         }
-                        a.addPart(i, r, u, e, p, f, m, g, v);
+                        track.addPart(
+                            x,
+                            y,
+                            z,
+                            id,
+                            rotation,
+                            rotation_axis,
+                            colour,
+                            checkpoint_order,
+                            start_order
+                        );
                     }
                 }
-                return a;
+                return track;
             }
             const gb = [
                 [
@@ -44695,7 +44824,7 @@
                                     7 & s.rotationAxis,
                                     255 & s.color
                                 ),
-                                lb.includes(r))
+                                checkpoints.includes(r))
                             ) {
                                 if (null == s.checkpointOrder)
                                     throw new Error(
@@ -44706,7 +44835,7 @@
                                     (s.checkpointOrder >>> 8) & 255
                                 );
                             }
-                            if (cb.includes(r)) {
+                            if (starts.includes(r)) {
                                 if (null == s.startOrder)
                                     throw new Error("Start has no start order");
                                 e.push(
@@ -44720,7 +44849,7 @@
                     }
                     return new Uint8Array(e);
                 });
-            const Sb = class {
+            const Track = class {
                 constructor(e, t) {
                     wb.add(this),
                         yb.set(this, void 0),
@@ -44818,13 +44947,13 @@
                             memLevel: 9,
                         });
                     t.push(e, !0);
-                    const n = BA(t.result),
+                    const n = base62_encode(t.result),
                         i = new Yg.Deflate({
                             level: 9,
                             windowBits: 15,
                             memLevel: 9,
                         });
-                    return i.push(n, !0), BA(i.result);
+                    return i.push(n, !0), base62_encode(i.result);
                 }
                 toExportString(e) {
                     const t = new TextEncoder().encode(e.name);
@@ -44845,86 +44974,107 @@
                             memLevel: 9,
                         });
                     s.push(r, !1), s.push(a, !0);
-                    const o = BA(s.result),
+                    const o = base62_encode(s.result),
                         l = new Yg.Deflate({
                             level: 9,
                             windowBits: 15,
                             memLevel: 9,
                         });
-                    return l.push(o, !0), "PolyTrack1" + BA(l.result);
+                    return (
+                        l.push(o, !0), "PolyTrack1" + base62_encode(l.result)
+                    );
                 }
                 static fromSaveString(e) {
                     const t = (function (e) {
-                        const t = UA(e);
+                        const t = base62_decode(e);
                         if (null == t) return null;
                         const n = new Yg.Inflate({ to: "string" });
                         if ((n.push(t, !0), n.err)) return null;
                         const i = n.result;
                         if ("string" != typeof i) return null;
-                        const r = UA(i);
+                        const r = base62_decode(i);
                         if (null == r) return null;
                         const a = new Yg.Inflate();
                         if ((a.push(r, !0), a.err)) return null;
                         const s = a.result;
-                        return s instanceof Uint8Array ? mb(0, s) : null;
+                        return s instanceof Uint8Array
+                            ? parse_trackdata_v0_5_0(0, s)
+                            : null;
                     })(e);
                     if (null != t) return t;
                     const n = fb(e);
                     if (null != n) return n;
-                    const i = pb(e);
+                    const i = parse_trackdata_v0_3_1(e);
                     if (null != i) return i;
                     const r = ub(e);
                     if (null != r) return r;
                     const a = hb(e);
                     return null != a ? a : null;
                 }
-                static fromExportString(e) {
-                    const t = e.replace(/\s+/g, ""),
-                        n = (function (e) {
-                            const t = "PolyTrack1";
-                            if (!e.startsWith(t)) return null;
-                            const n = UA(e.substring(10));
-                            if (null == n) return null;
+                static fromExportString(export_string) {
+                    const trimmed_str = export_string.replace(/\s+/g, ""),
+                        track_v0_5_0 = (function (e) {
+                            const start_string = "PolyTrack1";
+                            if (!e.startsWith(start_string)) return null;
+                            const code_str = base62_decode(e.substring(10));
+                            if (null == code_str) return null;
                             const i = new Yg.Inflate({ to: "string" });
-                            if ((i.push(n, !0), i.err)) return null;
+                            if ((i.push(code_str, !0), i.err)) return null;
                             const r = i.result;
                             if ("string" != typeof r) return null;
-                            const a = UA(r);
+                            const a = base62_decode(r);
                             if (null == a) return null;
                             const s = new Yg.Inflate();
                             if ((s.push(a, !0), s.err)) return null;
-                            const o = s.result;
-                            if (!(o instanceof Uint8Array)) return null;
-                            const l = o[0];
-                            if (o.length < 1 + l) return null;
-                            const c = new TextDecoder("utf-8").decode(
-                                    o.subarray(1, 1 + l)
+                            const trackdata = s.result;
+                            if (!(trackdata instanceof Uint8Array)) return null;
+                            const track_name_len = trackdata[0];
+                            if (trackdata.length < 1 + track_name_len)
+                                return null;
+                            const track_name = new TextDecoder("utf-8").decode(
+                                    trackdata.subarray(1, 1 + track_name_len)
                                 ),
-                                h = o[1 + l];
-                            if (o.length < 1 + l + 1 + h) return null;
-                            let d;
-                            d =
-                                h > 0
+                                author_name_len = trackdata[1 + track_name_len];
+                            if (
+                                trackdata.length <
+                                1 + track_name_len + 1 + author_name_len
+                            )
+                                return null;
+                            let author_name;
+                            author_name =
+                                author_name_len > 0
                                     ? new TextDecoder("utf-8").decode(
-                                          o.subarray(1 + l + 1, 1 + l + 1 + h)
+                                          trackdata.subarray(
+                                              1 + track_name_len + 1,
+                                              1 +
+                                                  track_name_len +
+                                                  1 +
+                                                  author_name_len
+                                          )
                                       )
                                     : null;
-                            const u = mb(1 + l + 1 + h, o);
-                            return null == u
+                            const track = parse_trackdata_v0_5_0(
+                                1 + track_name_len + 1 + author_name_len,
+                                trackdata
+                            );
+                            return null == track
                                 ? null
                                 : {
-                                      trackMetadata: { name: c, author: d },
-                                      trackData: u,
+                                      trackMetadata: {
+                                          name: track_name,
+                                          author: author_name,
+                                      },
+                                      trackData: track,
                                   };
-                        })(t);
-                    if (null != n) return n;
-                    const i = (function (e) {
+                        })(trimmed_str);
+                    if (null != track_v0_5_0) return track_v0_5_0;
+                    const track_v0_4_2 = (function (e) {
                         if (!e.startsWith("v3")) return null;
-                        const t = UA(e.substring(2, 4));
+                        const t = base62_decode(e.substring(2, 4));
                         if (null == t) return null;
                         if (1 != t.length) return null;
                         const n = t[0],
-                            i = UA(e.substring(4, 4 + n));
+                            i = base62_decode(e.substring(4, 4 + n));
                         if (null == i) return null;
                         let r;
                         try {
@@ -44939,33 +45089,38 @@
                                   trackMetadata: { name: r, author: null },
                                   trackData: a,
                               };
-                    })(t);
-                    if (null != i) return i;
-                    const r = (function (e) {
+                    })(trimmed_str);
+                    if (null != track_v0_4_2) return track_v0_4_2;
+                    const track_v0_3_1 = (function (e) {
                         if (!e.startsWith("v2")) return null;
-                        const t = UA(e.substring(2, 4));
+                        const t = base62_decode(e.substring(2, 4));
                         if (null == t) return null;
                         if (1 != t.length) return null;
                         const n = t[0],
                             i = Math.ceil((n / 3) * 4),
-                            r = UA(e.substring(4, 4 + i));
+                            r = base62_decode(e.substring(4, 4 + i));
                         if (null == r) return null;
-                        let a;
+                        let track_name;
                         try {
-                            a = new TextDecoder("utf-8").decode(r);
+                            track_name = new TextDecoder("utf-8").decode(r);
                         } catch (e) {
                             return null;
                         }
-                        const s = pb(e.substring(4 + i));
-                        return null == s
+                        const track = parse_trackdata_v0_3_1(
+                            e.substring(4 + i)
+                        );
+                        return null == track
                             ? null
                             : {
-                                  trackMetadata: { name: a, author: null },
-                                  trackData: s,
+                                  trackMetadata: {
+                                      name: track_name,
+                                      author: null,
+                                  },
+                                  trackData: track,
                               };
-                    })(t);
-                    if (null != r) return r;
-                    const a = (function (e) {
+                    })(trimmed_str);
+                    if (null != track_v0_3_1) return track_v0_3_1;
+                    const track_v0_2_0 = (function (e) {
                         if (!e.startsWith("v1n")) return null;
                         const t = Kg(e.substring(3, 5));
                         if (null == t) return null;
@@ -44985,9 +45140,9 @@
                                   trackMetadata: { name: r, author: null },
                                   trackData: a,
                               };
-                    })(t);
-                    if (null != a) return a;
-                    const s = db(e);
+                    })(trimmed_str);
+                    if (null != track_v0_2_0) return track_v0_2_0;
+                    const s = db(export_string);
                     return null != s ? s : null;
                 }
                 createThumbnail() {
@@ -45040,13 +45195,13 @@
                         u = [];
                     let p, f, m;
                     switch (this.environment) {
-                        case QA.Summer:
+                        case Environments.Summer:
                             (p = 255), (f = 255), (m = 255);
                             break;
-                        case QA.Winter:
+                        case Environments.Winter:
                             (p = 190), (f = 216), (m = 247);
                             break;
-                        case QA.Desert:
+                        case Environments.Desert:
                             (p = 237), (f = 226), (m = 175);
                     }
                     this.forEachPart((n, i, r, a, s, l) => {
@@ -45062,10 +45217,10 @@
                                 null != g.startOffset
                                     ? d.push([l, v])
                                     : null != g.detector &&
-                                        g.detector.type == XA.Checkpoint
+                                        g.detector.type == BlockType.Checkpoint
                                       ? h.push([l, v])
                                       : null != g.detector &&
-                                        g.detector.type == XA.Finish &&
+                                        g.detector.type == BlockType.Finish &&
                                         u.push([l, v]);
                         });
                     });
@@ -45155,7 +45310,8 @@
                         (this.checkpointOrder = l),
                         (this.startOrder = c),
                         null != s.configuration.detector &&
-                            s.configuration.detector.type == XA.Checkpoint)
+                            s.configuration.detector.type ==
+                                BlockType.Checkpoint)
                     ) {
                         if (null == l)
                             throw new Error(
@@ -45175,8 +45331,8 @@
                         Tb.set(this, void 0),
                         _b.set(this, void 0),
                         Cb.set(this, void 0),
-                        (this.environment = QA.Summer),
-                        Pb.set(this, new GA()),
+                        (this.environment = Environments.Summer),
+                        Pb.set(this, new SunDirection()),
                         Ib.set(this, []),
                         Rb.set(this, new Map()),
                         Lb.set(this, new Map()),
@@ -45221,7 +45377,7 @@
                 }
                 setPart(e, t, n, i, r, a, s, o, l) {
                     const c = Vb(this, Cb, "f").getPart(i);
-                    if (s != Jy.Default && !c.colors.has(s))
+                    if (s != Colours.Default && !c.colors.has(s))
                         throw new Error("Track part color does not exist");
                     const h = vb(r, a),
                         d = new yn(
@@ -45296,7 +45452,7 @@
                     let i = null;
                     for (const t of n) {
                         let n = t.color;
-                        n == Jy.Default && (n = Jy.Summer);
+                        n == Colours.Default && (n = Colours.Summer);
                         const r = t.type.colors.get(n);
                         if (null == r)
                             throw new Error("Track part is not loaded yet");
@@ -45320,31 +45476,31 @@
                         )
                     )
                         switch (this.environment) {
-                            case QA.Summer:
+                            case Environments.Summer:
                                 i = new Wi(1192238);
                                 break;
-                            case QA.Winter:
+                            case Environments.Winter:
                                 i = new Wi(3825803);
                                 break;
-                            case QA.Desert:
+                            case Environments.Desert:
                                 i = new Wi(3883831);
                         }
                     switch (this.environment) {
-                        case QA.Summer:
-                            n = Jy.Summer;
+                        case Environments.Summer:
+                            n = Colours.Summer;
                             break;
-                        case QA.Winter:
-                            n = Jy.Winter;
+                        case Environments.Winter:
+                            n = Colours.Winter;
                             break;
-                        case QA.Desert:
-                            n = Jy.Desert;
+                        case Environments.Desert:
+                            n = Colours.Desert;
                     }
                     for (const e of Vb(this, Cb, "f").getAllParts())
                         for (const [r, a] of e.colors) {
                             const s = [];
                             for (const t of Vb(this, Ib, "f")) {
                                 let i = t.color;
-                                i == Jy.Default && (i = n),
+                                i == Colours.Default && (i = n),
                                     t.type == e && i == r && s.push(t);
                             }
                             if (s.length > 0) {
@@ -45375,7 +45531,7 @@
                 getCheckpoints() {
                     let e = [];
                     const t = Vb(this, Cb, "f").getPartTypesWithDetector(
-                        XA.Checkpoint
+                        BlockType.Checkpoint
                     );
                     for (const n of t) {
                         const t = Vb(this, Lb, "f").get(n);
@@ -45403,7 +45559,7 @@
                 getCheckpointOrders() {
                     let e = [];
                     const t = Vb(this, Cb, "f").getPartTypesWithDetector(
-                        XA.Checkpoint
+                        BlockType.Checkpoint
                     );
                     for (const n of t) {
                         const t = Vb(this, Lb, "f").get(n);
@@ -45422,7 +45578,7 @@
                 getTotalNumberOfCheckpointIndices() {
                     let e = [];
                     const t = Vb(this, Cb, "f").getPartTypesWithDetector(
-                        XA.Checkpoint
+                        BlockType.Checkpoint
                     );
                     for (const n of t) {
                         const t = Vb(this, Lb, "f").get(n);
@@ -45496,7 +45652,7 @@
                     return e;
                 }
                 getTrackData() {
-                    const e = new Sb(this.environment, Vb(this, Pb, "f"));
+                    const e = new Track(this.environment, Vb(this, Pb, "f"));
                     for (const t of Vb(this, Ib, "f"))
                         e.addPart(
                             t.x,
@@ -46250,7 +46406,7 @@
                                         );
                                 },
                                 i = Vx(this, Ux, "f").value,
-                                l = Sb.fromExportString(i);
+                                l = Track.fromExportString(i);
                             if (null == l) e();
                             else {
                                 const { trackMetadata: i, trackData: a } = l,
@@ -46966,31 +47122,31 @@
                             o.set(n.environment, l),
                             n.environment)
                         ) {
-                            case QA.Summer:
+                            case Environments.Summer:
                                 t.prepend(l);
                                 break;
-                            case QA.Winter: {
-                                const e = o.get(QA.Desert);
+                            case Environments.Winter: {
+                                const e = o.get(Environments.Desert);
                                 null != e
                                     ? t.insertBefore(l, e)
                                     : t.appendChild(l);
                                 break;
                             }
-                            case QA.Desert:
+                            case Environments.Desert:
                                 t.appendChild(l);
                         }
                         switch (n.environment) {
-                            case QA.Summer:
+                            case Environments.Summer:
                                 (i = "summer"),
                                     (r = Kk(this, vk, "f").get("Summer")),
                                     (a = "images/summer.svg");
                                 break;
-                            case QA.Winter:
+                            case Environments.Winter:
                                 (i = "winter"),
                                     (r = Kk(this, vk, "f").get("Winter")),
                                     (a = "images/winter_colored.svg");
                                 break;
-                            case QA.Desert:
+                            case Environments.Desert:
                                 (i = "desert"),
                                     (r = Kk(this, vk, "f").get("Desert")),
                                     (a = "images/desert_colored.svg");
@@ -47020,13 +47176,13 @@
                         c.appendChild(r),
                         n.environment)
                     ) {
-                        case QA.Summer:
+                        case Environments.Summer:
                             u = "images/summer.svg";
                             break;
-                        case QA.Winter:
+                        case Environments.Winter:
                             u = "images/winter.svg";
                             break;
-                        case QA.Desert:
+                        case Environments.Desert:
                             u = "images/desert.svg";
                     }
                     const p = document.createElement("img");
@@ -47670,43 +47826,43 @@
                         }),
                         p.appendChild(dE(this, oE, "f"));
                     for (const e of [
-                        nA.YPositive,
-                        nA.YNegative,
-                        nA.XPositive,
-                        nA.XNegative,
-                        nA.ZPositive,
-                        nA.ZNegative,
+                        Axes.YPositive,
+                        Axes.YNegative,
+                        Axes.XPositive,
+                        Axes.XNegative,
+                        Axes.ZPositive,
+                        Axes.ZNegative,
                     ]) {
                         const n = document.createElement("button");
                         switch (((n.inert = !0), (n.tabIndex = -1), e)) {
-                            case nA.YPositive:
+                            case Axes.YPositive:
                                 n.innerHTML =
                                     '<img src="images/rotation_axis_y_positive.svg">';
                                 break;
-                            case nA.YNegative:
+                            case Axes.YNegative:
                                 n.innerHTML =
                                     '<img src="images/rotation_axis_y_negative.svg">';
                                 break;
-                            case nA.XPositive:
+                            case Axes.XPositive:
                                 n.innerHTML =
                                     '<img src="images/rotation_axis_x_positive.svg">';
                                 break;
-                            case nA.XNegative:
+                            case Axes.XNegative:
                                 n.innerHTML =
                                     '<img src="images/rotation_axis_x_negative.svg">';
                                 break;
-                            case nA.ZPositive:
+                            case Axes.ZPositive:
                                 n.innerHTML =
                                     '<img src="images/rotation_axis_z_positive.svg">';
                                 break;
-                            case nA.ZNegative:
+                            case Axes.ZNegative:
                                 n.innerHTML =
                                     '<img src="images/rotation_axis_z_negative.svg">';
                         }
                         n.addEventListener("click", () => {
                             t.playUIClick(), a(e);
                         }),
-                            e == nA.YPositive && n.classList.add("selected"),
+                            e == Axes.YPositive && n.classList.add("selected"),
                             p.appendChild(n),
                             dE(this, lE, "f").push([e, n]);
                     }
@@ -47755,22 +47911,22 @@
                 set rotationAxis(e) {
                     let t;
                     switch (e) {
-                        case nA.YPositive:
+                        case Axes.YPositive:
                             t = "images/rotation_axis_y_positive.svg";
                             break;
-                        case nA.YNegative:
+                        case Axes.YNegative:
                             t = "images/rotation_axis_y_negative.svg";
                             break;
-                        case nA.XPositive:
+                        case Axes.XPositive:
                             t = "images/rotation_axis_x_positive.svg";
                             break;
-                        case nA.XNegative:
+                        case Axes.XNegative:
                             t = "images/rotation_axis_x_negative.svg";
                             break;
-                        case nA.ZPositive:
+                        case Axes.ZPositive:
                             t = "images/rotation_axis_z_positive.svg";
                             break;
-                        case nA.ZNegative:
+                        case Axes.ZNegative:
                             t = "images/rotation_axis_z_negative.svg";
                     }
                     dE(this, oE, "f").innerHTML = "";
@@ -48215,13 +48371,13 @@
                         A.appendChild(b);
                     const x = document.createElement("button");
                     (x.className = "button environment-button"),
-                        a.environment == QA.Summer &&
+                        a.environment == Environments.Summer &&
                             (x.classList.add("selected"), (x.disabled = !0)),
                         (x.innerHTML = '<img src="images/summer.svg"> '),
                         x.append(document.createTextNode(t.get("Summer"))),
                         x.addEventListener("click", () => {
                             e.playUIClick(),
-                                s(QA.Summer),
+                                s(Environments.Summer),
                                 x.classList.add("selected"),
                                 k.classList.remove("selected"),
                                 E.classList.remove("selected"),
@@ -48232,13 +48388,13 @@
                         A.appendChild(x);
                     const k = document.createElement("button");
                     (k.className = "button environment-button"),
-                        a.environment == QA.Winter &&
+                        a.environment == Environments.Winter &&
                             (k.classList.add("selected"), (k.disabled = !0)),
                         (k.innerHTML = '<img src="images/winter.svg"> '),
                         k.append(document.createTextNode(t.get("Winter"))),
                         k.addEventListener("click", () => {
                             e.playUIClick(),
-                                s(QA.Winter),
+                                s(Environments.Winter),
                                 x.classList.remove("selected"),
                                 k.classList.add("selected"),
                                 E.classList.remove("selected"),
@@ -48249,13 +48405,13 @@
                         A.appendChild(k);
                     const E = document.createElement("button");
                     (E.className = "button environment-button"),
-                        a.environment == QA.Desert &&
+                        a.environment == Environments.Desert &&
                             (E.classList.add("selected"), (E.disabled = !0)),
                         (E.innerHTML = '<img src="images/desert.svg"> '),
                         E.append(document.createTextNode(t.get("Desert"))),
                         E.addEventListener("click", () => {
                             e.playUIClick(),
-                                s(QA.Desert),
+                                s(Environments.Desert),
                                 x.classList.remove("selected"),
                                 k.classList.remove("selected"),
                                 E.classList.add("selected"),
@@ -48286,7 +48442,7 @@
                         (C.step = "2"),
                         (C.value = a.sunDirection.toDegrees().toString()),
                         C.addEventListener("input", () => {
-                            (a.sunDirection = GA.fromDegrees(
+                            (a.sunDirection = SunDirection.fromDegrees(
                                 parseInt(C.value, 10)
                             )),
                                 (T.textContent = C.value),
@@ -48821,7 +48977,7 @@
                     const t = CM(this, HE, "f").getAllParts();
                     for (let n = 0; n < t.length; n++) {
                         const i = t[n],
-                            r = i.colors.get(Jy.Summer);
+                            r = i.colors.get(Colours.Summer);
                         if (null == r) throw new Error("Mesh is not loaded");
                         const a = r.clone();
                         (a.material = CM(this, zS, "f")),
@@ -48884,7 +49040,7 @@
                             (h = document.createElement("div")),
                                 (h.className = "color-panel hidden"),
                                 CM(this, iS, "f").prepend(h);
-                            const e = [Jy.Default].concat(
+                            const e = [Colours.Default].concat(
                                 Array.from(i.colors.keys())
                             );
                             for (const t of e) {
@@ -48902,7 +49058,7 @@
                                         t != e &&
                                             t.classList.remove("selected");
                                 }),
-                                    t == Jy.Default &&
+                                    t == Colours.Default &&
                                         e.classList.add("selected"),
                                     h.appendChild(e);
                                 const n = document.createElement("img");
@@ -48921,7 +49077,8 @@
                             tiles: i.configuration.tiles,
                             isCheckpoint:
                                 null != i.configuration.detector &&
-                                i.configuration.detector.type == XA.Checkpoint,
+                                i.configuration.detector.type ==
+                                    BlockType.Checkpoint,
                             isStart: null != i.configuration.startOffset,
                             category: i.configuration.category,
                         };
@@ -48929,12 +49086,12 @@
                     }
                 }),
                 (fM = function () {
-                    if (null == CM(this, rM, "f")) return Jy.Default;
+                    if (null == CM(this, rM, "f")) return Colours.Default;
                     return CM(this, iM, "f")[
                         CM(this, rM, "f")
                     ].colorButtons.some(([e]) => e == CM(this, aM, "f"))
                         ? CM(this, aM, "f")
-                        : Jy.Default;
+                        : Colours.Default;
                 }),
                 (mM = function (e) {
                     (CM(this, VE, "f").environment = e),
@@ -48959,14 +49116,14 @@
                     }
                     let e;
                     switch (CM(this, VE, "f").environment) {
-                        case QA.Summer:
-                            e = Jy.Summer;
+                        case Environments.Summer:
+                            e = Colours.Summer;
                             break;
-                        case QA.Winter:
-                            e = Jy.Winter;
+                        case Environments.Winter:
+                            e = Colours.Winter;
                             break;
-                        case QA.Desert:
-                            e = Jy.Desert;
+                        case Environments.Desert:
+                            e = Colours.Desert;
                     }
                     for (const t of CM(this, iM, "f"))
                         if (null != t.id)
@@ -49004,14 +49161,14 @@
                         else {
                             let n;
                             switch (CM(this, VE, "f").environment) {
-                                case QA.Summer:
-                                    n = Jy.Summer;
+                                case Environments.Summer:
+                                    n = Colours.Summer;
                                     break;
-                                case QA.Winter:
-                                    n = Jy.Winter;
+                                case Environments.Winter:
+                                    n = Colours.Winter;
                                     break;
-                                case QA.Desert:
-                                    n = Jy.Desert;
+                                case Environments.Desert:
+                                    n = Colours.Desert;
                             }
                             for (const t of CM(this, iM, "f"))
                                 if (
@@ -49115,7 +49272,7 @@
                                         : n.classList.remove("selected"),
                                     !r.hasAttribute("src"))
                                 )
-                                    if (e == Jy.Default)
+                                    if (e == Colours.Default)
                                         (r.src = "images/empty.svg"),
                                             (r.className = "");
                                     else {
@@ -49238,16 +49395,16 @@
                         let t, n;
                         (t = CM(this, ZS, "f") ? 4 : 1),
                             (n =
-                                CM(this, XS, "f") == nA.XPositive ||
-                                CM(this, XS, "f") == nA.XNegative
+                                CM(this, XS, "f") == Axes.XPositive ||
+                                CM(this, XS, "f") == Axes.XNegative
                                     ? Math.round(e.x)
                                     : Math.round(e.x / t) * t);
                         const i = Math.round(e.y) + CM(this, KS, "f");
                         let r;
                         return (
                             (r =
-                                CM(this, XS, "f") == nA.ZPositive ||
-                                CM(this, XS, "f") == nA.ZNegative
+                                CM(this, XS, "f") == Axes.ZPositive ||
+                                CM(this, XS, "f") == Axes.ZNegative
                                     ? Math.round(e.z)
                                     : Math.round(e.z / t) * t),
                             new yn(n, i, r)
@@ -49434,7 +49591,7 @@
                         YS.set(this, null),
                         KS.set(this, 0),
                         qS.set(this, 0),
-                        XS.set(this, nA.YPositive),
+                        XS.set(this, Axes.YPositive),
                         ZS.set(this, !0),
                         JS.set(this, !1),
                         $S.set(this, null),
@@ -49443,7 +49600,7 @@
                         nM.set(this, null),
                         iM.set(this, []),
                         rM.set(this, null),
-                        aM.set(this, Jy.Default),
+                        aM.set(this, Colours.Default),
                         sM.set(this, []),
                         oM.set(this, null),
                         _M(this, OE, e, "f"),
@@ -50391,7 +50548,8 @@
                                             for (const R of s.values())
                                                 if (null != R) {
                                                     let L = null;
-                                                    R.type == eA.Start &&
+                                                    R.type ==
+                                                        TrackIDs_v0_3_1.Start &&
                                                         (L = 0),
                                                         e.setPart(
                                                             4 * R.x,
@@ -50399,8 +50557,8 @@
                                                             4 * R.z,
                                                             R.type,
                                                             R.direction,
-                                                            nA.YPositive,
-                                                            Jy.Default,
+                                                            Axes.YPositive,
+                                                            Colours.Default,
                                                             null,
                                                             L
                                                         );
@@ -50855,20 +51013,20 @@
                         S.addEventListener("click", () => {
                             CM(this, UE, "f").playUIClick();
                             const e = CM(this, HE, "f")
-                                .getPart(eA.Start)
-                                .colors.get(Jy.Summer);
+                                .getPart(TrackIDs_v0_3_1.Start)
+                                .colors.get(Colours.Summer);
                             if (null == e)
                                 throw new Error("Starting point mesh is null");
                             const t = NE(e),
                                 n = CM(this, HE, "f")
-                                    .getPart(eA.Checkpoint)
-                                    .colors.get(Jy.Summer);
+                                    .getPart(TrackIDs_v0_3_1.Checkpoint)
+                                    .colors.get(Colours.Summer);
                             if (null == n)
                                 throw new Error("Checkpoint mesh is null");
                             const i = NE(n),
                                 r = CM(this, HE, "f")
-                                    .getPart(eA.Finish)
-                                    .colors.get(Jy.Summer);
+                                    .getPart(TrackIDs_v0_3_1.Finish)
+                                    .colors.get(Colours.Summer);
                             if (null == r)
                                 throw new Error("Finish line mesh is null");
                             const a = NE(r);
@@ -51515,10 +51673,10 @@
                             0,
                             0,
                             0,
-                            eA.Start,
+                            TrackIDs_v0_3_1.Start,
                             0,
-                            nA.YPositive,
-                            Jy.Default,
+                            Axes.YPositive,
+                            Colours.Default,
                             null,
                             0
                         ),
@@ -54961,7 +55119,7 @@
                 constructor(e) {
                     _P.add(this),
                         PP.set(this, void 0),
-                        IP.set(this, QA.Summer),
+                        IP.set(this, Environments.Summer),
                         RP.set(this, void 0),
                         LP.set(this, void 0),
                         DP.set(this, void 0),
@@ -54995,7 +55153,7 @@
                         (FP(this, NP, "f").receiveShadow = !0),
                         (FP(this, NP, "f").renderOrder = -2),
                         e.scene.add(FP(this, NP, "f")),
-                        FP(this, _P, "m", zP).call(this, QA.Summer);
+                        FP(this, _P, "m", zP).call(this, Environments.Summer);
                 }
                 clearMountains() {
                     null != FP(this, BP, "f") &&
@@ -55138,13 +55296,13 @@
                 (UP = function (e) {
                     let t;
                     switch (e) {
-                        case QA.Summer:
+                        case Environments.Summer:
                             t = new Wi(3495480);
                             break;
-                        case QA.Winter:
+                        case Environments.Winter:
                             t = new Wi(11053224);
                             break;
-                        case QA.Desert:
+                        case Environments.Desert:
                             t = new Wi(11171394);
                     }
                     return t;
@@ -56193,7 +56351,7 @@
                                     )),
                                     II.update(0)),
                                     II.setColors(e),
-                                    LI.update(new yn(), new GA()),
+                                    LI.update(new yn(), new SunDirection()),
                                     n(RI.toDataURL());
                             }, 25);
                             t.addCancelCallback(() => {
@@ -57117,13 +57275,13 @@
                         x.appendChild(k),
                         l.environment)
                     ) {
-                        case QA.Summer:
+                        case Environments.Summer:
                             E = "images/summer.svg";
                             break;
-                        case QA.Winter:
+                        case Environments.Winter:
                             E = "images/winter.svg";
                             break;
-                        case QA.Desert:
+                        case Environments.Desert:
                             E = "images/desert.svg";
                     }
                     const S = document.createElement("img");
@@ -60243,7 +60401,7 @@
                                 (i.onreadystatechange = () => {
                                     if (4 == i.readyState && 200 == i.status) {
                                         t.loadedResource();
-                                        const e = Sb.fromExportString(
+                                        const e = Track.fromExportString(
                                             i.responseText
                                         );
                                         if (null == e)
@@ -61191,13 +61349,14 @@
                                     )),
                                         e.loadedResource();
                                 }),
-                            o = yield Promise.all(ab.map((e) => s(e))).then(
-                                () =>
-                                    VN(this, void 0, void 0, function* () {
-                                        return yield HN(this, UN, "m", WN).call(
-                                            this
-                                        );
-                                    })
+                            o = yield Promise.all(
+                                AllBlocks.map((e) => s(e))
+                            ).then(() =>
+                                VN(this, void 0, void 0, function* () {
+                                    return yield HN(this, UN, "m", WN).call(
+                                        this
+                                    );
+                                })
                             ),
                             l = (e, t, n = null) => {
                                 let i = HN(this, ON, "f").get(e);
@@ -61213,36 +61372,102 @@
                                             e.rotationAxis == t.rotationAxis),
                                     i.set(t, n);
                             };
-                        l(eA.BlockSlopeUp, eA.SlopeUp),
-                            l(eA.BlockSlopeUp, eA.SlopeUpLeftWide),
-                            l(eA.BlockSlopeUp, eA.SlopeUpRightWide),
-                            l(eA.BlockSlopeUp, eA.PlaneSlopeUp),
-                            l(eA.BlockSlopedUp, eA.Slope),
-                            l(eA.BlockSlopedUp, eA.SlopeLeftWide),
-                            l(eA.BlockSlopedUp, eA.SlopeRightWide),
-                            l(eA.BlockSlopedUp, eA.PlaneSlope),
-                            l(eA.BlockSlopeDown, eA.SlopeDown),
-                            l(eA.BlockSlopeDown, eA.SlopeDownLeftWide),
-                            l(eA.BlockSlopeDown, eA.SlopeDownRightWide),
-                            l(eA.BlockSlopeDown, eA.PlaneSlopeDown),
-                            l(eA.BlockSlopeDownLong, eA.SlopeDownLong),
-                            l(eA.BlockSlopeDownLong, eA.SlopeDownLongLeftWide),
-                            l(eA.BlockSlopeDownLong, eA.SlopeDownLongRightWide),
-                            l(eA.BlockSlopeDownLong, eA.PlaneSlopeDownLong),
-                            l(eA.BlockSlopeUpLong, eA.SlopeUpLong),
-                            l(eA.BlockSlopeUpLong, eA.SlopeUpLongLeftWide),
-                            l(eA.BlockSlopeUpLong, eA.SlopeUpLongRightWide),
-                            l(eA.BlockSlopeUpLong, eA.PlaneSlopeUpLong),
-                            l(eA.BlockSlopeVerticalTop, eA.WallTrackTop),
+                        l(
+                            TrackIDs_v0_3_1.BlockSlopeUp,
+                            TrackIDs_v0_3_1.SlopeUp
+                        ),
                             l(
-                                eA.BlockSlopeVerticalInnerCornerTop,
-                                eA.WallTrackTopInnerCorner
+                                TrackIDs_v0_3_1.BlockSlopeUp,
+                                TrackIDs_v0_3_1.SlopeUpLeftWide
                             ),
                             l(
-                                eA.BlockSlopeVerticalInnerCornerBottom,
-                                eA.WallTrackBottomInnerCorner
+                                TrackIDs_v0_3_1.BlockSlopeUp,
+                                TrackIDs_v0_3_1.SlopeUpRightWide
                             ),
-                            l(eA.BlockInnerCorner, eA.WallTrackMiddleCorner);
+                            l(
+                                TrackIDs_v0_3_1.BlockSlopeUp,
+                                TrackIDs_v0_3_1.PlaneSlopeUp
+                            ),
+                            l(
+                                TrackIDs_v0_3_1.BlockSlopedUp,
+                                TrackIDs_v0_3_1.Slope
+                            ),
+                            l(
+                                TrackIDs_v0_3_1.BlockSlopedUp,
+                                TrackIDs_v0_3_1.SlopeLeftWide
+                            ),
+                            l(
+                                TrackIDs_v0_3_1.BlockSlopedUp,
+                                TrackIDs_v0_3_1.SlopeRightWide
+                            ),
+                            l(
+                                TrackIDs_v0_3_1.BlockSlopedUp,
+                                TrackIDs_v0_3_1.PlaneSlope
+                            ),
+                            l(
+                                TrackIDs_v0_3_1.BlockSlopeDown,
+                                TrackIDs_v0_3_1.SlopeDown
+                            ),
+                            l(
+                                TrackIDs_v0_3_1.BlockSlopeDown,
+                                TrackIDs_v0_3_1.SlopeDownLeftWide
+                            ),
+                            l(
+                                TrackIDs_v0_3_1.BlockSlopeDown,
+                                TrackIDs_v0_3_1.SlopeDownRightWide
+                            ),
+                            l(
+                                TrackIDs_v0_3_1.BlockSlopeDown,
+                                TrackIDs_v0_3_1.PlaneSlopeDown
+                            ),
+                            l(
+                                TrackIDs_v0_3_1.BlockSlopeDownLong,
+                                TrackIDs_v0_3_1.SlopeDownLong
+                            ),
+                            l(
+                                TrackIDs_v0_3_1.BlockSlopeDownLong,
+                                TrackIDs_v0_3_1.SlopeDownLongLeftWide
+                            ),
+                            l(
+                                TrackIDs_v0_3_1.BlockSlopeDownLong,
+                                TrackIDs_v0_3_1.SlopeDownLongRightWide
+                            ),
+                            l(
+                                TrackIDs_v0_3_1.BlockSlopeDownLong,
+                                TrackIDs_v0_3_1.PlaneSlopeDownLong
+                            ),
+                            l(
+                                TrackIDs_v0_3_1.BlockSlopeUpLong,
+                                TrackIDs_v0_3_1.SlopeUpLong
+                            ),
+                            l(
+                                TrackIDs_v0_3_1.BlockSlopeUpLong,
+                                TrackIDs_v0_3_1.SlopeUpLongLeftWide
+                            ),
+                            l(
+                                TrackIDs_v0_3_1.BlockSlopeUpLong,
+                                TrackIDs_v0_3_1.SlopeUpLongRightWide
+                            ),
+                            l(
+                                TrackIDs_v0_3_1.BlockSlopeUpLong,
+                                TrackIDs_v0_3_1.PlaneSlopeUpLong
+                            ),
+                            l(
+                                TrackIDs_v0_3_1.BlockSlopeVerticalTop,
+                                TrackIDs_v0_3_1.WallTrackTop
+                            ),
+                            l(
+                                TrackIDs_v0_3_1.BlockSlopeVerticalInnerCornerTop,
+                                TrackIDs_v0_3_1.WallTrackTopInnerCorner
+                            ),
+                            l(
+                                TrackIDs_v0_3_1.BlockSlopeVerticalInnerCornerBottom,
+                                TrackIDs_v0_3_1.WallTrackBottomInnerCorner
+                            ),
+                            l(
+                                TrackIDs_v0_3_1.BlockInnerCorner,
+                                TrackIDs_v0_3_1.WallTrackMiddleCorner
+                            );
                         const c = (e, t) =>
                             (e.x == t.x &&
                                 e.y == t.y &&
@@ -61253,60 +61478,63 @@
                                 e.y == t.y + 3 &&
                                 e.z == t.z &&
                                 e.rotation == t.rotation &&
-                                ((e.rotationAxis == nA.YPositive &&
-                                    t.rotationAxis == nA.YNegative) ||
-                                    (e.rotationAxis == nA.YNegative &&
-                                        t.rotationAxis == nA.YPositive) ||
-                                    (e.rotationAxis == nA.XPositive &&
-                                        t.rotationAxis == nA.XNegative) ||
-                                    (e.rotationAxis == nA.XNegative &&
-                                        t.rotationAxis == nA.XPositive) ||
-                                    (e.rotationAxis == nA.ZPositive &&
-                                        t.rotationAxis == nA.ZNegative) ||
-                                    (e.rotationAxis == nA.ZNegative &&
-                                        t.rotationAxis == nA.ZPositive)));
+                                ((e.rotationAxis == Axes.YPositive &&
+                                    t.rotationAxis == Axes.YNegative) ||
+                                    (e.rotationAxis == Axes.YNegative &&
+                                        t.rotationAxis == Axes.YPositive) ||
+                                    (e.rotationAxis == Axes.XPositive &&
+                                        t.rotationAxis == Axes.XNegative) ||
+                                    (e.rotationAxis == Axes.XNegative &&
+                                        t.rotationAxis == Axes.XPositive) ||
+                                    (e.rotationAxis == Axes.ZPositive &&
+                                        t.rotationAxis == Axes.ZNegative) ||
+                                    (e.rotationAxis == Axes.ZNegative &&
+                                        t.rotationAxis == Axes.ZPositive)));
                         return (
                             l(
-                                eA.BlockSlopeVerticalBottom,
-                                eA.PlaneSlopeVerticalBottom,
+                                TrackIDs_v0_3_1.BlockSlopeVerticalBottom,
+                                TrackIDs_v0_3_1.PlaneSlopeVerticalBottom,
                                 c
                             ),
                             l(
-                                eA.BlockSlopeVerticalBottom,
-                                eA.WallTrackBottom,
+                                TrackIDs_v0_3_1.BlockSlopeVerticalBottom,
+                                TrackIDs_v0_3_1.WallTrackBottom,
                                 c
                             ),
                             l(
-                                eA.BlockSlopeVerticalBottom,
-                                eA.SlopeUpVertical,
+                                TrackIDs_v0_3_1.BlockSlopeVerticalBottom,
+                                TrackIDs_v0_3_1.SlopeUpVertical,
                                 c
                             ),
                             l(
-                                eA.BlockSlopeVerticalBottom,
-                                eA.SlopeUpVerticalLeftWide,
+                                TrackIDs_v0_3_1.BlockSlopeVerticalBottom,
+                                TrackIDs_v0_3_1.SlopeUpVerticalLeftWide,
                                 c
                             ),
                             l(
-                                eA.BlockSlopeVerticalBottom,
-                                eA.SlopeUpVerticalRightWide,
+                                TrackIDs_v0_3_1.BlockSlopeVerticalBottom,
+                                TrackIDs_v0_3_1.SlopeUpVerticalRightWide,
                                 c
                             ),
                             l(
-                                eA.BlockSlopeVerticalCornerBottom,
-                                eA.WallTrackBottomCorner
+                                TrackIDs_v0_3_1.BlockSlopeVerticalCornerBottom,
+                                TrackIDs_v0_3_1.WallTrackBottomCorner
                             ),
                             l(
-                                eA.BlockSlopeVerticalCornerTop,
-                                eA.WallTrackTopCorner
-                            ),
-                            l(eA.BlockSlopeToVertical, eA.PlaneSlopeToVertical),
-                            l(
-                                eA.BlockSlopeToVertical,
-                                eA.WallTrackSlopeToVertical
+                                TrackIDs_v0_3_1.BlockSlopeVerticalCornerTop,
+                                TrackIDs_v0_3_1.WallTrackTopCorner
                             ),
                             l(
-                                eA.HalfBlock,
-                                eA.HalfBlock,
+                                TrackIDs_v0_3_1.BlockSlopeToVertical,
+                                TrackIDs_v0_3_1.PlaneSlopeToVertical
+                            ),
+                            l(
+                                TrackIDs_v0_3_1.BlockSlopeToVertical,
+                                TrackIDs_v0_3_1.WallTrackSlopeToVertical
+                            ),
+                            l(
+                                TrackIDs_v0_3_1.HalfBlock,
+                                TrackIDs_v0_3_1.HalfBlock,
                                 (e, t) =>
                                     e.rotation == (t.rotation + 2) % 4 &&
                                     e.x == t.x &&
@@ -61315,8 +61543,8 @@
                                     e.rotationAxis == t.rotationAxis
                             ),
                             l(
-                                eA.HalfBlock,
-                                eA.HalfPlane,
+                                TrackIDs_v0_3_1.HalfBlock,
+                                TrackIDs_v0_3_1.HalfPlane,
                                 (e, t) =>
                                     e.rotation == (t.rotation + 2) % 4 &&
                                     e.x == t.x &&
@@ -61325,8 +61553,8 @@
                                     e.rotationAxis == t.rotationAxis
                             ),
                             l(
-                                eA.HalfBlock,
-                                eA.QuarterBlock,
+                                TrackIDs_v0_3_1.HalfBlock,
+                                TrackIDs_v0_3_1.QuarterBlock,
                                 (e, t) =>
                                     e.rotation != t.rotation &&
                                     (e.rotation + 1) % 4 != t.rotation &&
@@ -61336,8 +61564,8 @@
                                     e.rotationAxis == t.rotationAxis
                             ),
                             l(
-                                eA.HalfBlock,
-                                eA.QuarterPlane,
+                                TrackIDs_v0_3_1.HalfBlock,
+                                TrackIDs_v0_3_1.QuarterPlane,
                                 (e, t) =>
                                     e.rotation != t.rotation &&
                                     (e.rotation + 1) % 4 != t.rotation &&
@@ -61347,8 +61575,8 @@
                                     e.rotationAxis == t.rotationAxis
                             ),
                             l(
-                                eA.QuarterBlock,
-                                eA.QuarterBlock,
+                                TrackIDs_v0_3_1.QuarterBlock,
+                                TrackIDs_v0_3_1.QuarterBlock,
                                 (e, t) =>
                                     e.rotation != t.rotation &&
                                     e.x == t.x &&
@@ -61357,8 +61585,8 @@
                                     e.rotationAxis == t.rotationAxis
                             ),
                             l(
-                                eA.QuarterBlock,
-                                eA.HalfPlane,
+                                TrackIDs_v0_3_1.QuarterBlock,
+                                TrackIDs_v0_3_1.HalfPlane,
                                 (e, t) =>
                                     e.rotation != t.rotation &&
                                     e.rotation != (t.rotation + 1) % 4 &&
@@ -61368,8 +61596,8 @@
                                     e.rotationAxis == t.rotationAxis
                             ),
                             l(
-                                eA.QuarterBlock,
-                                eA.QuarterPlane,
+                                TrackIDs_v0_3_1.QuarterBlock,
+                                TrackIDs_v0_3_1.QuarterPlane,
                                 (e, t) =>
                                     e.rotation != t.rotation &&
                                     e.x == t.x &&
@@ -61378,8 +61606,8 @@
                                     e.rotationAxis == t.rotationAxis
                             ),
                             l(
-                                eA.HalfPlane,
-                                eA.HalfPlane,
+                                TrackIDs_v0_3_1.HalfPlane,
+                                TrackIDs_v0_3_1.HalfPlane,
                                 (e, t) =>
                                     e.rotation == (t.rotation + 2) % 4 &&
                                     e.x == t.x &&
@@ -61388,8 +61616,8 @@
                                     e.rotationAxis == t.rotationAxis
                             ),
                             l(
-                                eA.HalfPlane,
-                                eA.QuarterPlane,
+                                TrackIDs_v0_3_1.HalfPlane,
+                                TrackIDs_v0_3_1.QuarterPlane,
                                 (e, t) =>
                                     e.rotation != t.rotation &&
                                     (e.rotation + 1) % 4 != t.rotation &&
@@ -61399,8 +61627,8 @@
                                     e.rotationAxis == t.rotationAxis
                             ),
                             l(
-                                eA.QuarterPlane,
-                                eA.QuarterPlane,
+                                TrackIDs_v0_3_1.QuarterPlane,
+                                TrackIDs_v0_3_1.QuarterPlane,
                                 (e, t) =>
                                     e.rotation != t.rotation &&
                                     e.x == t.x &&
@@ -61409,27 +61637,27 @@
                                     e.rotationAxis == t.rotationAxis
                             ),
                             l(
-                                eA.WallTrackTopInnerCorner,
-                                eA.WallTrackCeilingCorner,
+                                TrackIDs_v0_3_1.WallTrackTopInnerCorner,
+                                TrackIDs_v0_3_1.WallTrackCeilingCorner,
                                 (e, t) => {
                                     let n;
                                     switch (e.rotationAxis) {
-                                        case nA.YPositive:
+                                        case Axes.YPositive:
                                             n = new yn(0, 1, 0);
                                             break;
-                                        case nA.YNegative:
+                                        case Axes.YNegative:
                                             n = new yn(0, -1, 0);
                                             break;
-                                        case nA.XPositive:
+                                        case Axes.XPositive:
                                             n = new yn(1, 0, 0);
                                             break;
-                                        case nA.XNegative:
+                                        case Axes.XNegative:
                                             n = new yn(-1, 0, 0);
                                             break;
-                                        case nA.ZPositive:
+                                        case Axes.ZPositive:
                                             n = new yn(0, 0, 1);
                                             break;
-                                        case nA.ZNegative:
+                                        case Axes.ZNegative:
                                             n = new yn(0, 0, -1);
                                             break;
                                         default:
@@ -61447,27 +61675,27 @@
                                 }
                             ),
                             l(
-                                eA.WallTrackTopInnerCorner,
-                                eA.WallTrackCeilingPlaneCorner,
+                                TrackIDs_v0_3_1.WallTrackTopInnerCorner,
+                                TrackIDs_v0_3_1.WallTrackCeilingPlaneCorner,
                                 (e, t) => {
                                     let n;
                                     switch (e.rotationAxis) {
-                                        case nA.YPositive:
+                                        case Axes.YPositive:
                                             n = new yn(0, 1, 0);
                                             break;
-                                        case nA.YNegative:
+                                        case Axes.YNegative:
                                             n = new yn(0, -1, 0);
                                             break;
-                                        case nA.XPositive:
+                                        case Axes.XPositive:
                                             n = new yn(1, 0, 0);
                                             break;
-                                        case nA.XNegative:
+                                        case Axes.XNegative:
                                             n = new yn(-1, 0, 0);
                                             break;
-                                        case nA.ZPositive:
+                                        case Axes.ZPositive:
                                             n = new yn(0, 0, 1);
                                             break;
-                                        case nA.ZNegative:
+                                        case Axes.ZNegative:
                                             n = new yn(0, 0, -1);
                                             break;
                                         default:
@@ -61485,12 +61713,12 @@
                                 }
                             ),
                             l(
-                                eA.WallTrackBottomInnerCorner,
-                                eA.WallTrackFloorCorner
+                                TrackIDs_v0_3_1.WallTrackBottomInnerCorner,
+                                TrackIDs_v0_3_1.WallTrackFloorCorner
                             ),
                             l(
-                                eA.WallTrackBottomInnerCorner,
-                                eA.WallTrackFloorPlaneCorner
+                                TrackIDs_v0_3_1.WallTrackBottomInnerCorner,
+                                TrackIDs_v0_3_1.WallTrackFloorPlaneCorner
                             ),
                             o
                         );
@@ -61581,42 +61809,42 @@
                 getCategoryMesh(e, t) {
                     let n, i;
                     switch (e) {
-                        case KA.Special:
-                            n = this.getPart(eA.Start);
+                        case BlockCategories.Special:
+                            n = this.getPart(TrackIDs_v0_3_1.Start);
                             break;
-                        case KA.Road:
-                            n = this.getPart(eA.Straight);
+                        case BlockCategories.Road:
+                            n = this.getPart(TrackIDs_v0_3_1.Straight);
                             break;
-                        case KA.RoadTurns:
-                            n = this.getPart(eA.TurnShort);
+                        case BlockCategories.RoadTurns:
+                            n = this.getPart(TrackIDs_v0_3_1.TurnShort);
                             break;
-                        case KA.RoadWide:
-                            n = this.getPart(eA.OuterCornerWide);
+                        case BlockCategories.RoadWide:
+                            n = this.getPart(TrackIDs_v0_3_1.OuterCornerWide);
                             break;
-                        case KA.Plane:
-                            n = this.getPart(eA.Plane);
+                        case BlockCategories.Plane:
+                            n = this.getPart(TrackIDs_v0_3_1.Plane);
                             break;
-                        case KA.Block:
-                            n = this.getPart(eA.Block);
+                        case BlockCategories.Block:
+                            n = this.getPart(TrackIDs_v0_3_1.Block);
                             break;
-                        case KA.WallTrack:
-                            n = this.getPart(eA.WallTrackBottom);
+                        case BlockCategories.WallTrack:
+                            n = this.getPart(TrackIDs_v0_3_1.WallTrackBottom);
                             break;
-                        case KA.Pillar:
-                            n = this.getPart(eA.PillarShort);
+                        case BlockCategories.Pillar:
+                            n = this.getPart(TrackIDs_v0_3_1.PillarShort);
                             break;
-                        case KA.Sign:
-                            n = this.getPart(eA.SignArrowLeft);
+                        case BlockCategories.Sign:
+                            n = this.getPart(TrackIDs_v0_3_1.SignArrowLeft);
                     }
                     switch (t) {
-                        case QA.Summer:
-                            i = Jy.Summer;
+                        case Environments.Summer:
+                            i = Colours.Summer;
                             break;
-                        case QA.Winter:
-                            i = Jy.Winter;
+                        case Environments.Winter:
+                            i = Colours.Winter;
                             break;
-                        case QA.Desert:
-                            i = Jy.Desert;
+                        case Environments.Desert:
+                            i = Colours.Desert;
                     }
                     const r = n.colors.get(i);
                     if (null == r)
@@ -61638,7 +61866,7 @@
                 }),
                 (WN = function () {
                     return VN(this, void 0, void 0, function* () {
-                        const e = Object.values(eA).filter(
+                        const e = Object.values(TrackIDs_v0_3_1).filter(
                             (e) => "string" != typeof e
                         );
                         let t = !0;
@@ -61669,7 +61897,7 @@
                                     "Part id " +
                                         n.toString() +
                                         " " +
-                                        eA[n] +
+                                        TrackIDs_v0_3_1[n] +
                                         " checksum mismatch: " +
                                         a +
                                         " != " +
@@ -62099,7 +62327,7 @@
                     } catch (e) {
                         return console.error(e), null;
                     }
-                    const i = Sb.fromExportString(t);
+                    const i = Track.fromExportString(t);
                     return null == i
                         ? null
                         : {
@@ -62503,7 +62731,7 @@
                                                 name: t.substring(9),
                                                 author: null,
                                             },
-                                            i = pb(e);
+                                            i = parse_trackdata_v0_3_1(e);
                                         if (null == i)
                                             throw new Error(
                                                 "Failed to load v2 track for migration"
