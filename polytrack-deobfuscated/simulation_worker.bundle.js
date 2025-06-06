@@ -1,6 +1,6 @@
 (() => {
-    var e = {
-            1312: (e, t, n) => {
+    var modules = {
+            1312: (module, exports, require) => {
                 var i;
                 /**
                  * [js-sha256]{@link https://github.com/emn178/js-sha256}
@@ -21,9 +21,9 @@
                             "object" == typeof process &&
                             process.versions &&
                             process.versions.node;
-                    o ? (a = n.g) : s && (a = self);
-                    var l = !a.JS_SHA256_NO_COMMON_JS && e.exports,
-                        c = n.amdO,
+                    o ? (a = require.g) : s && (a = self);
+                    var l = !a.JS_SHA256_NO_COMMON_JS && module.exports,
+                        c = require.amdO,
                         h =
                             !a.JS_SHA256_NO_ARRAY_BUFFER &&
                             "undefined" != typeof ArrayBuffer,
@@ -89,8 +89,8 @@
                         },
                         v = function (e, i) {
                             var r,
-                                s = n(4394),
-                                o = n(1903).Buffer,
+                                s = require(4394),
+                                o = require(1903).Buffer,
                                 l = i ? "sha224" : "sha256";
                             r =
                                 o.from && !a.JS_SHA256_NO_BUFFER_FROM
@@ -681,15 +681,15 @@
                         (E.sha256.hmac = y()),
                         (E.sha224.hmac = y(!0)),
                         l
-                            ? (e.exports = E)
+                            ? (module.exports = E)
                             : ((a.sha256 = E.sha256),
                               (a.sha224 = E.sha224),
                               c &&
                                   (void 0 ===
                                       (i = function () {
                                           return E;
-                                      }.call(E, n, E, e)) ||
-                                      (e.exports = i)));
+                                      }.call(E, require, E, module)) ||
+                                      (module.exports = i)));
                 })();
             },
             1903: () => {},
@@ -931,15 +931,15 @@
                 ];
             },
         },
-        t = {};
-    function n(i) {
-        var r = t[i];
-        if (void 0 !== r) return r.exports;
-        var a = (t[i] = { exports: {} });
-        return e[i](a, a.exports, n), a.exports;
+        moduleCache = {};
+    function require(id) {
+        var cacheHit = moduleCache[id];
+        if (void 0 !== cacheHit) return cacheHit.exports;
+        var module = (moduleCache[id] = { exports: {} });
+        return modules[id](module, module.exports, require), module.exports;
     }
-    (n.amdO = {}),
-        (n.g = (function () {
+    (require.amdO = {}),
+        (require.g = (function () {
             if ("object" == typeof globalThis) return globalThis;
             try {
                 return this || new Function("return this")();
@@ -949,7 +949,7 @@
         })()),
         (() => {
             "use strict";
-            n(6925);
+            require(6925);
             /**
              * @license
              * Copyright 2010-2025 Three.js Authors
@@ -36533,7 +36533,7 @@
                     return v_(this, A_, "f").getFrame(e);
                 }
             };
-            var y_ = n(1312);
+            var y_ = require(1312);
             const x_ = [
                     "A",
                     "B",
