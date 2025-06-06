@@ -4,15 +4,15 @@ Clean, readable, and deobfuscated source of PolyTrack, rebuilt for analysis, mod
 
 ## Prerequisites
 
-- [Rustup](https://rustup.rs/) - Install Rust and Cargo
-- [Mergiraf](https://mergiraf.org/installation.html#from-source) - For resolving merge conflicts
+- [Rustup](https://rustup.rs/) - Install Rust and Cargo.
+- [Mergiraf](https://mergiraf.org/installation.html#from-source) - For resolving merge conflicts.
 
 ## How to deobfuscate
 
 1. Clone the PolyTrack repository:
 
    ```bash
-   git clone
+   git clone https://github.com/polytrackmods/PolyDeobfuscated
    ```
 
 2. Use the VSCode renaming tool to rename the obfuscated variables and functions. This tool will help you systematically rename the identifiers in the codebase.
@@ -25,14 +25,7 @@ Clean, readable, and deobfuscated source of PolyTrack, rebuilt for analysis, mod
     npx prettier --write .
     ```
 
-4. Create/Update your branch and create a pull request (You can also make your own fork of the repository and push your changes there):
-
-    ```bash
-    git checkout -b (your-branch-name)
-    git add .
-    git commit -m "(your commit message, try to follow https://www.conventionalcommits.org/en/v1.0.0/ and be descriptive)"
-    git push origin deobfuscated
-    ```
+4. Create/Update your branch and create a pull request (You can also make your own fork of the repository and push your changes there)
 
 ## Resolving Merge Conflicts
 
