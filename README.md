@@ -36,47 +36,15 @@ Clean, readable, and deobfuscated source of PolyTrack, rebuilt for analysis, mod
 
 ## Resolving Merge Conflicts
 
-To rebase your changes with another branch, you can run the following command:
+First, setup the `Mergiraf` tool:
 
 ```bash
-git rebase origin/main
+git config --global merge.mergiraf.name mergiraf
+git config --global merge.mergiraf.driver 'mergiraf merge --git %O %A %B -s %S -x %X -y %Y -p %P -l %L'
+git config --global core.attributesfile .gitattributes
 ```
 
-To merge your changes with another branch, you can run:
-
-```bash
-git merge origin/main
-```
-
-By default, `mergiraf` will automatically attempt to resolve merge conflicts. To temporarily disable this feature, you can set the `mergiraf` environment variable to `0`:
-
-```bash
-mergiraf=0 git (rebase/merge) origin/main
-```
-
-You can abort the merge process at any time by running:
-
-```bash
-git merge --abort
-```
-
-You can review the changes made by `mergiraf` by running:
-
-```bash
-mergiraf review (review_name)
-```
-
-If you encounter a bug, please run:
-
-```bash
-mergiraf report (review_name/file_path)
-```
-
-You can manually resolve merge conflicts by running:
-
-```bash
-mergiraf solve (file_path)
-```
+`Mergiraf` will automatically resolve merge conflicts in the deobfuscated code... for more information, refer to the [Mergiraf documentation](https://mergiraf.org/usage.html).
 
 ## Confused? Have an Issue?
 
