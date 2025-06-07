@@ -1,6 +1,7 @@
 (() => {
     var modules = {
-            1312: (module, exports, require) => { // sha256
+            1312: (module, exports, require) => {
+                // sha256
                 var amdModule;
                 /**
                  * [js-sha256]{@link https://github.com/emn178/js-sha256}
@@ -21,8 +22,11 @@
                             "object" == typeof process &&
                             process.versions &&
                             process.versions.node;
-                    NODE_JS ? (root = require.window) : WEB_WORKER && (root = self);
-                    var COMMON_JS = !root.JS_SHA256_NO_COMMON_JS && module.exports,
+                    NODE_JS
+                        ? (root = require.window)
+                        : WEB_WORKER && (root = self);
+                    var COMMON_JS =
+                            !root.JS_SHA256_NO_COMMON_JS && module.exports,
                         AMD = require.amd,
                         ARRAY_BUFFER =
                             !root.JS_SHA256_NO_ARRAY_BUFFER &&
@@ -48,7 +52,12 @@
                             1955562222, 2024104815, 2227730452, 2361852424,
                             2428436474, 2756734187, 3204031479, 3329325298,
                         ],
-                        OUTPUT_TYPES = ["hex", "array", "digest", "arrayBuffer"],
+                        OUTPUT_TYPES = [
+                            "hex",
+                            "array",
+                            "digest",
+                            "arrayBuffer",
+                        ],
                         blocks = [];
                     (!root.JS_SHA256_NO_NODE_JS && Array.isArray) ||
                         (Array.isArray = function (obj) {
@@ -69,7 +78,9 @@
                             });
                     var createOutputMethod = function (outputType, is224) {
                             return function (message) {
-                                return new Sha256(is224, !0).update(message)[outputType]();
+                                return new Sha256(is224, !0)
+                                    .update(message)
+                                    [outputType]();
                             };
                         },
                         createMethod = function (is224) {
@@ -121,7 +132,9 @@
                         },
                         createHmacOutputMethod = function (outputType, is224) {
                             return function (key, message) {
-                                return new HmacSha256(key, is224, !0).update(message)[outputType]();
+                                return new HmacSha256(key, is224, !0)
+                                    .update(message)
+                                    [outputType]();
                             };
                         },
                         createHmacMethod = function (is224) {
@@ -134,7 +147,10 @@
                                 });
                             for (var i = 0; i < OUTPUT_TYPES.length; ++i) {
                                 var type = OUTPUT_TYPES[i];
-                                method[type] = createHmacOutputMethod(type, is224);
+                                method[type] = createHmacOutputMethod(
+                                    type,
+                                    is224
+                                );
                             }
                             return method;
                         };
@@ -204,16 +220,22 @@
                                       ? ((bytes[index++] = 192 | (code >>> 6)),
                                         (bytes[index++] = 128 | (63 & code)))
                                       : code < 55296 || code >= 57344
-                                        ? ((bytes[index++] = 224 | (code >>> 12)),
-                                          (bytes[index++] = 128 | ((code >>> 6) & 63)),
+                                        ? ((bytes[index++] =
+                                              224 | (code >>> 12)),
+                                          (bytes[index++] =
+                                              128 | ((code >>> 6) & 63)),
                                           (bytes[index++] = 128 | (63 & code)))
                                         : ((code =
                                               65536 +
                                               (((1023 & code) << 10) |
-                                                  (1023 & key.charCodeAt(++i)))),
-                                          (bytes[index++] = 240 | (code >>> 18)),
-                                          (bytes[index++] = 128 | ((code >>> 12) & 63)),
-                                          (bytes[index++] = 128 | ((code >>> 6) & 63)),
+                                                  (1023 &
+                                                      key.charCodeAt(++i)))),
+                                          (bytes[index++] =
+                                              240 | (code >>> 18)),
+                                          (bytes[index++] =
+                                              128 | ((code >>> 12) & 63)),
+                                          (bytes[index++] =
+                                              128 | ((code >>> 6) & 63)),
                                           (bytes[index++] = 128 | (63 & code)));
                             key = bytes;
                         } else {
@@ -229,7 +251,8 @@
                             )
                                 throw new Error(ERROR);
                         }
-                        key.length > 64 && (key = new Sha256(is224, !0).update(key).array());
+                        key.length > 64 &&
+                            (key = new Sha256(is224, !0).update(key).array());
                         var oKeyPad = [],
                             iKeyPad = [];
                         for (i = 0; i < 64; ++i) {
@@ -249,19 +272,27 @@
                             if ("string" !== type) {
                                 if ("object" !== type) throw new Error(ERROR);
                                 if (null === message) throw new Error(ERROR);
-                                if (ARRAY_BUFFER && message.constructor === ArrayBuffer)
+                                if (
+                                    ARRAY_BUFFER &&
+                                    message.constructor === ArrayBuffer
+                                )
                                     message = new Uint8Array(message);
                                 else if (
                                     !(
                                         Array.isArray(message) ||
-                                        (ARRAY_BUFFER && ArrayBuffer.isView(message))
+                                        (ARRAY_BUFFER &&
+                                            ArrayBuffer.isView(message))
                                     )
                                 )
                                     throw new Error(ERROR);
                                 notString = !0;
                             }
                             for (
-                                var code, i, index = 0, length = message.length, blocks = this.blocks;
+                                var code,
+                                    i,
+                                    index = 0,
+                                    length = message.length,
+                                    blocks = this.blocks;
                                 index < length;
 
                             ) {
@@ -289,12 +320,22 @@
                                                 0)),
                                     notString)
                                 )
-                                    for (i = this.start; index < length && i < 64; ++index)
-                                        blocks[i >>> 2] |= message[index] << SHIFT[3 & i++];
+                                    for (
+                                        i = this.start;
+                                        index < length && i < 64;
+                                        ++index
+                                    )
+                                        blocks[i >>> 2] |=
+                                            message[index] << SHIFT[3 & i++];
                                 else
-                                    for (i = this.start; index < length && i < 64; ++index)
+                                    for (
+                                        i = this.start;
+                                        index < length && i < 64;
+                                        ++index
+                                    )
                                         (code = message.charCodeAt(index)) < 128
-                                            ? (blocks[i >>> 2] |= code << SHIFT[3 & i++])
+                                            ? (blocks[i >>> 2] |=
+                                                  code << SHIFT[3 & i++])
                                             : code < 2048
                                               ? ((blocks[i >>> 2] |=
                                                     (192 | (code >>> 6)) <<
@@ -308,7 +349,8 @@
                                                       SHIFT[3 & i++]),
                                                   (blocks[i >>> 2] |=
                                                       (128 |
-                                                          ((code >>> 6) & 63)) <<
+                                                          ((code >>> 6) &
+                                                              63)) <<
                                                       SHIFT[3 & i++]),
                                                   (blocks[i >>> 2] |=
                                                       (128 | (63 & code)) <<
@@ -325,11 +367,13 @@
                                                       SHIFT[3 & i++]),
                                                   (blocks[i >>> 2] |=
                                                       (128 |
-                                                          ((code >>> 12) & 63)) <<
+                                                          ((code >>> 12) &
+                                                              63)) <<
                                                       SHIFT[3 & i++]),
                                                   (blocks[i >>> 2] |=
                                                       (128 |
-                                                          ((code >>> 6) & 63)) <<
+                                                          ((code >>> 6) &
+                                                              63)) <<
                                                       SHIFT[3 & i++]),
                                                   (blocks[i >>> 2] |=
                                                       (128 | (63 & code)) <<
@@ -410,14 +454,21 @@
                                 blocks = this.blocks;
                             for (j = 16; j < 64; ++j)
                                 (s0 =
-                                    (((t1 = blocks[j - 15]) >>> 7) | (t1 << 25)) ^
+                                    (((t1 = blocks[j - 15]) >>> 7) |
+                                        (t1 << 25)) ^
                                     ((t1 >>> 18) | (t1 << 14)) ^
                                     (t1 >>> 3)),
                                     (s1 =
-                                        (((t1 = blocks[j - 2]) >>> 17) | (t1 << 15)) ^
+                                        (((t1 = blocks[j - 2]) >>> 17) |
+                                            (t1 << 15)) ^
                                         ((t1 >>> 19) | (t1 << 13)) ^
                                         (t1 >>> 10)),
-                                    (blocks[j] = (blocks[j - 16] + s0 + blocks[j - 7] + s1) | 0);
+                                    (blocks[j] =
+                                        (blocks[j - 16] +
+                                            s0 +
+                                            blocks[j - 7] +
+                                            s1) |
+                                        0);
                             for (bc = b & c, j = 0; j < 64; j += 4)
                                 this.first
                                     ? (this.is224
@@ -668,10 +719,17 @@
                         }),
                         (HmacSha256.prototype = new Sha256()),
                         (HmacSha256.prototype.finalize = function () {
-                            if ((Sha256.prototype.finalize.call(this), this.inner)) {
+                            if (
+                                (Sha256.prototype.finalize.call(this),
+                                this.inner)
+                            ) {
                                 this.inner = !1;
                                 var innerHash = this.array();
-                                Sha256.call(this, this.is224, this.sharedMemory),
+                                Sha256.call(
+                                    this,
+                                    this.is224,
+                                    this.sharedMemory
+                                ),
                                     this.update(this.oKeyPad),
                                     this.update(innerHash),
                                     Sha256.prototype.finalize.call(this);
@@ -690,16 +748,24 @@
                                   (void 0 ===
                                       (amdModule = function () {
                                           return exports;
-                                      }.call(exports, require, exports, module)) ||
+                                      }.call(
+                                          exports,
+                                          require,
+                                          exports,
+                                          module
+                                      )) ||
                                       (module.exports = amdModule)));
                 })();
             },
             1903: () => {}, // require('buffer') - not actually ever called as sim-worker runs in a browser context
             4394: () => {}, // require('crypto') - not actually ever called as sim-worker runs in a browser context
-            6925: () => { // a fast math library using webassembly
+            6925: () => {
+                // a fast math library using webassembly
                 "use strict";
                 function throwDeterministicError(message) {
-                    throw new Error(message + ": No deterministic implementation");
+                    throw new Error(
+                        message + ": No deterministic implementation"
+                    );
                 }
                 const fastMath = new WebAssembly.Instance(
                     new WebAssembly.Module(
@@ -752,7 +818,10 @@
                             lowerIndex = Math.floor(wrappedAngle),
                             upperIndex = (lowerIndex + 1) % sineTable.length,
                             fractional = wrappedAngle - lowerIndex;
-                        return sineTable[lowerIndex] * (1 - fractional) + sineTable[upperIndex] * fractional;
+                        return (
+                            sineTable[lowerIndex] * (1 - fractional) +
+                            sineTable[upperIndex] * fractional
+                        );
                     },
                     sqrt: fastMath.sqrt,
                     tan: fastMath.tan,
