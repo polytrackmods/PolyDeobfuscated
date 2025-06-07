@@ -17845,151 +17845,151 @@
                 ungzip: uh,
                 constants: Fo,
             };
-            // TODO: figure out this
-            function fh(e) {
-                let t;
-                e = (e = e.replace(/-/g, "+")).replace(/_/g, "/");
+            // replay recorder + sim_worker addons
+            function decodeBase64UrlToBytes(input) {
+                let binaryString;
+                input = (input = input.replace(/-/g, "+")).replace(/_/g, "/");
                 try {
-                    t = atob(e);
+                    binaryString = atob(input);
                 } catch (e) {
                     return null;
                 }
-                const n = new Uint8Array(t.length);
-                for (let e = 0; e < t.length; ++e) {
-                    const i = t.charCodeAt(e);
-                    if (i > 255) return null;
-                    n[e] = i;
+                const byteArray = new Uint8Array(binaryString.length);
+                for (let i = 0; i < binaryString.length; ++i) {
+                    const charCode = binaryString.charCodeAt(i);
+                    if (charCode > 255) return null;
+                    byteArray[i] = charCode;
                 }
-                return n;
+                return byteArray;
             }
-            var ph,
-                mh,
-                gh,
-                Ah,
-                _h,
-                vh,
-                wh,
-                yh,
-                xh,
-                bh,
-                Eh,
-                Sh = function (e, t, n, i, r) {
-                    if ("m" === i)
+            var instances,
+                frameRecorder,
+                upChanges,
+                rightChanges,
+                downChanges,
+                leftChanges,
+                resetChanges,
+                lastFrame,
+                findLastIndexBeforeOrAt,
+                encodeDeltas,
+                decodeDeltas,
+                setPrivateMember = function (receiver, privateMap, value, kind, accessorOrSetter) {
+                    if ("m" === kind)
                         throw new TypeError("Private method is not writable");
-                    if ("a" === i && !r)
+                    if ("a" === kind && !accessorOrSetter)
                         throw new TypeError(
                             "Private accessor was defined without a setter"
                         );
-                    if ("function" == typeof t ? e !== t || !r : !t.has(e))
+                    if ("function" == typeof privateMap ? receiver !== privateMap || !accessorOrSetter : !privateMap.has(receiver))
                         throw new TypeError(
                             "Cannot write private member to an object whose class did not declare it"
                         );
                     return (
-                        "a" === i
-                            ? r.call(e, n)
-                            : r
-                              ? (r.value = n)
-                              : t.set(e, n),
-                        n
+                        "a" === kind
+                            ? accessorOrSetter.call(receiver, value)
+                            : accessorOrSetter
+                              ? (accessorOrSetter.value = value)
+                              : privateMap.set(receiver, value),
+                        value
                     );
                 },
-                Mh = function (e, t, n, i) {
-                    if ("a" === n && !i)
+                getPrivateMember = function (receiver, privateMap, kind, accessorOrGetter) {
+                    if ("a" === kind && !accessorOrGetter)
                         throw new TypeError(
                             "Private accessor was defined without a getter"
                         );
-                    if ("function" == typeof t ? e !== t || !i : !t.has(e))
+                    if ("function" == typeof privateMap ? receiver !== privateMap || !accessorOrGetter : !privateMap.has(receiver))
                         throw new TypeError(
                             "Cannot read private member from an object whose class did not declare it"
                         );
-                    return "m" === n
-                        ? i
-                        : "a" === n
-                          ? i.call(e)
-                          : i
-                            ? i.value
-                            : t.get(e);
+                    return "m" === kind
+                        ? accessorOrGetter
+                        : "a" === kind
+                          ? accessorOrGetter.call(receiver)
+                          : accessorOrGetter
+                            ? accessorOrGetter.value
+                            : privateMap.get(receiver);
                 };
-            class Th {
-                constructor(e) {
-                    ph.add(this),
-                        gh.set(this, []),
-                        Ah.set(this, []),
-                        _h.set(this, []),
-                        vh.set(this, []),
-                        wh.set(this, []),
-                        yh.set(this, null),
-                        null != e &&
-                            (Sh(this, gh, e.up, "f"),
-                            Sh(this, Ah, e.right, "f"),
-                            Sh(this, _h, e.down, "f"),
-                            Sh(this, vh, e.left, "f"),
-                            Sh(this, wh, e.reset, "f"));
+            class FrameRecorder {
+                constructor(data) {
+                    instances.add(this),
+                        upChanges.set(this, []),
+                        rightChanges.set(this, []),
+                        downChanges.set(this, []),
+                        leftChanges.set(this, []),
+                        resetChanges.set(this, []),
+                        lastFrame.set(this, null),
+                        null != data &&
+                            (setPrivateMember(this, upChanges, data.up, "f"),
+                            setPrivateMember(this, rightChanges, data.right, "f"),
+                            setPrivateMember(this, downChanges, data.down, "f"),
+                            setPrivateMember(this, leftChanges, data.left, "f"),
+                            setPrivateMember(this, resetChanges, data.reset, "f"));
                 }
-                recordFrame(e, t) {
-                    if (e > mh.maxFrames)
+                recordFrame(frame, inputState) {
+                    if (frame > frameRecorder.maxFrames)
                         throw new Error(
                             "Frame number exceeds maximum frame count."
                         );
-                    if (null != Mh(this, yh, "f") && e <= Mh(this, yh, "f"))
+                    if (null != getPrivateMember(this, lastFrame, "f") && frame <= getPrivateMember(this, lastFrame, "f"))
                         throw new Error(
                             "Frame number must be greater than the previous recorded frame."
                         );
-                    Sh(this, yh, e, "f");
-                    const n = Mh(this, gh, "f").length % 2 != 0,
-                        i = Mh(this, Ah, "f").length % 2 != 0,
-                        r = Mh(this, _h, "f").length % 2 != 0,
-                        a = Mh(this, vh, "f").length % 2 != 0,
-                        s = Mh(this, wh, "f").length % 2 != 0;
-                    t.up != n && Mh(this, gh, "f").push(e),
-                        t.right != i && Mh(this, Ah, "f").push(e),
-                        t.down != r && Mh(this, _h, "f").push(e),
-                        t.left != a && Mh(this, vh, "f").push(e),
-                        t.reset != s && Mh(this, wh, "f").push(e);
+                    setPrivateMember(this, lastFrame, frame, "f");
+                    const up = getPrivateMember(this, upChanges, "f").length % 2 != 0,
+                        right = getPrivateMember(this, rightChanges, "f").length % 2 != 0,
+                        down = getPrivateMember(this, downChanges, "f").length % 2 != 0,
+                        left = getPrivateMember(this, leftChanges, "f").length % 2 != 0,
+                        reset = getPrivateMember(this, resetChanges, "f").length % 2 != 0;
+                    inputState.up != up && getPrivateMember(this, upChanges, "f").push(frame),
+                        inputState.right != right && getPrivateMember(this, rightChanges, "f").push(frame),
+                        inputState.down != down && getPrivateMember(this, downChanges, "f").push(frame),
+                        inputState.left != left && getPrivateMember(this, leftChanges, "f").push(frame),
+                        inputState.reset != reset && getPrivateMember(this, resetChanges, "f").push(frame);
                 }
-                getFrame(e) {
+                getFrame(frame) {
                     return {
                         up:
-                            (Mh(this, ph, "m", xh).call(
+                            (getPrivateMember(this, instances, "m", findLastIndexBeforeOrAt).call(
                                 this,
-                                e,
-                                Mh(this, gh, "f")
+                                frame,
+                                getPrivateMember(this, upChanges, "f")
                             ) +
                                 1) %
                                 2 !=
                             0,
                         right:
-                            (Mh(this, ph, "m", xh).call(
+                            (getPrivateMember(this, instances, "m", findLastIndexBeforeOrAt).call(
                                 this,
-                                e,
-                                Mh(this, Ah, "f")
+                                frame,
+                                getPrivateMember(this, rightChanges, "f")
                             ) +
                                 1) %
                                 2 !=
                             0,
                         down:
-                            (Mh(this, ph, "m", xh).call(
+                            (getPrivateMember(this, instances, "m", findLastIndexBeforeOrAt).call(
                                 this,
-                                e,
-                                Mh(this, _h, "f")
+                                frame,
+                                getPrivateMember(this, downChanges, "f")
                             ) +
                                 1) %
                                 2 !=
                             0,
                         left:
-                            (Mh(this, ph, "m", xh).call(
+                            (getPrivateMember(this, instances, "m", findLastIndexBeforeOrAt).call(
                                 this,
-                                e,
-                                Mh(this, vh, "f")
+                                frame,
+                                getPrivateMember(this, leftChanges, "f")
                             ) +
                                 1) %
                                 2 !=
                             0,
                         reset:
-                            (Mh(this, ph, "m", xh).call(
+                            (getPrivateMember(this, instances, "m", findLastIndexBeforeOrAt).call(
                                 this,
-                                e,
-                                Mh(this, wh, "f")
+                                frame,
+                                getPrivateMember(this, resetChanges, "f")
                             ) +
                                 1) %
                                 2 !=
@@ -17997,174 +17997,174 @@
                     };
                 }
                 serialize() {
-                    const e = new Uint8Array(
+                    const buffer = new Uint8Array(
                         3 +
-                            3 * Mh(this, gh, "f").length +
+                            3 * getPrivateMember(this, upChanges, "f").length +
                             3 +
-                            3 * Mh(this, Ah, "f").length +
+                            3 * getPrivateMember(this, rightChanges, "f").length +
                             3 +
-                            3 * Mh(this, _h, "f").length +
+                            3 * getPrivateMember(this, downChanges, "f").length +
                             3 +
-                            3 * Mh(this, vh, "f").length +
+                            3 * getPrivateMember(this, leftChanges, "f").length +
                             3 +
-                            3 * Mh(this, wh, "f").length
+                            3 * getPrivateMember(this, resetChanges, "f").length
                     );
-                    Mh(this, ph, "m", bh).call(
+                    getPrivateMember(this, instances, "m", encodeDeltas).call(
                         this,
-                        Mh(this, gh, "f"),
-                        e.subarray(0, 3 + 3 * Mh(this, gh, "f").length)
+                        getPrivateMember(this, upChanges, "f"),
+                        buffer.subarray(0, 3 + 3 * getPrivateMember(this, upChanges, "f").length)
                     ),
-                        Mh(this, ph, "m", bh).call(
+                        getPrivateMember(this, instances, "m", encodeDeltas).call(
                             this,
-                            Mh(this, Ah, "f"),
-                            e.subarray(
-                                3 + 3 * Mh(this, gh, "f").length,
+                            getPrivateMember(this, rightChanges, "f"),
+                            buffer.subarray(
+                                3 + 3 * getPrivateMember(this, upChanges, "f").length,
                                 3 +
-                                    3 * Mh(this, gh, "f").length +
+                                    3 * getPrivateMember(this, upChanges, "f").length +
                                     3 +
-                                    3 * Mh(this, Ah, "f").length
+                                    3 * getPrivateMember(this, rightChanges, "f").length
                             )
                         ),
-                        Mh(this, ph, "m", bh).call(
+                        getPrivateMember(this, instances, "m", encodeDeltas).call(
                             this,
-                            Mh(this, _h, "f"),
-                            e.subarray(
+                            getPrivateMember(this, downChanges, "f"),
+                            buffer.subarray(
                                 3 +
-                                    3 * Mh(this, gh, "f").length +
+                                    3 * getPrivateMember(this, upChanges, "f").length +
                                     3 +
-                                    3 * Mh(this, Ah, "f").length,
+                                    3 * getPrivateMember(this, rightChanges, "f").length,
                                 3 +
-                                    3 * Mh(this, gh, "f").length +
+                                    3 * getPrivateMember(this, upChanges, "f").length +
                                     3 +
-                                    3 * Mh(this, Ah, "f").length +
+                                    3 * getPrivateMember(this, rightChanges, "f").length +
                                     3 +
-                                    3 * Mh(this, _h, "f").length
+                                    3 * getPrivateMember(this, downChanges, "f").length
                             )
                         ),
-                        Mh(this, ph, "m", bh).call(
+                        getPrivateMember(this, instances, "m", encodeDeltas).call(
                             this,
-                            Mh(this, vh, "f"),
-                            e.subarray(
+                            getPrivateMember(this, leftChanges, "f"),
+                            buffer.subarray(
                                 3 +
-                                    3 * Mh(this, gh, "f").length +
+                                    3 * getPrivateMember(this, upChanges, "f").length +
                                     3 +
-                                    3 * Mh(this, Ah, "f").length +
+                                    3 * getPrivateMember(this, rightChanges, "f").length +
                                     3 +
-                                    3 * Mh(this, _h, "f").length,
+                                    3 * getPrivateMember(this, downChanges, "f").length,
                                 3 +
-                                    3 * Mh(this, gh, "f").length +
+                                    3 * getPrivateMember(this, upChanges, "f").length +
                                     3 +
-                                    3 * Mh(this, Ah, "f").length +
+                                    3 * getPrivateMember(this, rightChanges, "f").length +
                                     3 +
-                                    3 * Mh(this, _h, "f").length +
+                                    3 * getPrivateMember(this, downChanges, "f").length +
                                     3 +
-                                    3 * Mh(this, vh, "f").length
+                                    3 * getPrivateMember(this, leftChanges, "f").length
                             )
                         ),
-                        Mh(this, ph, "m", bh).call(
+                        getPrivateMember(this, instances, "m", encodeDeltas).call(
                             this,
-                            Mh(this, wh, "f"),
-                            e.subarray(
+                            getPrivateMember(this, resetChanges, "f"),
+                            buffer.subarray(
                                 3 +
-                                    3 * Mh(this, gh, "f").length +
+                                    3 * getPrivateMember(this, upChanges, "f").length +
                                     3 +
-                                    3 * Mh(this, Ah, "f").length +
+                                    3 * getPrivateMember(this, rightChanges, "f").length +
                                     3 +
-                                    3 * Mh(this, _h, "f").length +
+                                    3 * getPrivateMember(this, downChanges, "f").length +
                                     3 +
-                                    3 * Mh(this, vh, "f").length,
+                                    3 * getPrivateMember(this, leftChanges, "f").length,
                                 3 +
-                                    3 * Mh(this, gh, "f").length +
+                                    3 * getPrivateMember(this, upChanges, "f").length +
                                     3 +
-                                    3 * Mh(this, Ah, "f").length +
+                                    3 * getPrivateMember(this, rightChanges, "f").length +
                                     3 +
-                                    3 * Mh(this, _h, "f").length +
+                                    3 * getPrivateMember(this, downChanges, "f").length +
                                     3 +
-                                    3 * Mh(this, vh, "f").length +
+                                    3 * getPrivateMember(this, leftChanges, "f").length +
                                     3 +
-                                    3 * Mh(this, wh, "f").length
+                                    3 * getPrivateMember(this, resetChanges, "f").length
                             )
                         );
-                    const t = new pako.Deflate({ level: 9 });
+                    const deflated = new pako.Deflate({ level: 9 });
                     return (
-                        t.push(new Uint8Array(e), !0),
-                        (function (e) {
-                            let t = "";
-                            for (const n of e) t += String.fromCharCode(n);
-                            let n = btoa(t);
+                        deflated.push(new Uint8Array(buffer), !0),
+                        (function (byteArray) {
+                            let binaryString = "";
+                            for (const byte of byteArray) binaryString += String.fromCharCode(byte);
+                            let base64 = btoa(binaryString);
                             return (
-                                (n = n.replace(/\+/g, "-")),
-                                (n = n.replace(/\//g, "_")),
-                                (n = n.replace(/=/g, "")),
-                                n
+                                (base64 = base64.replace(/\+/g, "-")),
+                                (base64 = base64.replace(/\//g, "_")),
+                                (base64 = base64.replace(/=/g, "")),
+                                base64
                             );
-                        })(t.result)
+                        })(deflated.result)
                     );
                 }
-                static deserialize(e) {
-                    const t = fh(e);
-                    if (null == t) return null;
-                    const n = new pako.Inflate();
-                    if ((n.push(t, !0), n.err)) return null;
-                    const i = n.result;
-                    if (!(i instanceof Uint8Array)) return null;
-                    const r = Mh(mh, mh, "m", Eh).call(mh, i);
-                    if (null == r) return null;
-                    const a = Mh(mh, mh, "m", Eh).call(
-                        mh,
-                        i.subarray(3 + 3 * r.length)
+                static deserialize(str) {
+                    const compressed = decodeBase64UrlToBytes(str);
+                    if (null == compressed) return null;
+                    const inflated = new pako.Inflate();
+                    if ((inflated.push(compressed, !0), inflated.err)) return null;
+                    const data = inflated.result;
+                    if (!(data instanceof Uint8Array)) return null;
+                    const up = getPrivateMember(frameRecorder, frameRecorder, "m", decodeDeltas).call(frameRecorder, data);
+                    if (null == up) return null;
+                    const right = getPrivateMember(frameRecorder, frameRecorder, "m", decodeDeltas).call(
+                        frameRecorder,
+                        data.subarray(3 + 3 * up.length)
                     );
-                    if (null == a) return null;
-                    const s = Mh(mh, mh, "m", Eh).call(
-                        mh,
-                        i.subarray(3 + 3 * r.length + 3 + 3 * a.length)
+                    if (null == right) return null;
+                    const down = getPrivateMember(frameRecorder, frameRecorder, "m", decodeDeltas).call(
+                        frameRecorder,
+                        data.subarray(3 + 3 * up.length + 3 + 3 * right.length)
                     );
-                    if (null == s) return null;
-                    const o = Mh(mh, mh, "m", Eh).call(
-                        mh,
-                        i.subarray(
+                    if (null == down) return null;
+                    const left = getPrivateMember(frameRecorder, frameRecorder, "m", decodeDeltas).call(
+                        frameRecorder,
+                        data.subarray(
                             3 +
-                                3 * r.length +
+                                3 * up.length +
                                 3 +
-                                3 * a.length +
+                                3 * right.length +
                                 3 +
-                                3 * s.length
+                                3 * down.length
                         )
                     );
-                    if (null == o) return null;
-                    const l = Mh(mh, mh, "m", Eh).call(
-                        mh,
-                        i.subarray(
+                    if (null == left) return null;
+                    const reset = getPrivateMember(frameRecorder, frameRecorder, "m", decodeDeltas).call(
+                        frameRecorder,
+                        data.subarray(
                             3 +
-                                3 * r.length +
+                                3 * up.length +
                                 3 +
-                                3 * a.length +
+                                3 * right.length +
                                 3 +
-                                3 * s.length +
+                                3 * down.length +
                                 3 +
-                                3 * o.length
+                                3 * left.length
                         )
                     );
-                    return null == l
+                    return null == reset
                         ? null
-                        : new mh({
-                              up: r,
-                              right: a,
-                              down: s,
-                              left: o,
-                              reset: l,
+                        : new frameRecorder({
+                              up: up,
+                              right: right,
+                              down: down,
+                              left: left,
+                              reset: reset,
                           });
                 }
             }
-            (mh = Th),
-                (gh = new WeakMap()),
-                (Ah = new WeakMap()),
-                (_h = new WeakMap()),
-                (vh = new WeakMap()),
-                (wh = new WeakMap()),
-                (yh = new WeakMap()),
-                (ph = new WeakSet()),
-                (xh = function (e, t) {
+            (frameRecorder = FrameRecorder),
+                (upChanges = new WeakMap()),
+                (rightChanges = new WeakMap()),
+                (downChanges = new WeakMap()),
+                (leftChanges = new WeakMap()),
+                (resetChanges = new WeakMap()),
+                (lastFrame = new WeakMap()),
+                (instances = new WeakSet()),
+                (findLastIndexBeforeOrAt = function (e, t) {
                     let n = -1;
                     for (let i = 0; i < t.length; ++i) {
                         const r = t[i];
@@ -18177,7 +18177,7 @@
                     }
                     return n;
                 }),
-                (bh = function (e, t) {
+                (encodeDeltas = function (e, t) {
                     (t[0] = 255 & e.length),
                         (t[1] = (e.length >>> 8) & 255),
                         (t[2] = (e.length >>> 16) & 255);
@@ -18189,7 +18189,7 @@
                             (t[3 + 3 * n + 2] = (i >>> 16) & 255);
                     }
                 }),
-                (Eh = function (e) {
+                (decodeDeltas = function (e) {
                     if (e.length < 3) return null;
                     const t = e[0] | (e[1] << 8) | (e[2] << 16);
                     if (e.length < 3 + 3 * t) return null;
@@ -18203,8 +18203,8 @@
                     }
                     return n;
                 }),
-                (Th.maxFrames = 5999999);
-            const Ch = Th;
+                (FrameRecorder.maxFrames = 5999999);
+            const Ch = FrameRecorder;
             var Ih,
                 Rh,
                 Ph,
@@ -40658,7 +40658,7 @@
                 return n;
             }
             function $_(e) {
-                const t = fh(e);
+                const t = decodeBase64UrlToBytes(e);
                 if (null == t) return null;
                 const n = new Pv(L_.Summer, new B_());
                 let i = 0;
@@ -42190,7 +42190,7 @@
                     if (null != r) return r;
                     const a = (function (e) {
                         if (!e.startsWith("v1n")) return null;
-                        const t = fh(e.substring(3, 5));
+                        const t = decodeBase64UrlToBytes(e.substring(3, 5));
                         if (null == t) return null;
                         if (1 != t.length) return null;
                         const n = t[0],
