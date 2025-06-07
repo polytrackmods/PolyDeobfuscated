@@ -1027,7 +1027,7 @@
              * SPDX-License-Identifier: MIT
              */
 
-            // three.js (https://github.com/mrdoob/three.js/releases/tag/r174)
+            // three core from build in https://github.com/mrdoob/three.js/releases/tag/r174
             // three.core.js
             const e = "174",
                 t = 0,
@@ -13968,7 +13968,7 @@
                               "WARNING: Multiple instances of Three.js being imported."
                           )
                         : (window.__THREE__ = e));
-            // OBB addon
+            // OBB addon from https://github.com/mrdoob/three.js/blob/dev/examples/jsm/math/OBB.js
             const Ps = {
                     c: null,
                     u: [new Vector3(), new Vector3(), new Vector3()],
@@ -14270,7 +14270,7 @@
                 }
             }
             const qs = new OBB();
-            // TODO: deflate thing?
+            // pako inflate/deflate algorithms from https://github.com/nodeca/pako/blob/master/dist/pako.js
             function Ys(e) {
                 let t = e.length;
                 for (; --t >= 0; ) e[t] = 0;
@@ -17834,7 +17834,7 @@
             };
             const { Deflate: rh, deflate: ah, deflateRaw: sh, gzip: oh } = ic,
                 { Inflate: lh, inflate: ch, inflateRaw: hh, ungzip: uh } = ih;
-            var dh = {
+            var pako = {
                 Deflate: rh,
                 deflate: ah,
                 deflateRaw: sh,
@@ -17845,6 +17845,7 @@
                 ungzip: uh,
                 constants: Fo,
             };
+            // TODO: figure out this
             function fh(e) {
                 let t;
                 e = (e = e.replace(/-/g, "+")).replace(/_/g, "/");
@@ -18084,7 +18085,7 @@
                                     3 * Mh(this, wh, "f").length
                             )
                         );
-                    const t = new dh.Deflate({ level: 9 });
+                    const t = new pako.Deflate({ level: 9 });
                     return (
                         t.push(new Uint8Array(e), !0),
                         (function (e) {
@@ -18103,7 +18104,7 @@
                 static deserialize(e) {
                     const t = fh(e);
                     if (null == t) return null;
-                    const n = new dh.Inflate();
+                    const n = new pako.Inflate();
                     if ((n.push(t, !0), n.err)) return null;
                     const i = n.result;
                     if (!(i instanceof Uint8Array)) return null;
@@ -22120,7 +22121,8 @@
              * Copyright 2010-2025 Three.js Authors
              * SPDX-License-Identifier: MIT
              */
-            function Ad() {
+            // three module from build in https://github.com/mrdoob/three.js/releases/tag/r174
+            function WebGLAnimation() {
                 let e = null,
                     t = !1,
                     n = null,
@@ -22145,7 +22147,7 @@
                     },
                 };
             }
-            function _d(e) {
+            function WebGLAttributes(e) {
                 const t = new WeakMap();
                 return {
                     get: function (e) {
@@ -22991,7 +22993,7 @@
             const xd = { r: 0, b: 0, g: 0 },
                 bd = new Euler(),
                 Ed = new Matrix4();
-            function Sd(e, t, n, i, r, a, s) {
+            function WebGLBackground(e, t, n, i, r, a, s) {
                 const o = new Color(0);
                 let l,
                     c,
@@ -23167,7 +23169,7 @@
                     },
                 };
             }
-            function Md(e, t) {
+            function WebGLBindingStates(e, t) {
                 const n = e.getParameter(e.MAX_VERTEX_ATTRIBS),
                     i = {},
                     r = c(null);
@@ -23515,7 +23517,7 @@
                     disableUnusedAttributes: f,
                 };
             }
-            function Td(e, t, n) {
+            function WebGLBufferRenderer(e, t, n) {
                 let i;
                 function r(t, r, a) {
                     0 !== a &&
@@ -23565,7 +23567,7 @@
                         }
                     });
             }
-            function Cd(e, t, n, i) {
+            function WebGLCapabilities(e, t, n, i) {
                 let r;
                 function a(t) {
                     if ("highp" === t) {
@@ -23667,7 +23669,7 @@
                     maxSamples: e.getParameter(e.MAX_SAMPLES),
                 };
             }
-            function Id(e) {
+            function WebGLClipping(e) {
                 const t = this;
                 let n = null,
                     i = 0,
@@ -23738,7 +23740,7 @@
                         }
                     });
             }
-            function Rd(e) {
+            function WebGLCubeMaps(e) {
                 let t = new WeakMap();
                 function n(e, t) {
                     return (
@@ -23807,7 +23809,7 @@
                     new Vector3(1, 1, 1),
                 ],
                 Hd = new Vector3();
-            class Vd {
+            class PMREMGenerator {
                 constructor(e) {
                     (this._renderer = e),
                         (this._pingPongRenderTarget = null),
@@ -23847,12 +23849,12 @@
                 }
                 compileCubemapShader() {
                     null === this._cubemapMaterial &&
-                        ((this._cubemapMaterial = jd()),
+                        ((this._cubemapMaterial = _getCubemapMaterial()),
                         this._compileMaterial(this._cubemapMaterial));
                 }
                 compileEquirectangularShader() {
                     null === this._equirectMaterial &&
-                        ((this._equirectMaterial = Xd()),
+                        ((this._equirectMaterial = _getEquirectMaterial()),
                         this._compileMaterial(this._equirectMaterial));
                 }
                 dispose() {
@@ -23877,7 +23879,7 @@
                     this._renderer.setRenderTarget(Ud, kd, Nd),
                         (this._renderer.xr.enabled = Fd),
                         (e.scissorTest = !1),
-                        Qd(e, 0, 0, e.width, e.height);
+                        _setViewport(e, 0, 0, e.width, e.height);
                 }
                 _fromTexture(e, t) {
                     e.mapping === B || e.mapping === D
@@ -23912,14 +23914,14 @@
                             colorSpace: Ke,
                             depthBuffer: !1,
                         },
-                        i = Gd(e, t, n);
+                        i = _createRenderTarget(e, t, n);
                     if (
                         null === this._pingPongRenderTarget ||
                         this._pingPongRenderTarget.width !== e ||
                         this._pingPongRenderTarget.height !== t
                     ) {
                         null !== this._pingPongRenderTarget && this._dispose(),
-                            (this._pingPongRenderTarget = Gd(e, t, n));
+                            (this._pingPongRenderTarget = _createRenderTarget(e, t, n));
                         const { _lodMax: i } = this;
                         ({
                             sizeLods: this._sizeLods,
@@ -24016,7 +24018,7 @@
                                             mipInt: { value: 0 },
                                             poleAxis: { value: r },
                                         },
-                                        vertexShader: qd(),
+                                        vertexShader: _getCommonVertexShader(),
                                         fragmentShader:
                                             "\n\n\t\t\tprecision mediump float;\n\t\t\tprecision mediump int;\n\n\t\t\tvarying vec3 vOutputDirection;\n\n\t\t\tuniform sampler2D envMap;\n\t\t\tuniform int samples;\n\t\t\tuniform float weights[ n ];\n\t\t\tuniform bool latitudinal;\n\t\t\tuniform float dTheta;\n\t\t\tuniform float mipInt;\n\t\t\tuniform vec3 poleAxis;\n\n\t\t\t#define ENVMAP_TYPE_CUBE_UV\n\t\t\t#include <cube_uv_reflection_fragment>\n\n\t\t\tvec3 getSample( float theta, vec3 axis ) {\n\n\t\t\t\tfloat cosTheta = cos( theta );\n\t\t\t\t// Rodrigues' axis-angle rotation\n\t\t\t\tvec3 sampleDirection = vOutputDirection * cosTheta\n\t\t\t\t\t+ cross( axis, vOutputDirection ) * sin( theta )\n\t\t\t\t\t+ axis * dot( axis, vOutputDirection ) * ( 1.0 - cosTheta );\n\n\t\t\t\treturn bilinearCubeUV( envMap, sampleDirection, mipInt );\n\n\t\t\t}\n\n\t\t\tvoid main() {\n\n\t\t\t\tvec3 axis = latitudinal ? poleAxis : cross( poleAxis, vOutputDirection );\n\n\t\t\t\tif ( all( equal( axis, vec3( 0.0 ) ) ) ) {\n\n\t\t\t\t\taxis = vec3( vOutputDirection.z, 0.0, - vOutputDirection.x );\n\n\t\t\t\t}\n\n\t\t\t\taxis = normalize( axis );\n\n\t\t\t\tgl_FragColor = vec4( 0.0, 0.0, 0.0, 1.0 );\n\t\t\t\tgl_FragColor.rgb += weights[ 0 ] * getSample( 0.0, axis );\n\n\t\t\t\tfor ( int i = 1; i < n; i++ ) {\n\n\t\t\t\t\tif ( i >= samples ) {\n\n\t\t\t\t\t\tbreak;\n\n\t\t\t\t\t}\n\n\t\t\t\t\tfloat theta = dTheta * float( i );\n\t\t\t\t\tgl_FragColor.rgb += weights[ i ] * getSample( -1.0 * theta, axis );\n\t\t\t\t\tgl_FragColor.rgb += weights[ i ] * getSample( theta, axis );\n\n\t\t\t\t}\n\n\t\t\t}\n\t\t",
                                         blending: 0,
@@ -24069,7 +24071,7 @@
                                 a.position.set(r.x, r.y, r.z),
                                 a.lookAt(r.x, r.y, r.z + o[t]));
                         const c = this._cubeSize;
-                        Qd(i, n * c, t > 2 ? c : 0, c, c),
+                        _setViewport(i, n * c, t > 2 ? c : 0, c, c),
                             l.setRenderTarget(i),
                             f && l.render(d, a),
                             l.render(e, a);
@@ -24085,18 +24087,18 @@
                         i = e.mapping === B || e.mapping === D;
                     i
                         ? (null === this._cubemapMaterial &&
-                              (this._cubemapMaterial = jd()),
+                              (this._cubemapMaterial = _getCubemapMaterial()),
                           (this._cubemapMaterial.uniforms.flipEnvMap.value =
                               !1 === e.isRenderTargetTexture ? -1 : 1))
                         : null === this._equirectMaterial &&
-                          (this._equirectMaterial = Xd());
+                          (this._equirectMaterial = _getEquirectMaterial());
                     const r = i
                             ? this._cubemapMaterial
                             : this._equirectMaterial,
                         a = new Mesh(this._lodPlanes[0], r);
                     r.uniforms.envMap.value = e;
                     const s = this._cubeSize;
-                    Qd(t, 0, 0, 3 * s, 2 * s),
+                    _setViewport(t, 0, 0, 3 * s, 2 * s),
                         n.setRenderTarget(t),
                         n.render(a, Dd);
                 }
@@ -24156,7 +24158,7 @@
                     const { _lodMax: A } = this;
                     (h.dTheta.value = d), (h.mipInt.value = A - n);
                     const _ = this._sizeLods[i];
-                    Qd(
+                    _setViewport(
                         t,
                         3 * _ * (i > A - 4 ? i - A + 4 : 0),
                         4 * (this._cubeSize - _),
@@ -24167,7 +24169,7 @@
                         o.render(c, Dd);
                 }
             }
-            function Gd(e, t, n) {
+            function _createRenderTarget(e, t, n) {
                 const i = new WebGLRenderTarget(e, t, n);
                 return (
                     (i.texture.mapping = k),
@@ -24176,14 +24178,14 @@
                     i
                 );
             }
-            function Qd(e, t, n, i, r) {
+            function _setViewport(e, t, n, i, r) {
                 e.viewport.set(t, n, i, r), e.scissor.set(t, n, i, r);
             }
-            function Xd() {
+            function _getEquirectMaterial() {
                 return new ShaderMaterial({
                     name: "EquirectangularToCubeUV",
                     uniforms: { envMap: { value: null } },
-                    vertexShader: qd(),
+                    vertexShader: _getCommonVertexShader(),
                     fragmentShader:
                         "\n\n\t\t\tprecision mediump float;\n\t\t\tprecision mediump int;\n\n\t\t\tvarying vec3 vOutputDirection;\n\n\t\t\tuniform sampler2D envMap;\n\n\t\t\t#include <common>\n\n\t\t\tvoid main() {\n\n\t\t\t\tvec3 outputDirection = normalize( vOutputDirection );\n\t\t\t\tvec2 uv = equirectUv( outputDirection );\n\n\t\t\t\tgl_FragColor = vec4( texture2D ( envMap, uv ).rgb, 1.0 );\n\n\t\t\t}\n\t\t",
                     blending: 0,
@@ -24191,14 +24193,14 @@
                     depthWrite: !1,
                 });
             }
-            function jd() {
+            function _getCubemapMaterial() {
                 return new ShaderMaterial({
                     name: "CubemapToCubeUV",
                     uniforms: {
                         envMap: { value: null },
                         flipEnvMap: { value: -1 },
                     },
-                    vertexShader: qd(),
+                    vertexShader: _getCommonVertexShader(),
                     fragmentShader:
                         "\n\n\t\t\tprecision mediump float;\n\t\t\tprecision mediump int;\n\n\t\t\tuniform float flipEnvMap;\n\n\t\t\tvarying vec3 vOutputDirection;\n\n\t\t\tuniform samplerCube envMap;\n\n\t\t\tvoid main() {\n\n\t\t\t\tgl_FragColor = textureCube( envMap, vec3( flipEnvMap * vOutputDirection.x, vOutputDirection.yz ) );\n\n\t\t\t}\n\t\t",
                     blending: 0,
@@ -24206,10 +24208,10 @@
                     depthWrite: !1,
                 });
             }
-            function qd() {
+            function _getCommonVertexShader() {
                 return "\n\n\t\tprecision mediump float;\n\t\tprecision mediump int;\n\n\t\tattribute float faceIndex;\n\n\t\tvarying vec3 vOutputDirection;\n\n\t\t// RH coordinate system; PMREM face-indexing convention\n\t\tvec3 getDirection( vec2 uv, float face ) {\n\n\t\t\tuv = 2.0 * uv - 1.0;\n\n\t\t\tvec3 direction = vec3( uv, 1.0 );\n\n\t\t\tif ( face == 0.0 ) {\n\n\t\t\t\tdirection = direction.zyx; // ( 1, v, u ) pos x\n\n\t\t\t} else if ( face == 1.0 ) {\n\n\t\t\t\tdirection = direction.xzy;\n\t\t\t\tdirection.xz *= -1.0; // ( -u, 1, -v ) pos y\n\n\t\t\t} else if ( face == 2.0 ) {\n\n\t\t\t\tdirection.x *= -1.0; // ( -u, v, 1 ) pos z\n\n\t\t\t} else if ( face == 3.0 ) {\n\n\t\t\t\tdirection = direction.zyx;\n\t\t\t\tdirection.xz *= -1.0; // ( -1, v, -u ) neg x\n\n\t\t\t} else if ( face == 4.0 ) {\n\n\t\t\t\tdirection = direction.xzy;\n\t\t\t\tdirection.xy *= -1.0; // ( -u, -1, v ) neg y\n\n\t\t\t} else if ( face == 5.0 ) {\n\n\t\t\t\tdirection.z *= -1.0; // ( u, v, -1 ) neg z\n\n\t\t\t}\n\n\t\t\treturn direction;\n\n\t\t}\n\n\t\tvoid main() {\n\n\t\t\tvOutputDirection = getDirection( uv, faceIndex );\n\t\t\tgl_Position = vec4( position, 1.0 );\n\n\t\t}\n\t";
             }
-            function Yd(e) {
+            function WebGLCubeUVMaps(e) {
                 let t = new WeakMap(),
                     n = null;
                 function i(e) {
@@ -24233,7 +24235,7 @@
                                     r.pmremVersion !== l
                                 )
                                     return (
-                                        null === n && (n = new Vd(e)),
+                                        null === n && (n = new PMREMGenerator(e)),
                                         (a = s
                                             ? n.fromEquirectangular(r, a)
                                             : n.fromCubemap(r, a)),
@@ -24255,7 +24257,7 @@
                                                     void 0 !== e[i] && t++;
                                                 return t === n;
                                             })(l))
-                                        ? (null === n && (n = new Vd(e)),
+                                        ? (null === n && (n = new PMREMGenerator(e)),
                                           (a = s
                                               ? n.fromEquirectangular(r)
                                               : n.fromCubemap(r)),
@@ -24276,7 +24278,7 @@
                     },
                 };
             }
-            function Kd(e) {
+            function WebGLExtensions(e) {
                 const t = {};
                 function n(n) {
                     if (void 0 !== t[n]) return t[n];
@@ -24352,7 +24354,7 @@
                     },
                 };
             }
-            function Zd(e, t, n, i) {
+            function WebGLGeometries(e, t, n, i) {
                 const r = {},
                     a = new WeakMap();
                 function s(e) {
@@ -24429,7 +24431,7 @@
                     },
                 };
             }
-            function Jd(e, t, n) {
+            function WebGLIndexedBufferRenderer(e, t, n) {
                 let i, r, a;
                 function s(t, s, o) {
                     0 !== o &&
@@ -24485,7 +24487,7 @@
                         }
                     });
             }
-            function $d(e) {
+            function WebGLInfo(e) {
                 const t = {
                     frame: 0,
                     calls: 0,
@@ -24530,7 +24532,7 @@
                     },
                 };
             }
-            function ef(e, t, n) {
+            function WebGLMorphtargets(e, t, n) {
                 const i = new WeakMap(),
                     r = new Vector4();
                 return {
@@ -24631,7 +24633,7 @@
                     },
                 };
             }
-            function tf(e, t, n, i) {
+            function WebGLObjects(e, t, n, i) {
                 let r = new WeakMap();
                 function a(e) {
                     const t = e.target;
@@ -24995,7 +24997,7 @@
                 for (let e = 0; e !== r; ++e)
                     n.setTexture2DArray(t[e] || af, a[e]);
             }
-            class tp {
+            class SingleUniform {
                 constructor(e, t, n) {
                     (this.id = e),
                         (this.addr = n),
@@ -25061,7 +25063,7 @@
                         })(t.type));
                 }
             }
-            class np {
+            class PureArrayUniform {
                 constructor(e, t, n) {
                     (this.id = e),
                         (this.addr = n),
@@ -25128,7 +25130,7 @@
                         })(t.type));
                 }
             }
-            class ip {
+            class StructuredUniform {
                 constructor(e) {
                     (this.id = e), (this.seq = []), (this.map = {});
                 }
@@ -25157,16 +25159,16 @@
                         (l && (o |= 0),
                         void 0 === c || ("[" === c && s + 2 === r))
                     ) {
-                        ap(n, void 0 === c ? new tp(o, e, t) : new np(o, e, t));
+                        ap(n, void 0 === c ? new SingleUniform(o, e, t) : new PureArrayUniform(o, e, t));
                         break;
                     }
                     {
                         let e = n.map[o];
-                        void 0 === e && ((e = new ip(o)), ap(n, e)), (n = e);
+                        void 0 === e && ((e = new StructuredUniform(o)), ap(n, e)), (n = e);
                     }
                 }
             }
-            class op {
+            class WebGLUniforms {
                 constructor(e, t) {
                     (this.seq = []), (this.map = {});
                     const n = e.getProgramParameter(t, e.ACTIVE_UNIFORMS);
@@ -25386,7 +25388,7 @@
                     t
                 );
             }
-            function Tp(e, t, n, i) {
+            function WebGLProgram(e, t, n, i) {
                 const r = e.getContext(),
                     a = n.defines;
                 let s = n.vertexShader,
@@ -25940,7 +25942,7 @@
                     }
                     r.deleteShader(y),
                         r.deleteShader(x),
-                        (E = new op(r, m)),
+                        (E = new WebGLUniforms(r, m)),
                         (S = (function (e, t) {
                             const n = {},
                                 i = e.getProgramParameter(
@@ -26001,7 +26003,7 @@
                 );
             }
             let Cp = 0;
-            class Ip {
+            class WebGLShaderCache {
                 constructor() {
                     (this.shaderCache = new Map()),
                         (this.materialCache = new Map());
@@ -26043,17 +26045,17 @@
                 _getShaderStage(e) {
                     const t = this.shaderCache;
                     let n = t.get(e);
-                    return void 0 === n && ((n = new Rp(e)), t.set(e, n)), n;
+                    return void 0 === n && ((n = new WebGLShaderStage(e)), t.set(e, n)), n;
                 }
             }
-            class Rp {
+            class WebGLShaderStage {
                 constructor(e) {
                     (this.id = Cp++), (this.code = e), (this.usedTimes = 0);
                 }
             }
             function Pp(e, t, n, i, r, a, s) {
                 const o = new Layers(),
-                    l = new Ip(),
+                    l = new WebGLShaderCache(),
                     c = new Set(),
                     h = [],
                     u = r.logarithmicDepthBuffer,
@@ -26480,7 +26482,7 @@
                         }
                         return (
                             void 0 === i &&
-                                ((i = new Tp(e, n, t, a)), h.push(i)),
+                                ((i = new WebGLProgram(e, n, t, a)), h.push(i)),
                             i
                         );
                     },
@@ -27064,7 +27066,7 @@
                     },
                 };
             }
-            function Vp(e, n, a) {
+            function WebGLShadowMap(e, n, a) {
                 let s = new Frustum();
                 const o = new Vector2(),
                     l = new Vector2(),
@@ -28007,7 +28009,7 @@
                     },
                 };
             }
-            function Xp(e, t, n, i, r, a, s) {
+            function WebGLTextures(e, t, n, i, r, a, s) {
                 const o = t.has("WEBGL_multisampled_render_to_texture")
                         ? t.get("WEBGL_multisampled_render_to_texture")
                         : null,
@@ -30142,7 +30144,7 @@
                     },
                 };
             }
-            class qp {
+            class WebXRDepthSensing {
                 constructor() {
                     (this.texture = null),
                         (this.mesh = null),
@@ -30185,7 +30187,7 @@
                     return this.texture;
                 }
             }
-            class Yp extends EventDispatcher {
+            class WebXRManager extends EventDispatcher {
                 constructor(e, t) {
                     super();
                     const n = this;
@@ -30200,7 +30202,7 @@
                         u = null,
                         d = null,
                         f = null;
-                    const p = new qp(),
+                    const p = new WebXRDepthSensing(),
                         m = t.getContextAttributes();
                     let g = null,
                         A = null;
@@ -30601,7 +30603,7 @@
                             return p.getMesh(S);
                         });
                     let L = null;
-                    const U = new Ad();
+                    const U = new WebGLAnimation();
                     U.setAnimationLoop(function (t, r) {
                         if (
                             ((c = r.getViewerPose(l || a)), (f = r), null !== c)
@@ -31289,7 +31291,7 @@
                     },
                 };
             }
-            class em {
+            class WebGLRenderer {
                 constructor(t = {}) {
                     const {
                         canvas: n = createCanvasElement(),
@@ -31443,34 +31445,34 @@
                         );
                     }
                     function De() {
-                        (re = new Kd(Pe)),
+                        (re = new WebGLExtensions(Pe)),
                             re.init(),
                             (Ce = new jp(Pe, re)),
-                            (ae = new Cd(Pe, re, t, Ce)),
+                            (ae = new WebGLCapabilities(Pe, re, t, Ce)),
                             (se = new Qp(Pe, re)),
                             ae.reverseDepthBuffer &&
                                 d &&
                                 se.buffers.depth.setReversed(!0),
-                            (oe = new $d(Pe)),
+                            (oe = new WebGLInfo(Pe)),
                             (ue = new Bp()),
-                            (de = new Xp(Pe, re, se, ue, ae, Ce, oe)),
-                            (fe = new Rd(w)),
-                            (pe = new Yd(w)),
-                            (me = new _d(Pe)),
-                            (Ie = new Md(Pe, me)),
-                            (ge = new Zd(Pe, me, oe, Ie)),
-                            (Ae = new tf(Pe, ge, me, oe)),
-                            (Se = new ef(Pe, ae, de)),
-                            (xe = new Id(ue)),
+                            (de = new WebGLTextures(Pe, re, se, ue, ae, Ce, oe)),
+                            (fe = new WebGLCubeMaps(w)),
+                            (pe = new WebGLCubeUVMaps(w)),
+                            (me = new WebGLAttributes(Pe)),
+                            (Ie = new WebGLBindingStates(Pe, me)),
+                            (ge = new WebGLGeometries(Pe, me, oe, Ie)),
+                            (Ae = new WebGLObjects(Pe, ge, me, oe)),
+                            (Se = new WebGLMorphtargets(Pe, ae, de)),
+                            (xe = new WebGLClipping(ue)),
                             (_e = new Pp(w, fe, pe, re, ae, Ie, xe)),
                             (ve = new Jp(w, ue)),
                             (we = new kp()),
                             (ye = new Hp(re)),
-                            (Ee = new Sd(w, fe, pe, se, Ae, f, l)),
-                            (be = new Vp(w, Ae, ae)),
+                            (Ee = new WebGLBackground(w, fe, pe, se, Ae, f, l)),
+                            (be = new WebGLShadowMap(w, Ae, ae)),
                             (Re = new $p(Pe, oe, ae, se)),
-                            (Me = new Td(Pe, re, oe)),
-                            (Te = new Jd(Pe, re, oe)),
+                            (Me = new WebGLBufferRenderer(Pe, re, oe)),
+                            (Te = new WebGLIndexedBufferRenderer(Pe, re, oe)),
                             (oe.programs = _e.programs),
                             (w.capabilities = ae),
                             (w.extensions = re),
@@ -31481,7 +31483,7 @@
                             (w.info = oe);
                     }
                     De();
-                    const Le = new Yp(w, Pe);
+                    const Le = new WebXRManager(w, Pe);
                     function Ue(e) {
                         e.preventDefault(),
                             console.log("THREE.WebGLRenderer: Context Lost."),
@@ -32031,11 +32033,11 @@
                                                 e.id
                                             ]
                                         ),
-                                        op.upload(Pe, Je(_), R, de));
+                                        WebGLUniforms.upload(Pe, Je(_), R, de));
                                     var B, U;
                                     i.isShaderMaterial &&
                                         !0 === i.uniformsNeedUpdate &&
-                                        (op.upload(Pe, Je(_), R, de),
+                                        (WebGLUniforms.upload(Pe, Je(_), R, de),
                                         (i.uniformsNeedUpdate = !1));
                                     i.isSpriteMaterial &&
                                         I.setValue(Pe, "center", r.center);
@@ -32229,7 +32231,7 @@
                     function He() {
                         Ve.start();
                     }
-                    const Ve = new Ad();
+                    const Ve = new WebGLAnimation();
                     function Ge(e, t, n, i) {
                         if (!1 === e.visible) return;
                         if (e.layers.test(t.layers))
@@ -32496,7 +32498,7 @@
                     function Je(e) {
                         if (null === e.uniformsList) {
                             const t = e.currentProgram.getUniforms();
-                            e.uniformsList = op.seqWithValue(t.seq, e.uniforms);
+                            e.uniformsList = WebGLUniforms.seqWithValue(t.seq, e.uniforms);
                         }
                         return e.uniformsList;
                     }
@@ -33288,6 +33290,7 @@
                         (t.unpackColorSpace = Ut._getUnpackColorSpace());
                 }
             }
+            // simulation_worker begins here
             var tm;
             !(function (e) {
                 (e[(e.ImperialUnitsEnabled = 0)] = "ImperialUnitsEnabled"),
@@ -33420,7 +33423,7 @@
                         wm(
                             this,
                             um,
-                            new em({
+                            new WebGLRenderer({
                                 antialias:
                                     null ===
                                         (r =
@@ -40705,7 +40708,7 @@
             function ev(e) {
                 const t = S_(e);
                 if (null == t) return null;
-                const n = new dh.Inflate();
+                const n = new pako.Inflate();
                 if ((n.push(t, !0), n.err)) return null;
                 const i = n.result;
                 if (!(i instanceof Uint8Array)) return null;
@@ -40761,7 +40764,7 @@
             function tv(e) {
                 const t = S_(e);
                 if (null == t) return null;
-                const n = new dh.Inflate();
+                const n = new pako.Inflate();
                 if ((n.push(t, !0), n.err)) return null;
                 const i = n.result;
                 if (!(i instanceof Uint8Array)) return null;
@@ -42032,14 +42035,14 @@
                 }
                 toSaveString() {
                     const e = Rv(this, Ev, "m", Cv).call(this),
-                        t = new dh.Deflate({
+                        t = new pako.Deflate({
                             level: 9,
                             windowBits: 9,
                             memLevel: 9,
                         });
                     t.push(e, !0);
                     const n = E_(t.result),
-                        i = new dh.Deflate({
+                        i = new pako.Deflate({
                             level: 9,
                             windowBits: 15,
                             memLevel: 9,
@@ -42059,14 +42062,14 @@
                         (r[1 + t.length] = n),
                         null != i && r.set(i, 1 + t.length + 1);
                     const a = Rv(this, Ev, "m", Cv).call(this),
-                        s = new dh.Deflate({
+                        s = new pako.Deflate({
                             level: 9,
                             windowBits: 9,
                             memLevel: 9,
                         });
                     s.push(r, !1), s.push(a, !0);
                     const o = E_(s.result),
-                        l = new dh.Deflate({
+                        l = new pako.Deflate({
                             level: 9,
                             windowBits: 15,
                             memLevel: 9,
@@ -42077,13 +42080,13 @@
                     const t = (function (e) {
                         const t = S_(e);
                         if (null == t) return null;
-                        const n = new dh.Inflate({ to: "string" });
+                        const n = new pako.Inflate({ to: "string" });
                         if ((n.push(t, !0), n.err)) return null;
                         const i = n.result;
                         if ("string" != typeof i) return null;
                         const r = S_(i);
                         if (null == r) return null;
-                        const a = new dh.Inflate();
+                        const a = new pako.Inflate();
                         if ((a.push(r, !0), a.err)) return null;
                         const s = a.result;
                         return s instanceof Uint8Array ? nv(0, s) : null;
@@ -42105,13 +42108,13 @@
                             if (!e.startsWith(t)) return null;
                             const n = S_(e.substring(10));
                             if (null == n) return null;
-                            const i = new dh.Inflate({ to: "string" });
+                            const i = new pako.Inflate({ to: "string" });
                             if ((i.push(n, !0), i.err)) return null;
                             const r = i.result;
                             if ("string" != typeof r) return null;
                             const a = S_(r);
                             if (null == a) return null;
-                            const s = new dh.Inflate();
+                            const s = new pako.Inflate();
                             if ((s.push(a, !0), s.err)) return null;
                             const o = s.result;
                             if (!(o instanceof Uint8Array)) return null;
