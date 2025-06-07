@@ -33291,40 +33291,40 @@
                 }
             }
             // simulation_worker begins here
-            var tm;
-            !(function (e) {
-                (e[(e.ImperialUnitsEnabled = 0)] = "ImperialUnitsEnabled"),
-                    (e[(e.ResetHintEnabled = 1)] = "ResetHintEnabled"),
-                    (e[(e.GhostCarEnabled = 2)] = "GhostCarEnabled"),
-                    (e[(e.DefaultCameraMode = 3)] = "DefaultCameraMode"),
-                    (e[(e.CockpitCameraToggle = 4)] = "CockpitCameraToggle"),
-                    (e[(e.Checkpoints = 5)] = "Checkpoints"),
-                    (e[(e.Timer = 6)] = "Timer"),
-                    (e[(e.Speedometer = 7)] = "Speedometer"),
-                    (e[(e.Language = 8)] = "Language"),
-                    (e[(e.CarShadowQuality = 9)] = "CarShadowQuality"),
-                    (e[(e.TrackShadowEnabled = 10)] = "TrackShadowEnabled"),
-                    (e[(e.CloudsEnabled = 11)] = "CloudsEnabled"),
-                    (e[(e.ParticlesEnabled = 12)] = "ParticlesEnabled"),
-                    (e[(e.SkidmarksEnabled = 13)] = "SkidmarksEnabled"),
-                    (e[(e.RenderScale = 14)] = "RenderScale"),
-                    (e[(e.Antialiasing = 15)] = "Antialiasing"),
-                    (e[(e.SoundEffectVolume = 16)] = "SoundEffectVolume"),
-                    (e[(e.MusicVolume = 17)] = "MusicVolume"),
-                    (e[(e.CheckpointVolume = 18)] = "CheckpointVolume");
-            })(tm || (tm = {}));
-            const nm = tm,
-                im = JSON.parse('{"rE":"0.5.0","l$":{"r":5,"M":4}}');
-            const rm = !1,
-                am = im.l$.r;
-            if (!Number.isSafeInteger(am) || am < 1)
+            var ToggleMode;
+            !(function (toggleMode) {
+                (toggleMode[(toggleMode.ImperialUnitsEnabled = 0)] = "ImperialUnitsEnabled"),
+                    (toggleMode[(toggleMode.ResetHintEnabled = 1)] = "ResetHintEnabled"),
+                    (toggleMode[(toggleMode.GhostCarEnabled = 2)] = "GhostCarEnabled"),
+                    (toggleMode[(toggleMode.DefaultCameraMode = 3)] = "DefaultCameraMode"),
+                    (toggleMode[(toggleMode.CockpitCameraToggle = 4)] = "CockpitCameraToggle"),
+                    (toggleMode[(toggleMode.Checkpoints = 5)] = "Checkpoints"),
+                    (toggleMode[(toggleMode.Timer = 6)] = "Timer"),
+                    (toggleMode[(toggleMode.Speedometer = 7)] = "Speedometer"),
+                    (toggleMode[(toggleMode.Language = 8)] = "Language"),
+                    (toggleMode[(toggleMode.CarShadowQuality = 9)] = "CarShadowQuality"),
+                    (toggleMode[(toggleMode.TrackShadowEnabled = 10)] = "TrackShadowEnabled"),
+                    (toggleMode[(toggleMode.CloudsEnabled = 11)] = "CloudsEnabled"),
+                    (toggleMode[(toggleMode.ParticlesEnabled = 12)] = "ParticlesEnabled"),
+                    (toggleMode[(toggleMode.SkidmarksEnabled = 13)] = "SkidmarksEnabled"),
+                    (toggleMode[(toggleMode.RenderScale = 14)] = "RenderScale"),
+                    (toggleMode[(toggleMode.Antialiasing = 15)] = "Antialiasing"),
+                    (toggleMode[(toggleMode.SoundEffectVolume = 16)] = "SoundEffectVolume"),
+                    (toggleMode[(toggleMode.MusicVolume = 17)] = "MusicVolume"),
+                    (toggleMode[(toggleMode.CheckpointVolume = 18)] = "CheckpointVolume");
+            })(ToggleMode || (ToggleMode = {}));
+            const ToggleModeMap = ToggleMode,
+                config = JSON.parse('{"version":"0.5.0","meta":{"beta":5,"physics":4}}');
+            const isDebugMode = !1,
+                betaVersion = config.meta.beta;
+            if (!Number.isSafeInteger(betaVersion) || betaVersion < 1)
                 throw new Error(
                     "package.json beta version property must be a positive integer"
                 );
             let sm = "";
-            im.rE;
-            const om = im.l$.M;
-            if (!Number.isSafeInteger(om) || om < 1)
+            config.version;
+            const physicsVersion = config.meta.physics;
+            if (!Number.isSafeInteger(physicsVersion) || physicsVersion < 1)
                 throw new Error(
                     "package.json beta physicsVersion property must be a positive integer"
                 );
@@ -33430,7 +33430,7 @@
                                             null == t
                                                 ? void 0
                                                 : t.getSettingBoolean(
-                                                      nm.Antialiasing
+                                                      ToggleModeMap.Antialiasing
                                                   )) ||
                                     void 0 === r ||
                                     r,
@@ -33442,7 +33442,7 @@
                         ),
                         (ym(this, um, "f").outputColorSpace = Ke),
                         (ym(this, um, "f").shadowMap.enabled = !0),
-                        (ym(this, um, "f").debug.checkShaderErrors = rm),
+                        (ym(this, um, "f").debug.checkShaderErrors = isDebugMode),
                         wm(this, dm, new Scene(), "f"),
                         n &&
                             (ym(this, dm, "f").fog = new FogExp2(
@@ -33485,7 +33485,7 @@
                                 null === (n = ym(this, hm, "f")) || void 0 === n
                                     ? void 0
                                     : n.getSettingInteger(
-                                          nm.CarShadowQuality
+                                          ToggleModeMap.CarShadowQuality
                                       )) && void 0 !== i
                             ? i
                             : 0;
@@ -33586,7 +33586,7 @@
                             (t =
                                 null === (e = ym(this, hm, "f")) || void 0 === e
                                     ? void 0
-                                    : e.getSettingFloat(nm.RenderScale)) &&
+                                    : e.getSettingFloat(ToggleModeMap.RenderScale)) &&
                         void 0 !== t
                             ? t
                             : 1;
@@ -34391,7 +34391,7 @@
                         (
                             null == l
                                 ? void 0
-                                : l.getSettingBoolean(nm.ParticlesEnabled)
+                                : l.getSettingBoolean(ToggleModeMap.ParticlesEnabled)
                         )
                             ? CA(this, lA, new ng(r), "f")
                             : CA(this, lA, null, "f"),
@@ -35047,7 +35047,7 @@
                                     void 0 === n
                                         ? void 0
                                         : n.getSettingBoolean(
-                                              nm.SkidmarksEnabled
+                                              ToggleModeMap.SkidmarksEnabled
                                           )) &&
                                     t < IA(this, aA, "f").length &&
                                     i &&
@@ -35492,7 +35492,7 @@
                             (t =
                                 null === (e = IA(this, rA, "f")) || void 0 === e
                                     ? void 0
-                                    : e.getSettingFloat(nm.CheckpointVolume)) &&
+                                    : e.getSettingFloat(ToggleModeMap.CheckpointVolume)) &&
                         void 0 !== t
                             ? t
                             : 0;
@@ -35528,7 +35528,7 @@
                             (t =
                                 null === (e = IA(this, rA, "f")) || void 0 === e
                                     ? void 0
-                                    : e.getSettingFloat(nm.CheckpointVolume)) &&
+                                    : e.getSettingFloat(ToggleModeMap.CheckpointVolume)) &&
                         void 0 !== t
                             ? t
                             : 0;
@@ -35578,7 +35578,7 @@
                                   void 0 === t
                                       ? void 0
                                       : t.getSettingBoolean(
-                                            nm.SkidmarksEnabled
+                                            ToggleModeMap.SkidmarksEnabled
                                         )) &&
                                   IA(this, aA, "f")[n].break(),
                               (IA(this, oA, "f")[n] = 0.075));
@@ -41399,7 +41399,7 @@
                         i = null;
                     if (
                         wv(this, sv, "f").getSettingBoolean(
-                            nm.TrackShadowEnabled
+                            ToggleModeMap.TrackShadowEnabled
                         )
                     )
                         switch (this.environment) {
